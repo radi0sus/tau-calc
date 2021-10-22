@@ -40,10 +40,10 @@
 # https://github.com/project-gemmi/gemmi
 #
 
-import sys                                              #sys 
-import argparse											#sys files processing
-import re												#regular expressions
-from gemmi import cif									#CIF processing
+import sys                                              #sys
+import argparse                                         #argument parser
+import re                                               #regular expressions
+from gemmi import cif                                   #CIF processing
 
 #regex for bonds and angles --> string to float, no esd
 ang_bond_val = re.compile('\d{1,}[\.]?\d{0,}')
@@ -175,12 +175,12 @@ if args.distance:
 
 
 #build an angle table atom2-atom1-atom3 angle symmetry symmetry
-angle_table=block.find(['_geom_angle_atom_site_label_1', 
-				        '_geom_angle_atom_site_label_2',
+angle_table=block.find(['_geom_angle_atom_site_label_1',
+	                    '_geom_angle_atom_site_label_2',
 						'_geom_angle_atom_site_label_3',
-				        '_geom_angle',
-				        '_geom_angle_site_symmetry_1',
-	                    '_geom_angle_site_symmetry_3'])
+						'_geom_angle',
+						'_geom_angle_site_symmetry_1',
+						'_geom_angle_site_symmetry_3'])
 
 #delete angles not containing the atom from input in the center X-M-X
 for i in range(len(angle_table)-1, -1, -1):
@@ -215,7 +215,8 @@ for row in bond_table:
 	print(row[0] + '-' + row[1] + ' ' + row[2] + ' Å ' + row[3]) 
 
 #calculate coordination number from occurance of atom in list
-cn = list(block.find_loop('_geom_bond_atom_site_label_1')).count(args.atom_name) + list(block.find_loop('_geom_bond_atom_site_label_2')).count(args.atom_name)
+cn = (list(block.find_loop('_geom_bond_atom_site_label_1')).count(args.atom_name) + 
+	  list(block.find_loop('_geom_bond_atom_site_label_2')).count(args.atom_name))
 	
 print(' ')
 print('The predicted coordination number for ' + args.atom_name + ' is ' + str(cn) + '.')
