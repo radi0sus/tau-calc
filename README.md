@@ -20,7 +20,7 @@ If you use τ<sub>4</sub> or τ<sub>5</sub> to describe the coordination geometr
 > 
 > DOI: https://doi.org/10.1016/j.poly.2015.01.035
 
-τ<sub>5</sub>
+τ<sub>5</sub>:
 > "Synthesis, structure, and spectroscopic properties of copper(II) compounds containing 
 >  nitrogen–sulphur donor ligands; the crystal and molecular structure of 
 >  aqua[1,7-bis(N-methylbenzimidazol-2′-yl)-2,6-dithiaheptane]copper(II) perchlorate"
@@ -31,5 +31,9 @@ If you use τ<sub>4</sub> or τ<sub>5</sub> to describe the coordination geometr
 > DOI: https://doi.org/10.1039/DT9840001349
 
 The script uses the Gemmi library:
+
 https://gemmi.readthedocs.io/en/latest/
+
 https://github.com/project-gemmi/gemmi
+
+## Introduction:
