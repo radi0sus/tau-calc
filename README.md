@@ -1,5 +1,5 @@
 # tau-calc
-A Python3 script that calculates the geometry indices τ<sub>4</sub> and τ<sub>5</sub> of selected atoms from crystallographic information file (CIF). 
+A Python3 script that calculates the geometry indices τ<sub>4</sub> and τ<sub>5</sub> of selected atoms from crystallographic information file (CIF). The script saves you the tedious checking of the two largest angles and the calculation of the τ-values.
 If you use the τ<sub>4</sub> or τ<sub>5</sub> index to describe the coordination geometry of your compounds, please cite one or more of the following articles:
 
 τ<sub>4</sub>:
@@ -37,3 +37,4 @@ https://gemmi.readthedocs.io/en/latest/
 https://github.com/project-gemmi/gemmi
 
 ## Introduction:
+The geometry indices τ<sub>4</sub> and τ<sub>5</sub> help you in assigning a coordination geometry for four-coordinated (tetrahedral, trigonal pyramidal, square planar or seesaw geometry) or five-coordinates compounds (square pyramidal or trigonal bipyramidal geometry). Only the two largest angles enclosing the central atom are needed for the assignment. Please check the concise [Wikipedia](https://en.wikipedia.org/wiki/Geometry_index) article or the papers above for more information.
