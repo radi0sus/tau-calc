@@ -30,7 +30,7 @@ If you use τ<sub>4</sub> or τ<sub>5</sub> to describe the coordination geometr
 > 
 > DOI: https://doi.org/10.1039/DT9840001349
 
-The script uses the Gemmi library:
+The script uses the Gemmi library for CIF processing:
 
 https://gemmi.readthedocs.io/en/latest/
 
