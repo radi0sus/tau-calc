@@ -59,6 +59,7 @@ The following output will be printed:
 	atom angles are:
 	-----------------------------------------------------------------
 	atom2-atom1-atom3 angle°  site symmetry  site symmetry
+	...
 	
 	The two largest angles are beta = angle° and alpha = angle°.
 	
@@ -70,15 +71,8 @@ The following output will be printed:
 	
 	Table of typical geometries and their corresponding tau_x values
 	-----------------------------------------------------------------
-	Coordination number 4:
-	Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
-	Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-	Seesaw               : tau_4 = 0.42       tau_4' = 0.24
-	Square planar        : tau_4 = 0.00       tau_4' = 0.00
+	...
 	
-	Coordination number 5:
-	Trigonal bipyramidal : tau_5 = 1.00                     
-	Square pyramidal     : tau_5 = 0.00 
-
+The suggested τ parameter is marked with an arrow (<--).
 
 
