@@ -48,48 +48,47 @@ The geometry indices τ<sub>4</sub> and τ<sub>5</sub> help you in assigning a c
 python3 tau-calc.py filename.cif atom
 ```
 The following output will be printed:
-    
-		Cu1 binds to:
-		-----------------------------------------------------------------
-		Cu1-O1 1.907(2) Å .
-		Cu1-N1 1.911(3) Å .
-		Cu1-N3 2.154(3) Å .
-		Cu1-N5 2.170(3) Å .
-		Cu1-N4 2.187(3) Å .
-		
-		The predicted coordination number for Cu1 is 5.
-		
-		Cu1 angles are:
-		-----------------------------------------------------------------
-		O1-Cu1-N1 98.68(12)° . .
-		O1-Cu1-N3 171.94(12)° . .
-		N1-Cu1-N3 80.09(13)° . .
-		O1-Cu1-N5 103.92(12)° . .
-		N1-Cu1-N5 137.78(13)° . .
-		N3-Cu1-N5 81.87(12)° . .
-		O1-Cu1-N4 91.77(11)° . .
-		N1-Cu1-N4 130.58(13)° . .
-		N3-Cu1-N4 83.17(12)° . .
-		N5-Cu1-N4 84.14(13)° . .
-		
-		The two largest angles are beta = 171.94° and alpha = 137.78°.
-		
-		Cu1 geometry indices:
-		-----------------------------------------------------------------
-		tau_4  = 0.36 
-		tau_4' = 0.25 
-		tau_5  = 0.57 <--
-		
-		Table of typical geometries and their corresponding tau_x values
-		-----------------------------------------------------------------
-		Coordination number 4:
-		Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
-		Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-		Seesaw               : tau_4 = 0.42       tau_4' = 0.24
-		Square planar        : tau_4 = 0.00       tau_4' = 0.00
-		
-		Coordination number 5:
-		Trigonal bipyramidal : tau_5 = 1.00                     
-		Square pyramidal     : tau_5 = 0.00                    
+	Cu1 binds to:
+	-----------------------------------------------------------------
+	Cu1-O1 1.907(2) Å .
+	Cu1-N1 1.911(3) Å .
+	Cu1-N3 2.154(3) Å .
+	Cu1-N5 2.170(3) Å .
+	Cu1-N4 2.187(3) Å .
+	
+	The predicted coordination number for Cu1 is 5.
+	
+	Cu1 angles are:
+	-----------------------------------------------------------------
+	O1-Cu1-N1 98.68(12)° . .
+	O1-Cu1-N3 171.94(12)° . .
+	N1-Cu1-N3 80.09(13)° . .
+	O1-Cu1-N5 103.92(12)° . .
+	N1-Cu1-N5 137.78(13)° . .
+	N3-Cu1-N5 81.87(12)° . .
+	O1-Cu1-N4 91.77(11)° . .
+	N1-Cu1-N4 130.58(13)° . .
+	N3-Cu1-N4 83.17(12)° . .
+	N5-Cu1-N4 84.14(13)° . .
+	
+	The two largest angles are beta = 171.94° and alpha = 137.78°.
+	
+	Cu1 geometry indices:
+	-----------------------------------------------------------------
+	tau_4  = 0.36 
+	tau_4' = 0.25 
+	tau_5  = 0.57 <--
+	
+	Table of typical geometries and their corresponding tau_x values
+	-----------------------------------------------------------------
+	Coordination number 4:
+	Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
+	Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
+	Seesaw               : tau_4 = 0.42       tau_4' = 0.24
+	Square planar        : tau_4 = 0.00       tau_4' = 0.00
+	
+	Coordination number 5:
+	Trigonal bipyramidal : tau_5 = 1.00                     
+	Square pyramidal     : tau_5 = 0.00 
 
-tau-cif % 
+
