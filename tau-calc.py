@@ -153,7 +153,7 @@ if args.exclude:
 		sys.exit(1)
 	else:
 		print(' ')
-		print("Excludes atoms: " + str(args.exclude))
+		print("Excluded atoms: " + str(args.exclude))
 
 #exclude bonds outside larger than a specific distance d
 if args.distance:
@@ -170,7 +170,7 @@ if args.distance:
 	#print only if the list was created
 	elif list_of_atoms_with_large_bonds:
 		print(' ')
-		print("Excludes atoms (distance larger than " + str(abs(args.distance)) +  " Å): "
+		print("Excluded atoms (distance larger than " + str(abs(args.distance)) +  " Å): "
 			+ str(list_of_atoms_with_large_bonds))
 
 
