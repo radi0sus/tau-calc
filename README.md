@@ -83,3 +83,10 @@ The suggested τ parameter is marked with an arrow (<--).
 - `-e` `atom(s)`, optional: exclude atoms, e.g. `-e N1 N3` excludes bonds and angles to N1 and N3 from calculation 
 - `-d` `N`, optional: excludes atoms outside `d = N Å` from calculation, e.g. `-d 2.1` excludes atoms with bond lengths larger than 2.1 Å from the central atom from calculation
 
+## Remarks
+- If the predicted coordination number is larger than 3, τ will be calculated independently of the real coordination geometry. 
+- The suggestion τ<sub>4</sub> or τ<sub>5</sub> (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>).
+
+## Know Issues
+- The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
+- All flavors of τ are calculated as soon as two angles are present. So you have to check if it makes sense.
