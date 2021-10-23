@@ -38,3 +38,13 @@ https://github.com/project-gemmi/gemmi
 
 ## Introduction:
 The geometry indices τ<sub>4</sub> and τ<sub>5</sub> help you in assigning a coordination geometry for four-coordinated (tetrahedral, trigonal pyramidal, square planar or seesaw geometry) or five-coordinates compounds (square pyramidal or trigonal bipyramidal geometry). Only the two largest angles enclosing the central atom are needed for the assignment. Please check the concise [Wikipedia article](https://en.wikipedia.org/wiki/Geometry_index) or the papers above for more information.
+
+## External modules
+ `re`,  `gemmi`
+ 
+## Quick start
+ Start the script with:
+```console
+python3 tau-calc.py filename.cif atom
+```
+
