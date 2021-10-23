@@ -91,6 +91,7 @@ The suggested τ parameter is marked with an arrow (<--).
 ## Know Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
 - All flavors of τ are calculated as soon as two angles are present. So you have to check if it makes sense.
+- The script can only remove atoms from the coordination sphere, not add atoms. Therefore, make sure that the connectivity list is appropriate.
 
 ## Examples
 
