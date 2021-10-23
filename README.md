@@ -81,5 +81,5 @@ The suggested τ parameter is marked with an arrow (<--).
 - `filename` , required: the CIF (crystallographic information file)
 - `atom_name`, required: the central atom e.g. `Co1` calculates τ for Co1
 - `-e` `atom(s)`, optional: exclude atoms, e.g. `-e N1 N3` excludes bonds and angles to N1 and N3 from calculation 
-- `-d` `N`, optional: exludes atoms outside `d = N Å` from calculation, e.g. `-d 2.1`
+- `-d` `N`, optional: excludes atoms outside `d = N Å` from calculation, e.g. `-d 2.1` excludes atoms with bond lengths larger than 2.1 Å from the central atom from calculation
 
