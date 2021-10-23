@@ -2,25 +2,25 @@
 A Python3 script that calculates the geometry indices τ<sub>4</sub> and τ<sub>5</sub> of selected atoms from crystallographic information file (CIF). The script saves you the tedious checking of the two largest angles and the calculation of the τ-values.
 If you use the τ<sub>4</sub> or τ<sub>5</sub> index to describe the coordination geometry of your compounds, please cite one or more of the following articles:
 
-τ<sub>4</sub>:
+**τ<sub>4</sub>**:
 > "Structural variation in copper(i) complexes with pyridylmethylamide ligands: 
 >  structural analysis with a new four-coordinate geometry index, τ<sub>4</sub>"
 >  
 > Lei Yang, Douglas R. Powell, Robert P. Houser,
-> *Dalton Trans.* **2007**, 955-964
+> *Dalton Trans.* **2007**, 955-964.
 > 
 > DOI: https://doi.org/10.1039/B617136B
 
-τ<sub>4</sub>' (τ<sub>4</sub> improved):
+**τ<sub>4</sub>' (τ<sub>4</sub> improved)**:
 > "Coordination polymers and molecular structures among complexes of 
 >  mercury(II) halides with selected 1-benzoylthioureas"
 > 
 > Andrzej Okuniewski, Damian Rosiak, Jarosław Chojnacki, Barbara Becker,
-> *Polyhedron* **2015**, *90*, 47–57
+> *Polyhedron* **2015**, *90*, 47–57.
 > 
 > DOI: https://doi.org/10.1016/j.poly.2015.01.035
 
-τ<sub>5</sub>:
+**τ<sub>5</sub>**:
 > "Synthesis, structure, and spectroscopic properties of copper(II) compounds containing 
 >  nitrogen–sulphur donor ligands; the crystal and molecular structure of 
 >  aqua[1,7-bis(N-methylbenzimidazol-2′-yl)-2,6-dithiaheptane]copper(II) perchlorate"
