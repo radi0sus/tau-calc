@@ -135,7 +135,7 @@ python3 tau-calc.py test.cif Cu1
 	Coordination number 4:
 	Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
 	Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-	Seesaw               : tau_4 = 0.42       tau_4' = 0.24
+	Seesaw               : tau_4 = 0.43       tau_4' = 0.24
 	Square planar        : tau_4 = 0.00       tau_4' = 0.00
 	
 	Coordination number 5:
@@ -181,7 +181,7 @@ python3 tau-calc.py test2.cif Co1 -e N12 -d 2.0
 	Coordination number 4:
 	Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
 	Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-	Seesaw               : tau_4 = 0.42       tau_4' = 0.24
+	Seesaw               : tau_4 = 0.43       tau_4' = 0.24
 	Square planar        : tau_4 = 0.00       tau_4' = 0.00
 	
 	Coordination number 5:
