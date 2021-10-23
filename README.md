@@ -48,6 +48,7 @@ The geometry indices τ<sub>4</sub> and τ<sub>5</sub> help you in assigning a c
 python3 tau-calc.py filename.cif atom
 ```
 The following output will be printed:
+
 	Cu1 binds to:
 	-----------------------------------------------------------------
 	Cu1-O1 1.907(2) Å .
