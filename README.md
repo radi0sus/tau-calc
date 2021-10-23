@@ -144,9 +144,9 @@ python3 tau-calc.py test.cif Cu1
 ```console
 python3 tau-calc.py test2.cif Co1 -e N12 -d 2.0
 ```
-	Excludes atoms: ['N12']
+	Excluded atoms: ['N12']
 	
-	Excludes atoms (distance larger than 2.0 Å): ['N11']
+	Excluded atoms (distance larger than 2.0 Å): ['N11']
 	
 	Co1 binds to:
 	-----------------------------------------------------------------
