@@ -187,3 +187,6 @@ python3 tau-calc.py test2.cif Co1 -e N12 -d 2.0
 	Coordination number 5:
 	Trigonal bipyramidal : tau_5 = 1.00                     
 	Square pyramidal     : tau_5 = 0.00
+	
+## Example 3
+![show](/examples/show-use.gif)
