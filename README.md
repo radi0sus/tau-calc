@@ -141,3 +141,47 @@ python3 tau-calc.py test.cif Cu1
 	Square pyramidal     : tau_5 = 0.00 
 
 ### Example 2:
+```console
+python3 tau-calc.py test2.cif Co1 -e N12 -d 2.0
+```
+	Excludes atoms: ['N12']
+	
+	Excludes atoms (distance larger than 2.0 Å): ['N11']
+	
+	Co1 binds to:
+	-----------------------------------------------------------------
+	Co1-N7 1.8860(15) Å .
+	Co1-N8 1.8900(15) Å 3_666
+	Co1-N14 1.9404(15) Å .
+	Co1-N13 1.9502(15) Å .
+	
+	The predicted coordination number for Co1 is 4.
+	
+	Co1 angles are:
+	-----------------------------------------------------------------
+	N7-Co1-N8 92.29(6)° . 3_666
+	N7-Co1-N14 91.55(6)° . .
+	N8-Co1-N14 87.16(6)° 3_666 .
+	N7-Co1-N13 85.35(6)° . .
+	N8-Co1-N13 92.05(6)° 3_666 .
+	N14-Co1-N13 176.77(6)° . .
+	
+	The two largest angles are beta = 176.77° and alpha = 92.29°.
+	
+	Co1 geometry indices:
+	-----------------------------------------------------------------
+	tau_4  = 0.64 <--
+	tau_4' = 0.38 <--
+	tau_5  = 1.41 
+	
+	Table of typical geometries and their corresponding tau_x values
+	-----------------------------------------------------------------
+	Coordination number 4:
+	Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
+	Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
+	Seesaw               : tau_4 = 0.42       tau_4' = 0.24
+	Square planar        : tau_4 = 0.00       tau_4' = 0.00
+	
+	Coordination number 5:
+	Trigonal bipyramidal : tau_5 = 1.00                     
+	Square pyramidal     : tau_5 = 0.00
