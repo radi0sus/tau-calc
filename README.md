@@ -96,6 +96,9 @@ The suggested τ parameter is marked with an arrow (<--).
 ## Examples
 
 ### Example 1:
+![show](/examples/show-use.gif)
+
+### Example 2:
 ```console
 python3 tau-calc.py test.cif Cu1
 ```
@@ -142,7 +145,7 @@ python3 tau-calc.py test.cif Cu1
 	Trigonal bipyramidal : tau_5 = 1.00                     
 	Square pyramidal     : tau_5 = 0.00 
 
-### Example 2:
+### Example 3:
 ```console
 python3 tau-calc.py test2.cif Co1 -e N12 -d 2.0
 ```
@@ -187,6 +190,3 @@ python3 tau-calc.py test2.cif Co1 -e N12 -d 2.0
 	Coordination number 5:
 	Trigonal bipyramidal : tau_5 = 1.00                     
 	Square pyramidal     : tau_5 = 0.00
-	
-## Example 3
-![show](/examples/show-use.gif)
