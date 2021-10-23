@@ -49,36 +49,24 @@ python3 tau-calc.py filename.cif atom
 ```
 The following output will be printed:
 
-	Cu1 binds to:
+	atom binds to:
 	-----------------------------------------------------------------
-	Cu1-O1 1.907(2) Å .
-	Cu1-N1 1.911(3) Å .
-	Cu1-N3 2.154(3) Å .
-	Cu1-N5 2.170(3) Å .
-	Cu1-N4 2.187(3) Å .
+	atom1-atom2 distance Å site symmetry
+	...
 	
-	The predicted coordination number for Cu1 is 5.
+	The predicted coordination number for atom is x.
 	
-	Cu1 angles are:
+	atom angles are:
 	-----------------------------------------------------------------
-	O1-Cu1-N1 98.68(12)° . .
-	O1-Cu1-N3 171.94(12)° . .
-	N1-Cu1-N3 80.09(13)° . .
-	O1-Cu1-N5 103.92(12)° . .
-	N1-Cu1-N5 137.78(13)° . .
-	N3-Cu1-N5 81.87(12)° . .
-	O1-Cu1-N4 91.77(11)° . .
-	N1-Cu1-N4 130.58(13)° . .
-	N3-Cu1-N4 83.17(12)° . .
-	N5-Cu1-N4 84.14(13)° . .
+	atom2-atom1-atom3 angle°  site symmetry  site symmetry
 	
-	The two largest angles are beta = 171.94° and alpha = 137.78°.
+	The two largest angles are beta = angle° and alpha = angle°.
 	
-	Cu1 geometry indices:
+	atom geometry indices:
 	-----------------------------------------------------------------
-	tau_4  = 0.36 
-	tau_4' = 0.25 
-	tau_5  = 0.57 <--
+	tau_4  = value 
+	tau_4' = value 
+	tau_5  = value <--
 	
 	Table of typical geometries and their corresponding tau_x values
 	-----------------------------------------------------------------
@@ -91,5 +79,6 @@ The following output will be printed:
 	Coordination number 5:
 	Trigonal bipyramidal : tau_5 = 1.00                     
 	Square pyramidal     : tau_5 = 0.00 
+
 
 
