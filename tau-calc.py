@@ -325,6 +325,7 @@ if cn == 15:
     
 #print warning if cn is not 4, 5 or 6
 elif cn != 6 and cn != 10 and cn !=15:
+    print("")
     print("Warning! The predicted coordination number seems not suitable\n" +
             "for the calculation of tau_4, tau_5 or O.")
     print("Calculated values are probably meaningless.")    
