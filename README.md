@@ -53,8 +53,8 @@ The octahedricity *O* is calculated with the following equation (see paper for m
 
 $$ O = \sqrt{\frac{1}{15}\sum_{i=1}^{15}(\hat{\theta_i} - \theta)^2} $$ 
 
-$\hat{\theta_i}$ = 180° for *trans* N-Ru-N angles and 90° for *cis* N-Ru-N angles\
-$\theta$ = experimental N-Ru-N angles 
+$\hat{\theta_i}$ = 180° for *trans* X-M-X angles and 90° for *cis* X-M-X angles\
+$\theta$ = experimental X-M-X angles 
 
 ## External modules
  `gemmi`
