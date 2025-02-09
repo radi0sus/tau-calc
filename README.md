@@ -106,7 +106,7 @@ The likely structural parameter is marked with an arrow (<--).
 - `atom_name`, required: the central atom, input is case sensitive, e.g. `Co1` calculates τ for Co1 
 - `-e` `atom(s)`, optional: exclude atoms, e.g. `-e N1 N3` excludes bonds and angles to N1 and N3 from calculation 
 - `-d` `N`, optional: excludes atoms outside `d = N Å` from calculation, e.g. `-d 2.1` excludes atoms with bond lengths larger than 2.1 Å from the central atom from calculation
-- `-v` optional: verbose output, prints all bond lengths and angles of the central atom to the neighboring atoms and the xyz coordinates
+- `-v` optional: verbose output, prints all bond lengths and angles of the central atom to the neighboring atoms and the XYZ coordinates
 - `-sxyz` optional: save the XYZ coordinates of the central atom and its neighboring atoms
 
 ## Remarks
