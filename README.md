@@ -36,7 +36,7 @@ If you use the τ<sub>4</sub>, τ<sub>5</sub> or *O* index to describe the coord
 >  large bite angle sulfur-bridged terpyridyl ligands"
 >  
 > Christopher M. Brown, Nicole E. Arsenault, Trevor N. K. Cross, Duane Hean, Zhen Xu, 
-> Michael O. Wolf
+> Michael O. Wolf, 
 > *Inorg. Chem. Front.* **2020**, *7*, 117-127.
 > 
 > DOI: https://doi.org/10.1039/C9QI01009B 
