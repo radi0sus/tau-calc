@@ -124,7 +124,7 @@ parser.add_argument('-v','--verbose',
 #save xyz coordinates of the central atom and the neighboring atoms
 parser.add_argument('-sxyz','--savexyz',
    action = 'store_true',
-     help = 'save the xyz coordinates of the central atom and its neighboring atoms')
+     help = 'save the XYZ coordinates of the central atom and its neighboring atoms')
 
 #parse arguments
 args = parser.parse_args()
@@ -359,32 +359,35 @@ print(f"Ideal octahedron     :     O = 0.00                    \n")
 # gemmi neighbor search to also include symmetry equivalent positions
 st = gemmi.make_small_structure_from_block(doc.sole_block())
 ns = gemmi.NeighborSearch(st, 4).populate(include_h = False)
-atoms = st.sites
 
 # after reaching the central atom, break
 # find neighbors within min bond distances -0.01 Å and min bond distances +0.01 Å
 # bond list was created above
 for site in st.sites:
     if site.label == args.atom_name:
-        marks = ns.find_site_neighbors(site, min_dist = list_of_bonds[0]-0.01, 
-                                             max_dist=list_of_bonds[-1]+0.01)
+        marks = ns.find_site_neighbors(site, min_dist = list_of_bonds[0] - 0.01, 
+                                             max_dist = list_of_bonds[-1] + 0.01)
         # orthogonalize the fractional coordinates of the central atom (ca)
         cart_coord_ca = st.cell.orthogonalize(site.fract)
         break
         
 if args.verbose:
-    print(f"XYZ coordinates of the central atom an its neighbors: ")
+    print(f"XYZ coordinates of the central atom and its neighbors: ")
     print(f"------------------------------------------------------------------------")
     print(f'{len(marks) + 1}')
     print(f'{args.filename} {args.atom_name}')
     print(f'{site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}')
-    #print orthogonalized cartesian coordinates (.pos)
-    #set in relation to the central atom (ca) at 0, 0, 0
+    # print orthogonalized cartesian coordinates (.pos)
+    # set in relation to the central atom (ca) at 0, 0, 0
     for mark in marks:
         label = mark.to_site(st).element
-        print(f'{label.name:<2} {(mark.pos.x - cart_coord_ca.x):>11.8f} '
-              f'{(mark.pos.y - cart_coord_ca.y):>11.8f} ' 
-              f'{(mark.pos.z - cart_coord_ca.z):>11.8f}')
+        # important: mark.pos gives position in unit cell, not outside
+        # to_site and fract is useless in case of symmetry equivalents
+        # pbc_position is the way to go 
+        real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
+        print(f'{label.name:<2} {(real_pos.x - cart_coord_ca.x) :>11.8f} '
+              f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
+              f'{(real_pos.z - cart_coord_ca.z):>11.8f}')
 
 # save XYZ coordinates
 # set in relation to the central atom (ca) at 0, 0, 0
@@ -397,10 +400,14 @@ if args.savexyz:
             output_file.write(f'{site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}\n')
             for mark in marks:
                 label = mark.to_site(st).element
-                output_file.write(f'{label.name:<2} {(mark.pos.x - cart_coord_ca.x):>11.8f} ' 
-                                  f'{(mark.pos.y - cart_coord_ca.y):>11.8f} ' 
-                                  f'{(mark.pos.z - cart_coord_ca.z):>11.8f}\n')
-    #file not found -> exit here
+                # important: mark.pos gives position in unit cell, not outside
+                # to_site and fract is useless in case of symmetry equivalents
+                # pbc_position is the way to go 
+                real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
+                output_file.write(f'{label.name:<2} {(real_pos.x - cart_coord_ca.x):>11.8f} ' 
+                                  f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
+                                  f'{(real_pos.z - cart_coord_ca.z):>11.8f}\n')
+    # file not found -> exit here
     except IOError:
         print("Write error. Exit.")
         sys.exit(1)    
