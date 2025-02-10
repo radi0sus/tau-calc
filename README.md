@@ -219,7 +219,7 @@ python3 tau-calc.py test2.cif Ru1 -v
 	Coordination number 6:
 	Ideal octahedron     :     O = 0.00                    
 
-	XYZ coordinates of the central atom an its neighbors: 
+	XYZ coordinates of the central atom and its neighbors: 
 	------------------------------------------------------------------------
 	7
 	879418.cif Ru1
