@@ -107,8 +107,8 @@ The likely structural parameter is marked with an arrow (<--).
 - `-e` `atom(s)`, optional: exclude atoms, e.g. `-e N1 N3` excludes bonds and angles to N1 and N3 from calculation 
 - `-d` `N`, optional: excludes atoms outside `d = N Å` from calculation, e.g. `-d 2.1` excludes atoms with bond lengths larger than 2.1 Å from the central atom from calculation
 - `-v` optional: verbose output, prints all bond lengths and angles of the central atom to the neighboring atoms and the XYZ coordinates
-- `-sxyz` optional: save the XYZ coordinates of the central atom and its neighboring atoms
-
+- `-sxyz` optional: save the XYZ coordinates of the central atom and its neighboring atoms (filename: `cif_name-atom_name.xyz`)
+  
 ## Remarks
 - If the predicted coordination number is larger than 2, τ will be calculated independently of the real coordination geometry. 
 - The suggestion τ<sub>4</sub>, τ<sub>5</sub> or *O* (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>, 15 for *O*).
