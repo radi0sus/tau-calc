@@ -114,12 +114,12 @@ The likely structural parameter is marked with an arrow (<--).
 - The suggestion τ<sub>4</sub>, τ<sub>5</sub> or *O* (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>, 15 for *O*).
 - In octahedral coordination, all angles less than 135° are considered "90°" *cis* angles, while angles greater than 135° are considered "180°" *trans* angles.
 - The XYZ file (option: `-sxyz`) is useful for further studies of coordination geometry, such as with the Continuous Shape Measures (CShM) method.
-- For the generation of the XYZ file, hydrogen atoms are generally ignored. As a result, in metal hydrides, hydrogen atoms will not be included in the XYZ file.
   
 ## Know Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
 - All flavors of τ and *O* are calculated as soon as two angles are present. So you have to check if it makes sense.
 - The script can only remove atoms from the coordination sphere, not add atoms. Therefore, make sure that the connectivity list is appropriate.
+- For the generation of the XYZ file, hydrogen atoms are generally ignored. As a result, in metal hydrides, hydrogen atoms will not be included in the XYZ file.
 
 ## Examples
 
