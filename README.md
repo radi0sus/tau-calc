@@ -115,7 +115,7 @@ The likely structural parameter is marked with an arrow (<--).
 - In octahedral coordination, all angles less than 135° are considered "90°" *cis* angles, while angles greater than 135° are considered "180°" *trans* angles.
 - The XYZ file (option: `-sxyz`) is useful for further studies of coordination geometry, such as with the Continuous Shape Measures (CShM) method.
   
-## Know Issues
+## Known Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
 - All flavors of τ and *O* are calculated as soon as two angles are present. So you have to check if it makes sense.
 - The script can only remove atoms from the coordination sphere, not add atoms. Therefore, make sure that the connectivity list is appropriate.
