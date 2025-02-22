@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Calculation of tau_4, tau_4', tau5 and O for 4-, 5- or 6-coordinated atoms
+# Calculation of tau_4, tau_4', tau_5, O, and S(O_h) for 4-, 5- or 6-coordinated atoms
 # For a deeper explanation of tau_4 and tau_5 have a look at Wikipedia:
 #
 # https://en.wikipedia.org/wiki/Geometry_index
@@ -45,23 +45,56 @@
 # Inorg. Chem. Front. 2020, 7, 117-127. 
 # DOI: https://doi.org/10.1039/C9QI01009B 
 # 
-# Gemmi: 
+# For CShM (Continuous Shape Measures), S(O_h), please cite:
+#
+# "Continuous Symmetry Measures. 5. The Classical Polyhedra"
+# 
+# Mark Pinsky, David Avnir
+# Inorg. Chem. 1998, 37, 21, 5575–5582.
+# DOI: https://doi.org/10.1021/ic9804925
+#
+# For Gemmi please cite: 
+#
+# "GEMMI: A library for structural biology"
+# 
+# Marcin Wojdyr
+# Journal of Open Source Software 2022, 7 (73), 4200
+# DOI: https://doi.org/10.21105/joss.04200
+#
 # https://gemmi.readthedocs.io/en/latest/
 # https://github.com/project-gemmi/gemmi
 #
 
-import sys                                              #sys
-import os                                               #for save xyz
-import argparse                                         #argument parser
-import re                                               #regular expressions
-import math                                             #sqrt
-import gemmi                                            #CIF processing, coordinates
+import sys                                            # sys
+import os                                             # for save xyz
+import argparse                                       # argument parser
+import re                                             # regular expressions
+import gemmi                                          # CIF processing, coordinates
+import numpy as np                                    # all sort of math
+from scipy.linalg import svd                          # SVD for CShM
+from itertools import permutations                    # permutations of vertices for CShM
 
 #regex for bonds and angles --> string to float, no esd
 ang_bond_val = re.compile('\d{1,}[\.]?\d{0,}')
 
 #list for the exclusion of atoms in the angle table
 list_of_atoms_with_large_bonds=[]
+
+# for CShM (Continuous Shape Measures)
+# define the ideal octahedron and precompute squared norms
+a = 1.0 / np.sqrt(2.0)
+IDEAL_OCTAHEDRON = np.array([
+    [  0.0, 0.0, 1.0],
+    [  a,   a,   0.0],
+    [ -a,   a,   0.0],
+    [ -a,  -a,   0.0],
+    [  a,  -a,   0.0],
+    [0.0, 0.0,  -1.0],
+    [0.0, 0.0,   0.0]
+])
+PERMUTATIONS_LIST = list(permutations(range(7)))
+IDEAL_SQ_NORMS = np.sum(IDEAL_OCTAHEDRON**2)
+#
 
 #calculation of tau5
 def calc_tau5(beta, alpha):
@@ -89,8 +122,33 @@ def calc_octahedricity(measured_angles):
     # squared deviations: delta omega^2
     squared_deviations = [dev**2 for dev in deviations]
     # octahedricity
-    octahedricity = math.sqrt(sum(squared_deviations) / len(squared_deviations))
+    octahedricity = np.sqrt(sum(squared_deviations) / len(squared_deviations))
     return octahedricity
+
+# center and normalize the structure for CShM calculations
+def normalize_structure(coordinates):
+    centered_coords = coordinates - np.mean(coordinates, axis=0)
+    norm = np.sqrt(np.mean(np.sum(centered_coords**2, axis=1)))
+    return centered_coords / norm
+
+# calculation the continuous shape measures (CShM) parameter S(O_h) for a given structure
+# from the c++ code with some help of AI
+# https://github.com/continuous-symmetry-measure/shape
+def calc_cshm(coordinates):
+    input_structure = normalize_structure(coordinates)
+    min_cshm = float('inf')
+
+    for permuted_ideal in map(lambda p: IDEAL_OCTAHEDRON[list(p)], PERMUTATIONS_LIST):
+        H = np.dot(input_structure.T, permuted_ideal)
+        U, _, Vt = svd(H)
+        R = np.dot(Vt.T, U.T)
+
+        rotated_ideal = np.dot(permuted_ideal, R)
+        scale = np.sum(input_structure * rotated_ideal) / IDEAL_SQ_NORMS
+        cshm = np.mean(np.sum((input_structure - scale * rotated_ideal)**2, axis=1))
+
+        min_cshm = min(min_cshm, cshm)
+    return min_cshm * 100
 
 #argument parser
 parser = argparse.ArgumentParser(prog='tau-calc', 
@@ -330,32 +388,7 @@ elif cn != 6 and cn != 10 and cn !=15:
             "for the calculation of tau_4, tau_5 or O.")
     print("Calculated values are probably meaningless.")    
 
-#calculate and print tau_x values
-print(' ')
-print(args.atom_name + ' geometry indices  ("<--" indicates the likely structural parameter):')
-print('------------------------------------------------------------------------')
-print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')
-print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
-print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
-print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
-    
-#print a table of typical tau_x values
-#values different from 0 or 1 and the corresponding geometries have been taken
-#from an internet source - don't take it too seriously
-print(' ')
-print(f"Table of typical geometries and their corresponding tau_x and O values: ")
-print(f"------------------------------------------------------------------------")
-print(f"Coordination number 4:")
-print(f"Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00")
-print(f"Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85")
-print(f"Seesaw               : tau_4 = 0.43       tau_4' = 0.24")
-print(f"Square planar        : tau_4 = 0.00       tau_4' = 0.00\n")
-print(f"Coordination number 5:")
-print(f"Trigonal bipyramidal : tau_5 = 1.00                     ")
-print(f"Square pyramidal     : tau_5 = 0.00                    \n")
-print(f"Coordination number 6:")
-print(f"Ideal octahedron     :     O = 0.00                    \n")
-
+# get the XYZ coordinates for the central atom and neighbors atoms 
 # gemmi neighbor search to also include symmetry equivalent positions
 st = gemmi.make_small_structure_from_block(doc.sole_block())
 ns = gemmi.NeighborSearch(st, 4).populate(include_h = False)
@@ -370,7 +403,53 @@ for site in st.sites:
         # orthogonalize the fractional coordinates of the central atom (ca)
         cart_coord_ca = st.cell.orthogonalize(site.fract)
         break
-        
+
+# for the calculation of the CShM value S(O_h)
+# the coordinates must be in a numpy array
+if cn == 15:
+    coordinates = np.array([0.0, 0.0, 0.0]) # the central atom is at 0, 0, 0
+    for mark in marks:
+        # important: mark.pos gives position in unit cell, not outside
+        # to_site and fract is useless in case of symmetry equivalents
+        # pbc_position is the way to go 
+        real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
+        neighbor_coordinate = np.array([
+                               [real_pos.x - cart_coord_ca.x, 
+                                real_pos.y - cart_coord_ca.y,
+                                real_pos.z - cart_coord_ca.z]
+                                ])
+        # add coordinates of neighbors
+        coordinates = np.vstack([coordinates, neighbor_coordinate])
+
+#calculate and print tau_x and O values
+print(' ')
+print(args.atom_name + ' geometry indices  ("<--" indicates the likely structural parameter):')
+print('------------------------------------------------------------------------')
+print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')
+print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
+print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
+print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
+if cn == 15:
+    print(f'S(O_h) = {calc_cshm(coordinates):6.4f} {printmark6}')
+    
+#print a table of typical tau_x values
+#values different from 0 or 1 and the corresponding geometries have been taken
+#from an internet source - don't take it too seriously
+print(' ')
+print(f"Table of typical geometries and their corresponding tau_x and O values: ")
+print(f"------------------------------------------------------------------------")
+print(f"Coordination number 4:")
+print(f"Tetrahedral          :  tau_4 = 1.00       tau_4' = 1.00")
+print(f"Trigonal pyramidal   :  tau_4 = 0.85       tau_4' = 0.85")
+print(f"Seesaw               :  tau_4 = 0.43       tau_4' = 0.24")
+print(f"Square planar        :  tau_4 = 0.00       tau_4' = 0.00\n")
+print(f"Coordination number 5:")
+print(f"Trigonal bipyramidal :  tau_5 = 1.00                     ")
+print(f"Square pyramidal     :  tau_5 = 0.00                    \n")
+print(f"Coordination number 6:")
+print(f"Ideal octahedron     :      O = 0.00                      ")
+print(f"Ideal octahedron     : S(O_h) = 0.00                    \n")
+       
 if args.verbose:
     print(f"XYZ coordinates of the central atom and its neighbors: ")
     print(f"------------------------------------------------------------------------")
