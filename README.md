@@ -1,5 +1,5 @@
 # tau-calc
-A Python3 script that calculates the geometry indices τ<sub>4</sub>, τ<sub>5</sub> and *O* (octahedricity) of selected atoms from a crystallographic information file (CIF). The script saves you the tedious checking of the two largest angles and the calculation of the τ-values. It also calculates the octahedricity and can print or save XYZ coordinates of the central atom and its neighboring atoms.
+A Python3 script that calculates the geometry indices τ<sub>4</sub>, τ<sub>5</sub>, *O* (octahedricity) and the CShM (Continuous Shape Measures) measure for an octahedron with a central atom, $S(O_h)$, of selected atoms from a crystallographic information file (CIF). The script saves you the tedious checking of the two largest angles and the calculation of the τ-values. It also calculates the octahedricity and can print or save XYZ coordinates of the central atom and its neighboring atoms.
 
 If you use the τ<sub>4</sub>, τ<sub>5</sub> or *O* index to describe the coordination geometry of your compounds, please cite one or more of the following articles:
 
@@ -39,9 +39,24 @@ If you use the τ<sub>4</sub>, τ<sub>5</sub> or *O* index to describe the coord
 > Michael O. Wolf, 
 > *Inorg. Chem. Front.* **2020**, *7*, 117-127.
 > 
-> DOI: https://doi.org/10.1039/C9QI01009B 
+> DOI: https://doi.org/10.1039/C9QI01009B
 
-The script uses the Gemmi library for CIF processing:
+**CShM $S(O_h)$**:
+> "Continuous Symmetry Measures. 5. The Classical Polyhedra"
+>  
+> Mark Pinsky, David Avnir, 
+> *Inorg. Chem.* **1998**, *37*, 5575–5582.
+> 
+> DOI: https://doi.org/10.1021/ic9804925 
+
+
+The script uses the **Gemmi** library for CIF processing:
+> "GEMMI: A library for structural biology"
+> 
+> Marcin Wojdyr,
+> *Journal of Open Source Software* **2022**, *7 (73)*, 4200.
+>
+> DOI: https://doi.org/10.1021/ic9804925
 
 https://gemmi.readthedocs.io/en/latest/
 
@@ -56,8 +71,12 @@ $$ O = \sqrt{\frac{1}{15}\sum_{i=1}^{15}(\hat{\theta_i} - \theta)^2} $$
 $\hat{\theta_i}$ = 180° for *trans* X-M-X angles and 90° for *cis* X-M-X angles\
 $\theta$ = experimental X-M-X angles 
 
+And is close to zero for an ideal octahedron
+
+The CShM (Continuous Shape Measures) measure for an octahedron with central atom is close to zero for an ideal octahedron. See the paper and other articles about CShM for more information.
+
 ## External modules
- `gemmi`
+ `gemmi`, `numpy`, `scipy`
  
 ## Quick start
  Start the script with:
@@ -82,22 +101,24 @@ The following output will be printed:
 	tau_4  =  value 
 	tau_4' =  value 
 	tau_5  =  value <--
-	O      =  value 
+	O      =  value
+ 	S(O_h) =  value (only printed in case of coordination number 6)
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
 	Coordination number 4:
-	Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
-	Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-	Seesaw               : tau_4 = 0.43       tau_4' = 0.24
-	Square planar        : tau_4 = 0.00       tau_4' = 0.00
+	Tetrahedral          :  tau_4 = 1.00       tau_4' = 1.00
+	Trigonal pyramidal   :  tau_4 = 0.85       tau_4' = 0.85
+	Seesaw               :  tau_4 = 0.43       tau_4' = 0.24
+	Square planar        :  tau_4 = 0.00       tau_4' = 0.00
 
 	Coordination number 5:
-	Trigonal bipyramidal : tau_5 = 1.00                     
-	Square pyramidal     : tau_5 = 0.00                    
+	Trigonal bipyramidal :  tau_5 = 1.00                     
+	Square pyramidal     :  tau_5 = 0.00                    
 
 	Coordination number 6:
-	Ideal octahedron     :     O = 0.00
+ 	Ideal octahedron     :      O = 0.00
+  	Ideal octahedron     : S(O_h) = 0.00 
 	
 The likely structural parameter is marked with an arrow (<--).
 
@@ -120,6 +141,7 @@ The likely structural parameter is marked with an arrow (<--).
 - All flavors of τ and *O* are calculated as soon as two angles are present. So you have to check if it makes sense.
 - The script can only remove atoms from the coordination sphere, not add atoms. Therefore, make sure that the connectivity list is appropriate.
 - For the generation of the XYZ file, hydrogen atoms are generally ignored. As a result, in metal hydrides, hydrogen atoms will not be included in the XYZ file.
+- The CShM method is rewritten from the [C++ code](https://github.com/continuous-symmetry-measure/shape) and may still contain errors. 
 
 ## Examples
 
@@ -141,7 +163,7 @@ python3 tau-calc.py test.cif Hg1
 	tau_4  =   0.71 <--
 	tau_4' =   0.67 <--
 	tau_5  =   0.19 
-	O      =  23.49 
+	O      =  23.49
 	 
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
@@ -156,8 +178,9 @@ python3 tau-calc.py test.cif Hg1
 	Square pyramidal     : tau_5 = 0.00                    
 
 	Coordination number 6:
-	Ideal octahedron     :     O = 0.00  
-
+	Ideal octahedron     :      O = 0.00
+ 	Ideal octahedron     : S(O_h) = 0.00
+	
 ### Example 2:
 ```console
 python3 tau-calc.py test2.cif Ru1 -v
@@ -204,6 +227,7 @@ python3 tau-calc.py test2.cif Ru1 -v
 	tau_4' =   0.13 
 	tau_5  =   0.00 
 	O      =   7.12 <--
+ 	S(O_h) = 0.9516 <--
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
@@ -218,7 +242,8 @@ python3 tau-calc.py test2.cif Ru1 -v
 	Square pyramidal     : tau_5 = 0.00                    
 
 	Coordination number 6:
-	Ideal octahedron     :     O = 0.00                    
+	Ideal octahedron     :      O = 0.00
+ 	Ideal octahedron     : S(O_h) = 0.00                   
 
 	XYZ coordinates of the central atom and its neighbors: 
 	------------------------------------------------------------------------
@@ -269,5 +294,5 @@ python3 tau-calc.py test3.cif Co1 -e N12 -d 2
 	Square pyramidal     : tau_5 = 0.00                    
 	
 	Coordination number 6:
-	Ideal octahedron     :     O = 0.00 
- 
+	Ideal octahedron     :     O = 0.00
+ 	Ideal octahedron     : S(O_h) = 0.00  
