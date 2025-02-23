@@ -510,7 +510,8 @@ if cn == 6 or cn==10 or cn == 15:
         # pbc_position is the way to go 
         # check if the atom was excluded
         label = mark.to_site(st).label
-        if label in list(bond_table.column(1)) or label in list(bond_table.column(2)):
+        if label in list(bond_table.column(0)) or label in list(bond_table.column(1)):
+            print(label)
             real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
             neighbor_coordinate = np.array([
                                [real_pos.x - cart_coord_ca.x, 
@@ -580,7 +581,7 @@ if args.verbose:
         # pbc_position is the way to go 
         # check if the atom was excluded
         label = mark.to_site(st).label
-        if label in list(bond_table.column(1)) or label in list(bond_table.column(2)):
+        if label in list(bond_table.column(0)) or label in list(bond_table.column(1)):
             real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
             print(f'{el_label.name:<2} {(real_pos.x - cart_coord_ca.x) :>11.8f} '
                   f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
@@ -602,7 +603,7 @@ if args.savexyz:
                 # pbc_position is the way to go 
                 # check if the atom was excluded
                 label = mark.to_site(st).label
-                if label in list(bond_table.column(1)) or label in list(bond_table.column(2)):
+                if label in list(bond_table.column(0)) or label in list(bond_table.column(1)):
                     real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
                     output_file.write(f'{el_label.name:<2} {(real_pos.x - cart_coord_ca.x):>11.8f} ' 
                                       f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
