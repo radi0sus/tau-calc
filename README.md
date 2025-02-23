@@ -1,7 +1,7 @@
 # tau-calc
-A Python3 script that calculates the geometry indices τ<sub>4</sub>, τ<sub>5</sub>, *O* (octahedricity) and the CShM (Continuous Shape Measures) measure for an octahedron with a central atom, $S(O_h)$, of selected atoms from a crystallographic information file (CIF). The script saves you the tedious checking of the two largest angles and the calculation of the τ-values. It also calculates the octahedricity and can print or save XYZ coordinates of the central atom and its neighboring atoms.
+A Python3 script that calculates the geometry indices τ<sub>4</sub>, τ<sub>5</sub>, *O* (octahedricity) and CShM (Continuous Shape Measures) measure for several shapes, of selected atoms from a crystallographic information file (CIF). The script saves you the tedious checking of the two largest angles and the calculation of the τ-values. It also calculates the octahedricity and can print or save XYZ coordinates of the central atom and its neighboring atoms.
 
-If you use the τ<sub>4</sub>, τ<sub>5</sub> or *O* index to describe the coordination geometry of your compounds, please cite one or more of the following articles:
+If you use τ<sub>4</sub>, τ<sub>5</sub>, the *O* index or CShM to describe the coordination geometry of your compounds, please cite one or more of the following articles:
 
 **τ<sub>4</sub>**:
 > "Structural variation in copper(i) complexes with pyridylmethylamide ligands: 
@@ -41,7 +41,7 @@ If you use the τ<sub>4</sub>, τ<sub>5</sub> or *O* index to describe the coord
 > 
 > DOI: https://doi.org/10.1039/C9QI01009B
 
-**CShM $S(O_h)$**:
+**CShM**:
 > "Continuous Symmetry Measures. 5. The Classical Polyhedra"
 >  
 > Mark Pinsky, David Avnir, 
@@ -71,9 +71,9 @@ $$ O = \sqrt{\frac{1}{15}\sum_{i=1}^{15}(\hat{\theta_i} - \theta)^2} $$
 $\hat{\theta_i}$ = 180° for *trans* X-M-X angles and 90° for *cis* X-M-X angles\
 $\theta$ = experimental X-M-X angles 
 
-And is close to zero for an ideal octahedron
+And is close to zero for an almost ideal octahedron
 
-The CShM (Continuous Shape Measures) measure for an octahedron with central atom is close to zero for an ideal octahedron. See the paper and other articles about CShM for more information.
+The CShM (Continuous Shape Measures) value approaches zero when a shape closely resembles the chosen ideal shape. For further details, refer to the paper and related articles on CShM.
 
 ## External modules
  `gemmi`, `numpy`, `scipy`
@@ -102,7 +102,10 @@ The following output will be printed:
 	tau_4' =  value 
 	tau_5  =  value <--
 	O      =  value
- 	S(O_h) =  value (only printed in case of coordination number 6)
+ 
+	Continuous shape measure (CShM):
+	------------------------------------------------------------------------
+	CShM S(Shape) = value
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
@@ -135,6 +138,7 @@ The likely structural parameter is marked with an arrow (<--).
 - The suggestion τ<sub>4</sub>, τ<sub>5</sub> or *O* (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>, 15 for *O*).
 - In octahedral coordination, all angles less than 135° are considered "90°" *cis* angles, while angles greater than 135° are considered "180°" *trans* angles.
 - The XYZ file (option: `-sxyz`) is useful for further studies of coordination geometry, such as with the Continuous Shape Measures (CShM) method.
+- More shapes can be defined in the code. Check the [definitions](https://github.com/continuous-symmetry-measure/shape) of several shapes.
   
 ## Known Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
