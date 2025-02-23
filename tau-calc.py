@@ -511,7 +511,6 @@ if cn == 6 or cn==10 or cn == 15:
         # check if the atom was excluded
         label = mark.to_site(st).label
         if label in list(bond_table.column(0)) or label in list(bond_table.column(1)):
-            print(label)
             real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
             neighbor_coordinate = np.array([
                                [real_pos.x - cart_coord_ca.x, 
