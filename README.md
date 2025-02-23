@@ -126,8 +126,7 @@ The following output will be printed:
 	Square pyramidal     :  tau_5 = 0.00                    
 
 	Coordination number 6:
- 	Ideal octahedron     :      O = 0.00
-  	Ideal octahedron     : S(O_h) = 0.00 
+ 	Ideal octahedron     :      O = 0.00 
 	
 The likely structural parameter is marked with an arrow (<--).
 
