@@ -144,7 +144,7 @@ The likely structural parameter is marked with an arrow (<--).
 - The suggestion τ<sub>4</sub>, τ<sub>5</sub> or *O* (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>, 15 for *O*).
 - In octahedral coordination, all angles less than 135° are considered "90°" *cis* angles, while angles greater than 135° are considered "180°" *trans* angles.
 - The XYZ file (option: `-sxyz`) is useful for further studies of coordination geometry, such as with the Continuous Shape Measures (CShM) method.
-- More shapes for CShM can be defined in the code. Check the [definitions](https://github.com/continuous-symmetry-measure/shape) of several shapes.
+- More reference shapes for CShM can be defined in the code. Check the [definitions](https://github.com/continuous-symmetry-measure/shape) of several shapes and the literature.
   
 ## Known Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
