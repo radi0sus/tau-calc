@@ -92,7 +92,7 @@ list_of_atoms_with_large_bonds=[]
 # from: https://github.com/continuous-symmetry-measure/shape/blob/master/src/shape.cpp
 # for CShM (Continuous Shape Measures)
 # AB6
-# define the ideal octahedron with center and precompute squared norms
+# define the ideal octahedron with center
 ao = 1.0 / np.sqrt(2.0)
 IDEAL_AB6 = np.array([
     [  0.0, 0.0,   1.0],
@@ -103,18 +103,27 @@ IDEAL_AB6 = np.array([
     [ 0.0,  0.0,  -1.0],
     [ 0.0,  0.0,   0.0]
 ])
-PERM_LIST_AB6 = list(permutations(range(7)))
-IDEAL_SQ_NORM_AB6 = np.sum(IDEAL_AB6**2)
-#
 
 # for CShM (Continuous Shape Measures)
-# PR_EQ
-# define the ideal trigonal equilateral prism and precompute squared norms
+# APR
+# define the ideal trigonal prism with center 
 ap = 1.0 / np.sqrt(2.0)
 bp = 1.0 / np.sqrt(3.0)
 cp = 1.0 / np.sqrt(6.0)
 dp = 2.0 * cp
 
+IDEAL_APR = np.array([
+    [ 0.0, -dp,  bp],
+    [-ap,   cp,  bp],
+    [ ap,   cp,  bp],
+    [ 0.0, -dp, -bp],
+    [-ap,   cp, -bp],
+    [ ap,   cp, -bp],
+    [ 0.0, 0.0, 0.0]  
+])
+
+#APR_EQ
+# define the ideal trigonal equilateral prism with center 
 IDEAL_APR_EQ = np.array([
     [ 0.0, -dp,  ap],
     [-ap,   cp,  ap],
@@ -125,12 +134,9 @@ IDEAL_APR_EQ = np.array([
     [ 0.0, 0.0, 0.0]  
 ])
 
-PERM_LIST_APR_EQ = list(permutations(range(7)))
-IDEAL_SQ_NORM_APR_EQ = np.sum(IDEAL_APR_EQ**2)
-
 # for CShM (Continuous Shape Measures)
 # AB5
-# define the ideal bipyramide with center and precompute squared norms
+# define the ideal bipyramid with center 
 ab = np.sqrt(3.0/8.0)
 bb = 1 / np.sqrt(8.0)
 cb = 1 / np.sqrt(2.0)
@@ -144,12 +150,9 @@ IDEAL_AB5 = np.array([
     [ 0.0, 0.0,  0.0]  
 ])
 
-PERM_LIST_AB5 = list(permutations(range(6)))
-ID_SQ_NORM_AB5 = np.sum(IDEAL_AB5**2)
-
 # for CShM (Continuous Shape Measures)
 # AB5_
-# define the ideal bipyramide with center and precompute squared norms
+# define the ideal bipyramid with center 
 ab_ = np.sqrt(3.0) / 2.0
 IDEAL_AB5_ = np.array([
     [ 0.0,  0.0,  1.0],
@@ -160,33 +163,29 @@ IDEAL_AB5_ = np.array([
     [ 0.0,  0.0,  0.0]  
 ])
 
-PERM_LIST_AB5_ = list(permutations(range(6)))
-ID_SQ_NORM_AB5_ = np.sum(IDEAL_AB5_**2)
-
 # for CShM (Continuous Shape Measures)
 # SPY-5 from 
 # https://github.com/GrupEstructuraElectronicaSimetria/
 #         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+asp5 =  np.sqrt(6/5)
+bsp5 =  np.sqrt(9/8)
+csp5 =  np.sqrt(3/40)
 IDEAL_SPY5 = np.array([
-    [ 0.000000000000,  0.000000000000,  1.095445115010],
-    [ 1.060660171780,  0.000000000000, -0.273861278753],
-    [ 0.000000000000,  1.060660171780, -0.273861278753],
-    [-1.060660171780,  0.000000000000, -0.273861278753],
-    [ 0.000000000000, -1.060660171780, -0.273861278753],
-    [ 0.000000000000,  0.000000000000,  0.000000000000]
+    [  0.0,   0.0,  asp5],
+    [ bsp5,   0.0, -csp5],
+    [  0.0,  bsp5, -csp5],
+    [-bsp5,   0.0, -csp5],
+    [  0.0, -bsp5, -csp5],
+    [  0.0,   0.0,   0.0]
 ])
-
-PERM_LIST_SPY5 = list(permutations(range(6)))
-ID_SQ_NORM_SPY5 = np.sum(IDEAL_SPY5**2)
 
 # for CShM (Continuous Shape Measures)
 # AB4
-# define the ideal tetrahedron with center and precompute squared norms
+# define the ideal tetrahedron with center 
 at = np.sqrt(8.0) / 3.0
 bt = 1.0 / 3.0
 ct = np.sqrt(2.0 / 3.0)
 dt = np.sqrt(2.0) / 3.0
-
 IDEAL_AB4 = np.array([
     [ 0.0,  0.0,  1.0],
     [ 0.0,   at,  -bt],
@@ -195,12 +194,9 @@ IDEAL_AB4 = np.array([
     [ 0.0,  0.0,  0.0]  
 ])
 
-PERM_LIST_AB4 = list(permutations(range(5)))
-IDEAL_SQ_NORM_AB4 = np.sum(IDEAL_AB4**2)
-
 # for CShM (Continuous Shape Measures)
 # SQ5
-# define the ideal square with center and precompute squared norms
+# define the ideal square with center 
 
 asq = 1 / np.sqrt(2.0)
 
@@ -212,8 +208,6 @@ IDEAL_SQ5 = np.array([
     [ 0.0,  0.0,   0.000001]  
 ])
 
-PERM_LIST_SQ5 = list(permutations(range(5)))
-IDEAL_SQ_NORM_SQ5 = np.sum(IDEAL_SQ5**2)
 # Definitions for several Shapes END ##################
 
 #calculation of tau5
@@ -254,10 +248,12 @@ def normalize_structure(coordinates):
 # calculation the continuous shape measures (CShM) parameter S(O_h) for a given structure
 # from the c++ code with some help of AI
 # https://github.com/continuous-symmetry-measure/shape
-def calc_cshm(coordinates, ideal_shape, perm_list, ideal_sq_norms):
+def calc_cshm(coordinates, ideal_shape):
+    permut_list = list(permutations(range(len(coordinates))))
+    ideal_sq_norms = np.sum(ideal_shape**2)
     input_structure = normalize_structure(coordinates)
     min_cshm = float('inf')
-    for permuted_ideal in map(lambda p: ideal_shape[list(p)], perm_list):
+    for permuted_ideal in map(lambda p: ideal_shape[list(p)], permut_list):
         H = np.dot(input_structure.T, permuted_ideal)
         U, _, Vt = svd(H)
         R = np.dot(Vt.T, U.T)
@@ -265,8 +261,9 @@ def calc_cshm(coordinates, ideal_shape, perm_list, ideal_sq_norms):
         rotated_ideal = np.dot(permuted_ideal, R)
         scale = np.sum(input_structure * rotated_ideal) / ideal_sq_norms
         cshm = np.mean(np.sum((input_structure - scale * rotated_ideal)**2, axis=1))
-
+        
         min_cshm = min(min_cshm, cshm)
+        
     return min_cshm * 100
 
 #argument parser
@@ -555,21 +552,23 @@ print('Continuous shape measure (CShM):')
 print('------------------------------------------------------------------------')
 if cn == 6:
     print(f'S(AB4, Tetrahedron with center) = '
-          f'{calc_cshm(coordinates, IDEAL_AB4, PERM_LIST_AB4, IDEAL_SQ_NORM_AB4):8.4f}')
+          f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
     print(f'S(SQ5, Square with center)      = '
-          f'{calc_cshm(coordinates, IDEAL_SQ5, PERM_LIST_SQ5, IDEAL_SQ_NORM_SQ5):8.4f}') 
+          f'{calc_cshm(coordinates, IDEAL_SQ5):8.4f}') 
 elif cn == 10:
-    print(f'S(AB5, Bipyramide with center)                 = '
-          f'{calc_cshm(coordinates, IDEAL_AB5, PERM_LIST_AB5, ID_SQ_NORM_AB5):8.4f}')
-    print(f'S(AB5_, Bipyramide with center (equidistance)) = '
-          f'{calc_cshm(coordinates, IDEAL_AB5_, PERM_LIST_AB5_, ID_SQ_NORM_AB5_):8.4f}')
-    print(f'S(SPY-5, Square pyramidal with center)         = '
-          f'{calc_cshm(coordinates, IDEAL_SPY5, PERM_LIST_SPY5, ID_SQ_NORM_SPY5):8.4f}')
+    print(f'S(AB5, Bipyramid with center)                 = '
+          f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
+    print(f'S(AB5_, Bipyramid with center (equidistance)) = '
+          f'{calc_cshm(coordinates, IDEAL_AB5_):8.4f}')
+    print(f'S(SPY-5, Square pyramidal with center)        = '
+          f'{calc_cshm(coordinates, IDEAL_SPY5):8.4f}')
 elif cn == 15:
     print(f'S(AB6, Octahedron with center)                    = '
-          f'{calc_cshm(coordinates, IDEAL_AB6, PERM_LIST_AB6, IDEAL_SQ_NORM_AB6):8.4f}')
+          f'{calc_cshm(coordinates, IDEAL_AB6):8.4f}')
+    print(f'S(APR, Trigonal prism with center)                = '
+          f'{calc_cshm(coordinates, IDEAL_APR):8.4f}')
     print(f'S(APR_EQ, Trigonal equilateral prism with center) = '
-          f'{calc_cshm(coordinates, IDEAL_APR_EQ, PERM_LIST_APR_EQ, IDEAL_SQ_NORM_APR_EQ):8.4f}')
+          f'{calc_cshm(coordinates, IDEAL_APR_EQ):8.4f}')
 else:
     print('CShM not calculated.')
     
