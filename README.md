@@ -167,8 +167,13 @@ python3 tau-calc.py test.cif Hg1
 	tau_4  =   0.71 <--
 	tau_4' =   0.67 <--
 	tau_5  =   0.19 
-	O      =  23.49
-	 
+	O      =  23.49 
+
+	Continuous shape measure (CShM):
+	------------------------------------------------------------------------
+	S(AB4, Tetrahedron with center) =   2.8099
+	S(SQ5, Square with center)      =  32.0294
+ 
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
 	Coordination number 4:
@@ -176,14 +181,13 @@ python3 tau-calc.py test.cif Hg1
 	Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
 	Seesaw               : tau_4 = 0.43       tau_4' = 0.24
 	Square planar        : tau_4 = 0.00       tau_4' = 0.00
-	
+
 	Coordination number 5:
 	Trigonal bipyramidal : tau_5 = 1.00                     
 	Square pyramidal     : tau_5 = 0.00                    
 
 	Coordination number 6:
-	Ideal octahedron     :      O = 0.00
- 	Ideal octahedron     : S(O_h) = 0.00
+	Ideal octahedron     :     O = 0.00
 	
 ### Example 2:
 ```console
@@ -231,7 +235,11 @@ python3 tau-calc.py test2.cif Ru1 -v
 	tau_4' =   0.13 
 	tau_5  =   0.00 
 	O      =   7.12 <--
- 	S(O_h) = 0.9516 <--
+
+  	Continuous shape measure (CShM):
+	------------------------------------------------------------------------
+	S(AB6, Octahedron with center)                    =   0.9516
+	S(APR_EQ, Trigonal equilateral prism with center) =  13.6312
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
@@ -246,8 +254,7 @@ python3 tau-calc.py test2.cif Ru1 -v
 	Square pyramidal     : tau_5 = 0.00                    
 
 	Coordination number 6:
-	Ideal octahedron     :      O = 0.00
- 	Ideal octahedron     : S(O_h) = 0.00                   
+	Ideal octahedron     :      O = 0.00               
 
 	XYZ coordinates of the central atom and its neighbors: 
 	------------------------------------------------------------------------
@@ -284,6 +291,11 @@ python3 tau-calc.py test3.cif Co1 -e N12 -d 2
 	tau_4' =   0.38 <--
 	tau_5  =   1.41 
 	O      =   2.94 
+
+ 	Continuous shape measure (CShM):
+	------------------------------------------------------------------------
+	S(AB4, Tetrahedron with center) =  11.2787
+	S(SQ5, Square with center)      =  17.4589
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
@@ -299,4 +311,3 @@ python3 tau-calc.py test3.cif Co1 -e N12 -d 2
 	
 	Coordination number 6:
 	Ideal octahedron     :     O = 0.00
- 	Ideal octahedron     : S(O_h) = 0.00  
