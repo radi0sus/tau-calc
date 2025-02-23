@@ -47,8 +47,14 @@ If you use τ<sub>4</sub>, τ<sub>5</sub>, the *O* index or CShM to describe the
 > Mark Pinsky, David Avnir, 
 > *Inorg. Chem.* **1998**, *37*, 5575–5582.
 > 
-> DOI: https://doi.org/10.1021/ic9804925 
-
+> DOI: https://doi.org/10.1021/ic9804925
+> 
+> "Shape maps and polyhedral interconversion paths in transition metal chemistry"
+>  
+> Santiago Alvarez, Pere Alemany, David Casanova, Jordi Cirera, Miquel Llunell, David Avnir,
+> *Coord. Chem. Rev.*, **2005**, *249*, 1693–1708.
+> 
+> DOI: https://doi.org/10.1016/j.ccr.2005.03.031
 
 The script uses the **Gemmi** library for CIF processing:
 > "GEMMI: A library for structural biology"
@@ -239,6 +245,7 @@ python3 tau-calc.py test2.cif Ru1 -v
   	Continuous shape measure (CShM):
 	------------------------------------------------------------------------
 	S(AB6, Octahedron with center)                    =   0.9516
+	S(APR, Trigonal prism with center)                =  12.5329
 	S(APR_EQ, Trigonal equilateral prism with center) =  13.6312
  
 	Table of typical geometries and their corresponding tau_x and O values: 
@@ -270,33 +277,32 @@ python3 tau-calc.py test2.cif Ru1 -v
 
 ### Example 3:
 ```console
-python3 tau-calc.py test3.cif Co1 -e N12 -d 2
+python3 tau-calc.py test3.cif Co1 -e N12
 ```
 	Excluded atoms: ['N12']
-	 
-	Excluded atoms (distance larger than 2.0 Å): ['N11']
  
-	The predicted coordination number for Co1 is 4.
+	The predicted coordination number for Co1 is 5.
 
-	The two largest angles are beta = 176.77° and alpha = 92.29°.
+	The two largest angles are beta = 176.77° and alpha = 173.52°.
 	Note: Angles for the calculation of tau_4, tau_4' and tau_5.
- 	
-	Number of cis angles ~ 90° (< 135°)    = 5
-	Number of trans angles ~ 180° (> 135°) = 1
+ 
+	Number of cis angles ~ 90° (< 135°)    = 8
+	Number of trans angles ~ 180° (> 135°) = 2
 	Note: First value should be 12, second 3 for an octahedron.
  	
 	Co1 geometry indices  ("<--" indicates the likely structural parameter):
 	------------------------------------------------------------------------
-	tau_4  =   0.64 <--
-	tau_4' =   0.38 <--
-	tau_5  =   1.41 
-	O      =   2.94 
+	tau_4  =   0.07 
+	tau_4' =   0.06 
+	tau_5  =   0.05 <--
+	O      =   4.65 
 
- 	Continuous shape measure (CShM):
+	Continuous shape measure (CShM):
 	------------------------------------------------------------------------
-	S(AB4, Tetrahedron with center) =  11.2787
-	S(SQ5, Square with center)      =  17.4589
- 
+	S(AB5, Bipyramid with center)                 =   7.9883
+	S(AB5_, Bipyramid with center (equidistance)) =   6.6922
+	S(SPY-5, Square pyramidal with center)        =   2.2513
+ 	
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
 	Coordination number 4:
