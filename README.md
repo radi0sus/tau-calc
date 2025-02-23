@@ -178,6 +178,7 @@ python3 tau-calc.py test.cif Hg1
 	------------------------------------------------------------------------
 	S(AB4, Tetrahedron with center) =   2.8099
 	S(SQ5, Square with center)      =  32.0294
+	S(SS-4, Seesaw with center)     =   5.8584
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
