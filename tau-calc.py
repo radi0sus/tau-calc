@@ -208,6 +208,19 @@ IDEAL_SQ5 = np.array([
     [ 0.0,  0.0,   0.000001]  
 ])
 
+# for CShM (Continuous Shape Measures)
+# SS4 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal seesaw  with center 
+IDEAL_SS4 = np.array([
+    [-0.235702260396, -0.235702260396, -1.178511301978],
+    [ 0.942809041582, -0.235702260396,  0.0],
+    [-0.235702260396,  0.942809041582,  0.0],
+    [-0.235702260396, -0.235702260396,  1.178511301978],
+    [-0.235702260396, -0.235702260396,  0.0],
+    [ 0.0,  0.0,  0.0]
+])
 # Definitions for several Shapes END ##################
 
 #calculation of tau5
@@ -555,6 +568,8 @@ if cn == 6:
           f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
     print(f'S(SQ5, Square with center)      = '
           f'{calc_cshm(coordinates, IDEAL_SQ5):8.4f}') 
+    print(f'S(SS-4, Seesaw with center)     = '
+          f'{calc_cshm(coordinates, IDEAL_SS4):8.4f}') 
 elif cn == 10:
     print(f'S(AB5, Bipyramid with center)                 = '
           f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
