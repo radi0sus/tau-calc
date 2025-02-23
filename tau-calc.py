@@ -54,6 +54,13 @@
 # Inorg. Chem. 1998, 37, 21, 5575–5582.
 # DOI: https://doi.org/10.1021/ic9804925
 #
+# "Shape maps and polyhedral interconversion paths in transition metal chemistry"
+#
+# Santiago Alvarez, Pere Alemany, David Casanova, Jordi Cirera, Miquel Llunell, 
+# David Avnir,
+# Coord. Chem. Rev., 2005, 249, 1693–1708.
+# DOI: https://doi.org/10.1016/j.ccr.2005.03.031
+# 
 # For Gemmi please cite: 
 #
 # "GEMMI: A library for structural biology"
@@ -155,6 +162,22 @@ IDEAL_AB5_ = np.array([
 
 PERM_LIST_AB5_ = list(permutations(range(6)))
 ID_SQ_NORM_AB5_ = np.sum(IDEAL_AB5_**2)
+
+# for CShM (Continuous Shape Measures)
+# SPY-5 from 
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+IDEAL_SPY5 = np.array([
+    [ 0.000000000000,  0.000000000000,  1.095445115010],
+    [ 1.060660171780,  0.000000000000, -0.273861278753],
+    [ 0.000000000000,  1.060660171780, -0.273861278753],
+    [-1.060660171780,  0.000000000000, -0.273861278753],
+    [ 0.000000000000, -1.060660171780, -0.273861278753],
+    [ 0.000000000000,  0.000000000000,  0.000000000000]
+])
+
+PERM_LIST_SPY5 = list(permutations(range(6)))
+ID_SQ_NORM_SPY5 = np.sum(IDEAL_SPY5**2)
 
 # for CShM (Continuous Shape Measures)
 # AB4
@@ -536,10 +559,12 @@ if cn == 6:
     print(f'S(SQ5, Square with center)      = '
           f'{calc_cshm(coordinates, IDEAL_SQ5, PERM_LIST_SQ5, IDEAL_SQ_NORM_SQ5):8.4f}') 
 elif cn == 10:
-    print(f'S(AB5,  Bipyramide with center)                = '
+    print(f'S(AB5, Bipyramide with center)                 = '
           f'{calc_cshm(coordinates, IDEAL_AB5, PERM_LIST_AB5, ID_SQ_NORM_AB5):8.4f}')
     print(f'S(AB5_, Bipyramide with center (equidistance)) = '
           f'{calc_cshm(coordinates, IDEAL_AB5_, PERM_LIST_AB5_, ID_SQ_NORM_AB5_):8.4f}')
+    print(f'S(SPY-5, Square pyramidal with center)         = '
+          f'{calc_cshm(coordinates, IDEAL_SPY5, PERM_LIST_SPY5, ID_SQ_NORM_SPY5):8.4f}')
 elif cn == 15:
     print(f'S(AB6, Octahedron with center)                    = '
           f'{calc_cshm(coordinates, IDEAL_AB6, PERM_LIST_AB6, IDEAL_SQ_NORM_AB6):8.4f}')
