@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 #
-# Calculation of tau_4, tau_4', tau_5, O, and S(O_h) for 4-, 5- or 6-coordinated atoms
+# Calculation of tau_4, tau_4', tau_5, or O and several CShM
+# for 4-, 5- or 6-coordinated atoms.
 # For a deeper explanation of tau_4 and tau_5 have a look at Wikipedia:
 #
 # https://en.wikipedia.org/wiki/Geometry_index
@@ -45,7 +46,7 @@
 # Inorg. Chem. Front. 2020, 7, 117-127. 
 # DOI: https://doi.org/10.1039/C9QI01009B 
 # 
-# For CShM (Continuous Shape Measures), S(O_h), please cite:
+# For CShM (Continuous Shape Measures) please cite:
 #
 # "Continuous Symmetry Measures. 5. The Classical Polyhedra"
 # 
@@ -80,21 +81,117 @@ ang_bond_val = re.compile('\d{1,}[\.]?\d{0,}')
 #list for the exclusion of atoms in the angle table
 list_of_atoms_with_large_bonds=[]
 
+# Definitions for several Shapes START ##################
+# from: https://github.com/continuous-symmetry-measure/shape/blob/master/src/shape.cpp
 # for CShM (Continuous Shape Measures)
-# define the ideal octahedron and precompute squared norms
-a = 1.0 / np.sqrt(2.0)
-IDEAL_OCTAHEDRON = np.array([
-    [  0.0, 0.0, 1.0],
-    [  a,   a,   0.0],
-    [ -a,   a,   0.0],
-    [ -a,  -a,   0.0],
-    [  a,  -a,   0.0],
-    [0.0, 0.0,  -1.0],
-    [0.0, 0.0,   0.0]
+# AB6
+# define the ideal octahedron with center and precompute squared norms
+ao = 1.0 / np.sqrt(2.0)
+IDEAL_AB6 = np.array([
+    [  0.0, 0.0,   1.0],
+    [  ao,   ao,   0.0],
+    [ -ao,   ao,   0.0],
+    [ -ao,  -ao,   0.0],
+    [  ao,  -ao,   0.0],
+    [ 0.0,  0.0,  -1.0],
+    [ 0.0,  0.0,   0.0]
 ])
-PERMUTATIONS_LIST = list(permutations(range(7)))
-IDEAL_SQ_NORMS = np.sum(IDEAL_OCTAHEDRON**2)
+PERM_LIST_AB6 = list(permutations(range(7)))
+IDEAL_SQ_NORM_AB6 = np.sum(IDEAL_AB6**2)
 #
+
+# for CShM (Continuous Shape Measures)
+# PR_EQ
+# define the ideal trigonal equilateral prism and precompute squared norms
+ap = 1.0 / np.sqrt(2.0)
+bp = 1.0 / np.sqrt(3.0)
+cp = 1.0 / np.sqrt(6.0)
+dp = 2.0 * cp
+
+IDEAL_APR_EQ = np.array([
+    [ 0.0, -dp,  ap],
+    [-ap,   cp,  ap],
+    [ ap,   cp,  ap],
+    [ 0.0, -dp, -ap],
+    [-ap,   cp, -ap],
+    [ ap,   cp, -ap],
+    [ 0.0, 0.0, 0.0]  
+])
+
+PERM_LIST_APR_EQ = list(permutations(range(7)))
+IDEAL_SQ_NORM_APR_EQ = np.sum(IDEAL_APR_EQ**2)
+
+# for CShM (Continuous Shape Measures)
+# AB5
+# define the ideal bipyramide with center and precompute squared norms
+ab = np.sqrt(3.0/8.0)
+bb = 1 / np.sqrt(8.0)
+cb = 1 / np.sqrt(2.0)
+
+IDEAL_AB5 = np.array([
+    [ 0.0, 0.0,  1.0],
+    [ -ab, -bb,  0.0],
+    [  ab, -bb,  0.0],
+    [ 0.0,  cb,  0.0],
+    [ 0.0, 0.0, -1.0],
+    [ 0.0, 0.0,  0.0]  
+])
+
+PERM_LIST_AB5 = list(permutations(range(6)))
+ID_SQ_NORM_AB5 = np.sum(IDEAL_AB5**2)
+
+# for CShM (Continuous Shape Measures)
+# AB5_
+# define the ideal bipyramide with center and precompute squared norms
+ab_ = np.sqrt(3.0) / 2.0
+IDEAL_AB5_ = np.array([
+    [ 0.0,  0.0,  1.0],
+    [-ab_, -0.5,  0.0],
+    [ ab_, -0.5,  0.0],
+    [ 0.0,  1.0,  0.0],
+    [ 0.0,  0.0, -1.0],
+    [ 0.0,  0.0,  0.0]  
+])
+
+PERM_LIST_AB5_ = list(permutations(range(6)))
+ID_SQ_NORM_AB5_ = np.sum(IDEAL_AB5_**2)
+
+# for CShM (Continuous Shape Measures)
+# AB4
+# define the ideal tetrahedron with center and precompute squared norms
+at = np.sqrt(8.0) / 3.0
+bt = 1.0 / 3.0
+ct = np.sqrt(2.0 / 3.0)
+dt = np.sqrt(2.0) / 3.0
+
+IDEAL_AB4 = np.array([
+    [ 0.0,  0.0,  1.0],
+    [ 0.0,   at,  -bt],
+    [ ct,   -dt,  -bt],
+    [-ct,   -dt,  -bt],
+    [ 0.0,  0.0,  0.0]  
+])
+
+PERM_LIST_AB4 = list(permutations(range(5)))
+IDEAL_SQ_NORM_AB4 = np.sum(IDEAL_AB4**2)
+
+# for CShM (Continuous Shape Measures)
+# SQ5
+# define the ideal square with center and precompute squared norms
+
+asq = 1 / np.sqrt(2.0)
+
+IDEAL_SQ5 = np.array([
+    [ asq,  asq,   0.0],
+    [ asq, -asq,   0.0],
+    [-asq, -asq,   0.0],
+    [-asq,  asq,  -0.000001],
+    [ 0.0,  0.0,   0.000001]  
+])
+
+PERM_LIST_SQ5 = list(permutations(range(5)))
+IDEAL_SQ_NORM_SQ5 = np.sum(IDEAL_SQ5**2)
+# Definitions for several Shapes END ##################
 
 #calculation of tau5
 def calc_tau5(beta, alpha):
@@ -134,17 +231,16 @@ def normalize_structure(coordinates):
 # calculation the continuous shape measures (CShM) parameter S(O_h) for a given structure
 # from the c++ code with some help of AI
 # https://github.com/continuous-symmetry-measure/shape
-def calc_cshm(coordinates):
+def calc_cshm(coordinates, ideal_shape, perm_list, ideal_sq_norms):
     input_structure = normalize_structure(coordinates)
     min_cshm = float('inf')
-
-    for permuted_ideal in map(lambda p: IDEAL_OCTAHEDRON[list(p)], PERMUTATIONS_LIST):
+    for permuted_ideal in map(lambda p: ideal_shape[list(p)], perm_list):
         H = np.dot(input_structure.T, permuted_ideal)
         U, _, Vt = svd(H)
         R = np.dot(Vt.T, U.T)
 
         rotated_ideal = np.dot(permuted_ideal, R)
-        scale = np.sum(input_structure * rotated_ideal) / IDEAL_SQ_NORMS
+        scale = np.sum(input_structure * rotated_ideal) / ideal_sq_norms
         cshm = np.mean(np.sum((input_structure - scale * rotated_ideal)**2, axis=1))
 
         min_cshm = min(min_cshm, cshm)
@@ -404,33 +500,53 @@ for site in st.sites:
         cart_coord_ca = st.cell.orthogonalize(site.fract)
         break
 
-# for the calculation of the CShM value S(O_h)
+# for the calculation of the CShM values
 # the coordinates must be in a numpy array
-if cn == 15:
+if cn == 6 or cn==10 or cn == 15:
     coordinates = np.array([0.0, 0.0, 0.0]) # the central atom is at 0, 0, 0
     for mark in marks:
         # important: mark.pos gives position in unit cell, not outside
         # to_site and fract is useless in case of symmetry equivalents
         # pbc_position is the way to go 
-        real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
-        neighbor_coordinate = np.array([
+        # check if the atom was excluded
+        label = mark.to_site(st).label
+        if label in list(bond_table.column(1)) or label in list(bond_table.column(2)):
+            real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
+            neighbor_coordinate = np.array([
                                [real_pos.x - cart_coord_ca.x, 
                                 real_pos.y - cart_coord_ca.y,
                                 real_pos.z - cart_coord_ca.z]
                                 ])
-        # add coordinates of neighbors
-        coordinates = np.vstack([coordinates, neighbor_coordinate])
+            # add coordinates of neighbors
+            coordinates = np.vstack([coordinates, neighbor_coordinate])
 
-#calculate and print tau_x and O values
+#calculate and print tau_x, O and CShM values
 print(' ')
 print(args.atom_name + ' geometry indices  ("<--" indicates the likely structural parameter):')
 print('------------------------------------------------------------------------')
 print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')
 print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
 print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
-print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
-if cn == 15:
-    print(f'S(O_h) = {calc_cshm(coordinates):6.4f} {printmark6}')
+print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
+print('Continuous shape measure (CShM):')
+print('------------------------------------------------------------------------')
+if cn == 6:
+    print(f'S(AB4, Tetrahedron with center) = '
+          f'{calc_cshm(coordinates, IDEAL_AB4, PERM_LIST_AB4, IDEAL_SQ_NORM_AB4):8.4f}')
+    print(f'S(SQ5, Square with center)      = '
+          f'{calc_cshm(coordinates, IDEAL_SQ5, PERM_LIST_SQ5, IDEAL_SQ_NORM_SQ5):8.4f}') 
+elif cn == 10:
+    print(f'S(AB5,  Bipyramide with center)                = '
+          f'{calc_cshm(coordinates, IDEAL_AB5, PERM_LIST_AB5, ID_SQ_NORM_AB5):8.4f}')
+    print(f'S(AB5_, Bipyramide with center (equidistance)) = '
+          f'{calc_cshm(coordinates, IDEAL_AB5_, PERM_LIST_AB5_, ID_SQ_NORM_AB5_):8.4f}')
+elif cn == 15:
+    print(f'S(AB6, Octahedron with center)                    = '
+          f'{calc_cshm(coordinates, IDEAL_AB6, PERM_LIST_AB6, IDEAL_SQ_NORM_AB6):8.4f}')
+    print(f'S(APR_EQ, Trigonal equilateral prism with center) = '
+          f'{calc_cshm(coordinates, IDEAL_APR_EQ, PERM_LIST_APR_EQ, IDEAL_SQ_NORM_APR_EQ):8.4f}')
+else:
+    print('CShM not calculated.')
     
 #print a table of typical tau_x values
 #values different from 0 or 1 and the corresponding geometries have been taken
@@ -439,34 +555,36 @@ print(' ')
 print(f"Table of typical geometries and their corresponding tau_x and O values: ")
 print(f"------------------------------------------------------------------------")
 print(f"Coordination number 4:")
-print(f"Tetrahedral          :  tau_4 = 1.00       tau_4' = 1.00")
-print(f"Trigonal pyramidal   :  tau_4 = 0.85       tau_4' = 0.85")
-print(f"Seesaw               :  tau_4 = 0.43       tau_4' = 0.24")
-print(f"Square planar        :  tau_4 = 0.00       tau_4' = 0.00\n")
+print(f"Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00")
+print(f"Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85")
+print(f"Seesaw               : tau_4 = 0.43       tau_4' = 0.24")
+print(f"Square planar        : tau_4 = 0.00       tau_4' = 0.00\n")
 print(f"Coordination number 5:")
-print(f"Trigonal bipyramidal :  tau_5 = 1.00                     ")
-print(f"Square pyramidal     :  tau_5 = 0.00                    \n")
+print(f"Trigonal bipyramidal : tau_5 = 1.00                     ")
+print(f"Square pyramidal     : tau_5 = 0.00                    \n")
 print(f"Coordination number 6:")
-print(f"Ideal octahedron     :      O = 0.00                      ")
-print(f"Ideal octahedron     : S(O_h) = 0.00                    \n")
+print(f"Ideal octahedron     :     O = 0.00                      ")
        
 if args.verbose:
     print(f"XYZ coordinates of the central atom and its neighbors: ")
     print(f"------------------------------------------------------------------------")
-    print(f'{len(marks) + 1}')
+    print(f'{len(bond_table) + 1}')
     print(f'{args.filename} {args.atom_name}')
     print(f'{site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}')
     # print orthogonalized cartesian coordinates (.pos)
     # set in relation to the central atom (ca) at 0, 0, 0
     for mark in marks:
-        label = mark.to_site(st).element
+        el_label = mark.to_site(st).element
         # important: mark.pos gives position in unit cell, not outside
         # to_site and fract is useless in case of symmetry equivalents
         # pbc_position is the way to go 
-        real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
-        print(f'{label.name:<2} {(real_pos.x - cart_coord_ca.x) :>11.8f} '
-              f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
-              f'{(real_pos.z - cart_coord_ca.z):>11.8f}')
+        # check if the atom was excluded
+        label = mark.to_site(st).label
+        if label in list(bond_table.column(1)) or label in list(bond_table.column(2)):
+            real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
+            print(f'{el_label.name:<2} {(real_pos.x - cart_coord_ca.x) :>11.8f} '
+                  f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
+                  f'{(real_pos.z - cart_coord_ca.z):>11.8f}')
 
 # save XYZ coordinates
 # set in relation to the central atom (ca) at 0, 0, 0
@@ -474,18 +592,21 @@ if args.savexyz:
     file_name, file_extension = os.path.splitext(args.filename)
     try:
         with open(file_name + "-" + args.atom_name + '.xyz', 'w') as output_file:
-            output_file.write(f'{len(marks) + 1}\n')
+            output_file.write(f'{len(bond_table) + 1}\n')
             output_file.write(f'{args.filename} {args.atom_name}\n')
             output_file.write(f'{site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}\n')
             for mark in marks:
-                label = mark.to_site(st).element
+                el_label = mark.to_site(st).element
                 # important: mark.pos gives position in unit cell, not outside
                 # to_site and fract is useless in case of symmetry equivalents
                 # pbc_position is the way to go 
-                real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
-                output_file.write(f'{label.name:<2} {(real_pos.x - cart_coord_ca.x):>11.8f} ' 
-                                  f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
-                                  f'{(real_pos.z - cart_coord_ca.z):>11.8f}\n')
+                # check if the atom was excluded
+                label = mark.to_site(st).label
+                if label in list(bond_table.column(1)) or label in list(bond_table.column(2)):
+                    real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
+                    output_file.write(f'{el_label.name:<2} {(real_pos.x - cart_coord_ca.x):>11.8f} ' 
+                                      f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
+                                      f'{(real_pos.z - cart_coord_ca.z):>11.8f}\n')
     # file not found -> exit here
     except IOError:
         print("Write error. Exit.")
