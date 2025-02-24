@@ -143,9 +143,10 @@ The likely structural parameter is marked with an arrow (<--).
 - The suggestion τ<sub>4</sub>, τ<sub>5</sub> or *O* (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>, 15 for *O*).
 - In octahedral coordination, all angles less than 135° are considered "90°" *cis* angles, while angles greater than 135° are considered "180°" *trans* angles.
 - The XYZ file (option: `-sxyz`) is useful for further studies of coordination geometry, such as with the Continuous Shape Measures (CShM) method.
-- More reference shapes for CShM can be defined in the code. Check the definitions of several ideal shapes
-[here (cosymlib)](https://github.com/GrupEstructuraElectronicaSimetria/cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml) or 
-[here (shape)](https://github.com/continuous-symmetry-measure/shape) and the literature.
+- More reference shapes for CShM can be defined in the code. You can find definitions of several ideal shapes  
+[here (cosymlib)](https://github.com/GrupEstructuraElectronicaSimetria/cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml) or
+[here (shape)](https://github.com/continuous-symmetry-measure/shape). Ideal shapes that include `'-'` are from the first source, while other shapes come from the second.
+- The script's results should match those of the [online calculator](https://csm.ouproj.org.il/molecule) or the [Shape program](https://www.ee.ub.edu/downloads/) when using default options.
   
 ## Known Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
@@ -247,9 +248,8 @@ python3 tau-calc.py test2.cif Ru1 -v
 
   	Continuous shape measure (CShM):
 	------------------------------------------------------------------------
-	S(AB6, Octahedron with center)                    =   0.9516
-	S(APR, Trigonal prism with center)                =  12.5329
-	S(APR_EQ, Trigonal equilateral prism with center) =  13.6312
+	S(AB6, Octahedron with center) =   0.9516
+	S(TPR-6, Trigonal prism)       =  13.6312
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
@@ -302,7 +302,6 @@ python3 tau-calc.py test3.cif Co1 -e N12
 
 	Continuous shape measure (CShM):
 	------------------------------------------------------------------------
-	S(AB5, Bipyramid with center) =   7.9883
 	S(TBPY-5, Trigonal bipyramid) =   6.6922
 	S(SPY-5, Square pyramid)      =   2.2513
  	
