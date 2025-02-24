@@ -143,7 +143,9 @@ The likely structural parameter is marked with an arrow (<--).
 - The suggestion τ<sub>4</sub>, τ<sub>5</sub> or *O* (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>, 15 for *O*).
 - In octahedral coordination, all angles less than 135° are considered "90°" *cis* angles, while angles greater than 135° are considered "180°" *trans* angles.
 - The XYZ file (option: `-sxyz`) is useful for further studies of coordination geometry, such as with the Continuous Shape Measures (CShM) method.
-- More reference shapes for CShM can be defined in the code. Check the [definitions](https://github.com/continuous-symmetry-measure/shape) of several shapes and the literature.
+- More reference shapes for CShM can be defined in the code. Check the definitions of several ideal shapes
+[here (cosymlib)](https://github.com/GrupEstructuraElectronicaSimetria/cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml) or 
+[here (shape)](https://github.com/continuous-symmetry-measure/shape) and the literature.
   
 ## Known Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
@@ -176,9 +178,10 @@ python3 tau-calc.py test.cif Hg1
 
 	Continuous shape measure (CShM):
 	------------------------------------------------------------------------
-	S(AB4, Tetrahedron with center) =   2.8099
-	S(SQ5, Square with center)      =  32.0294
-	S(SS-4, Seesaw with center)     =   5.8584
+	S(AB4, Tetrahedron with center)               =   2.8099
+	S(SQ5, Square with center)                    =  32.0294
+	S(SS-4, Seesaw)                               =   5.8584
+	S(vTBPY-4, Axially vacant trigonal bipyramid) =   2.8078
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
@@ -299,9 +302,9 @@ python3 tau-calc.py test3.cif Co1 -e N12
 
 	Continuous shape measure (CShM):
 	------------------------------------------------------------------------
-	S(AB5, Bipyramid with center)                 =   7.9883
-	S(AB5_, Bipyramid with center (equidistance)) =   6.6922
-	S(SPY-5, Square pyramidal with center)        =   2.2513
+	S(AB5, Bipyramid with center) =   7.9883
+	S(TBPY-5, Trigonal bipyramid) =   6.6922
+	S(SPY-5, Square pyramid)      =   2.2513
  	
 	Table of typical geometries and their corresponding tau_x and O values: 
 	------------------------------------------------------------------------
