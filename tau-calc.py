@@ -122,8 +122,9 @@ IDEAL_APR = np.array([
     [ 0.0, 0.0, 0.0]  
 ])
 
-#APR_EQ
+# APR_EQ
 # define the ideal trigonal equilateral prism with center 
+# SAME as TPR-6
 IDEAL_APR_EQ = np.array([
     [ 0.0, -dp,  ap],
     [-ap,   cp,  ap],
@@ -133,6 +134,22 @@ IDEAL_APR_EQ = np.array([
     [ ap,   cp, -ap],
     [ 0.0, 0.0, 0.0]  
 ])
+
+# for CShM (Continuous Shape Measures)
+# TPR-6 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal trigonal prism
+# same as APR_EQ
+#IDEAL_TPR6 = np.array([
+#    [ 0.816496580928,  0.0           , -0.707106781187],
+#    [-0.408248290464,  0.707106781187, -0.707106781187],
+#    [-0.408248290464, -0.707106781187, -0.707106781187],
+#    [ 0.816496580928,  0.0           ,  0.707106781187],
+#    [-0.408248290464,  0.707106781187,  0.707106781187],
+#    [-0.408248290464, -0.707106781187,  0.707106781187],
+#    [ 0.0           ,  0.0           ,  0.0           ]
+#])
 
 # for CShM (Continuous Shape Measures)
 # AB5
@@ -153,20 +170,22 @@ IDEAL_AB5 = np.array([
 # for CShM (Continuous Shape Measures)
 # AB5_
 # define the ideal bipyramid with center 
-ab_ = np.sqrt(3.0) / 2.0
-IDEAL_AB5_ = np.array([
-    [ 0.0,  0.0,  1.0],
-    [-ab_, -0.5,  0.0],
-    [ ab_, -0.5,  0.0],
-    [ 0.0,  1.0,  0.0],
-    [ 0.0,  0.0, -1.0],
-    [ 0.0,  0.0,  0.0]  
-])
+# same as TBPY-5
+#ab_ = np.sqrt(3.0) / 2.0
+#IDEAL_AB5_ = np.array([
+#    [ 0.0,  0.0,  1.0],
+#    [-ab_, -0.5,  0.0],
+#    [ ab_, -0.5,  0.0],
+#    [ 0.0,  1.0,  0.0],
+#    [ 0.0,  0.0, -1.0],
+#    [ 0.0,  0.0,  0.0]  
+#])
 
 # for CShM (Continuous Shape Measures)
 # SPY-5 from 
 # https://github.com/GrupEstructuraElectronicaSimetria/
 #         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal square pyramid
 asp5 =  np.sqrt(6/5)
 bsp5 =  np.sqrt(9/8)
 csp5 =  np.sqrt(3/40)
@@ -177,6 +196,21 @@ IDEAL_SPY5 = np.array([
     [-bsp5,   0.0, -csp5],
     [  0.0, -bsp5, -csp5],
     [  0.0,   0.0,   0.0]
+])
+
+# for CShM (Continuous Shape Measures)
+# TBPY-5 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal trigonal bipyramid
+# same as AB5_
+IDEAL_TBPY5 = np.array([
+    [ 0.0,             0.0,            -1.095445115010],
+    [ 1.095445115010,  0.0,             0.0           ],
+    [-0.547722557505,  0.948683298051,  0.0           ],
+    [-0.547722557505, -0.948683298051,  0.0           ],
+    [ 0.0,             0.0,             1.095445115010],
+    [ 0.0,             0.0,             0.0           ],
 ])
 
 # for CShM (Continuous Shape Measures)
@@ -201,25 +235,39 @@ IDEAL_AB4 = np.array([
 asq = 1 / np.sqrt(2.0)
 
 IDEAL_SQ5 = np.array([
-    [ asq,  asq,   0.0],
-    [ asq, -asq,   0.0],
-    [-asq, -asq,   0.0],
-    [-asq,  asq,  -0.000001],
-    [ 0.0,  0.0,   0.000001]  
+    [ asq,  asq,  0.0     ],
+    [ asq, -asq,  0.0     ],
+    [-asq, -asq,  0.0     ],
+    [-asq,  asq, -0.000001],
+    [ 0.0,  0.0,  0.000001]  
 ])
 
 # for CShM (Continuous Shape Measures)
-# SS4 from
+# SS-4 from
 # https://github.com/GrupEstructuraElectronicaSimetria/
 #         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
-# define the ideal seesaw  with center 
+# define the ideal seesaw with center 
 IDEAL_SS4 = np.array([
     [-0.235702260396, -0.235702260396, -1.178511301978],
-    [ 0.942809041582, -0.235702260396,  0.0],
-    [-0.235702260396,  0.942809041582,  0.0],
+    [ 0.942809041582, -0.235702260396,  0.0           ],
+    [-0.235702260396,  0.942809041582,  0.0           ],
     [-0.235702260396, -0.235702260396,  1.178511301978],
-    [-0.235702260396, -0.235702260396,  0.0],
-    [ 0.0,  0.0,  0.0]
+    [-0.235702260396, -0.235702260396,  0.0           ]#,
+   #[ 0.0,             0.0,             0.0           ]
+])
+
+# for CShM (Continuous Shape Measures)
+# vTBPY-4 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the axially vacant trigonal bipyramid with center (trigonal pyramidal)
+IDEAL_vTBPY4 = np.array([
+    [ 0.0,            -0.0,            -0.917662935482],
+    [ 1.147078669353, -0.0,             0.229415733871],
+    [-0.573539334676,  0.993399267799,  0.229415733871],
+    [-0.573539334676, -0.993399267799,  0.229415733871],
+    [ 0.0,            -0.0,             0.229415733871]#,
+   #[ 0.0,             0.0,             0.0           ]
 ])
 # Definitions for several Shapes END ##################
 
@@ -564,17 +612,21 @@ print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
 print('Continuous shape measure (CShM):')
 print('------------------------------------------------------------------------')
 if cn == 6:
-    print(f'S(AB4, Tetrahedron with center) = '
+    print(f'S(AB4, Tetrahedron with center)            = '
           f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
-    print(f'S(SQ5, Square with center)      = '
+    print(f'S(SQ5, Square with center)                 = '
           f'{calc_cshm(coordinates, IDEAL_SQ5):8.4f}') 
-    print(f'S(SS-4, Seesaw with center)     = '
+    print(f'S(SS-4, Seesaw with center)                = '
           f'{calc_cshm(coordinates, IDEAL_SS4):8.4f}') 
+    print(f'S(vTBPY-4, Trigonal bipyramid with center) = '
+          f'{calc_cshm(coordinates, IDEAL_vTBPY4):8.4f}') 
 elif cn == 10:
     print(f'S(AB5, Bipyramid with center)                 = '
           f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
-    print(f'S(AB5_, Bipyramid with center (equidistance)) = '
-          f'{calc_cshm(coordinates, IDEAL_AB5_):8.4f}')
+    #print(f'S(AB5_, Bipyramid with center (equidistance)) = '
+    #      f'{calc_cshm(coordinates, IDEAL_AB5_):8.4f}')
+    print(f'S(TBPY-5, Trigonal bipyramid with center)     = '
+          f'{calc_cshm(coordinates, IDEAL_TBPY5):8.4f}')
     print(f'S(SPY-5, Square pyramidal with center)        = '
           f'{calc_cshm(coordinates, IDEAL_SPY5):8.4f}')
 elif cn == 15:
@@ -584,6 +636,8 @@ elif cn == 15:
           f'{calc_cshm(coordinates, IDEAL_APR):8.4f}')
     print(f'S(APR_EQ, Trigonal equilateral prism with center) = '
           f'{calc_cshm(coordinates, IDEAL_APR_EQ):8.4f}')
+    #print(f'S(TPR-6, Trigonal prism with center)              = '
+    #      f'{calc_cshm(coordinates, IDEAL_TPR6):8.4f}')
 else:
     print('CShM not calculated.')
     
