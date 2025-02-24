@@ -107,33 +107,33 @@ IDEAL_AB6 = np.array([
 # for CShM (Continuous Shape Measures)
 # APR
 # define the ideal trigonal prism with center 
-ap = 1.0 / np.sqrt(2.0)
-bp = 1.0 / np.sqrt(3.0)
-cp = 1.0 / np.sqrt(6.0)
-dp = 2.0 * cp
+#ap = 1.0 / np.sqrt(2.0)
+#bp = 1.0 / np.sqrt(3.0)
+#cp = 1.0 / np.sqrt(6.0)
+#dp = 2.0 * cp
 
-IDEAL_APR = np.array([
-    [ 0.0, -dp,  bp],
-    [-ap,   cp,  bp],
-    [ ap,   cp,  bp],
-    [ 0.0, -dp, -bp],
-    [-ap,   cp, -bp],
-    [ ap,   cp, -bp],
-    [ 0.0, 0.0, 0.0]  
-])
+#IDEAL_APR = np.array([
+#    [ 0.0, -dp,  bp],
+#    [-ap,   cp,  bp],
+#    [ ap,   cp,  bp],
+#    [ 0.0, -dp, -bp],
+#    [-ap,   cp, -bp],
+#    [ ap,   cp, -bp],
+#    [ 0.0, 0.0, 0.0]  
+#])
 
 # APR_EQ
 # define the ideal trigonal equilateral prism with center 
 # SAME as TPR-6
-IDEAL_APR_EQ = np.array([
-    [ 0.0, -dp,  ap],
-    [-ap,   cp,  ap],
-    [ ap,   cp,  ap],
-    [ 0.0, -dp, -ap],
-    [-ap,   cp, -ap],
-    [ ap,   cp, -ap],
-    [ 0.0, 0.0, 0.0]  
-])
+#IDEAL_APR_EQ = np.array([
+#    [ 0.0, -dp,  ap],
+#    [-ap,   cp,  ap],
+#    [ ap,   cp,  ap],
+#    [ 0.0, -dp, -ap],
+#    [-ap,   cp, -ap],
+#    [ ap,   cp, -ap],
+#    [ 0.0, 0.0, 0.0]  
+#])
 
 # for CShM (Continuous Shape Measures)
 # TPR-6 from
@@ -141,31 +141,31 @@ IDEAL_APR_EQ = np.array([
 #         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
 # define the ideal trigonal prism
 # same as APR_EQ
-#IDEAL_TPR6 = np.array([
-#    [ 0.816496580928,  0.0           , -0.707106781187],
-#    [-0.408248290464,  0.707106781187, -0.707106781187],
-#    [-0.408248290464, -0.707106781187, -0.707106781187],
-#    [ 0.816496580928,  0.0           ,  0.707106781187],
-#    [-0.408248290464,  0.707106781187,  0.707106781187],
-#    [-0.408248290464, -0.707106781187,  0.707106781187],
-#    [ 0.0           ,  0.0           ,  0.0           ]
-#])
+IDEAL_TPR6 = np.array([
+    [ 0.816496580928,  0.0           , -0.707106781187],
+    [-0.408248290464,  0.707106781187, -0.707106781187],
+    [-0.408248290464, -0.707106781187, -0.707106781187],
+    [ 0.816496580928,  0.0           ,  0.707106781187],
+    [-0.408248290464,  0.707106781187,  0.707106781187],
+    [-0.408248290464, -0.707106781187,  0.707106781187],
+    [ 0.0           ,  0.0           ,  0.0           ]
+])
 
 # for CShM (Continuous Shape Measures)
 # AB5
 # define the ideal bipyramid with center 
-ab = np.sqrt(3.0/8.0)
-bb = 1 / np.sqrt(8.0)
-cb = 1 / np.sqrt(2.0)
-
-IDEAL_AB5 = np.array([
-    [ 0.0, 0.0,  1.0],
-    [ -ab, -bb,  0.0],
-    [  ab, -bb,  0.0],
-    [ 0.0,  cb,  0.0],
-    [ 0.0, 0.0, -1.0],
-    [ 0.0, 0.0,  0.0]  
-])
+#ab = np.sqrt(3.0/8.0)
+#bb = 1 / np.sqrt(8.0)
+#cb = 1 / np.sqrt(2.0)
+#
+#IDEAL_AB5 = np.array([
+#    [ 0.0, 0.0,  1.0],
+#    [ -ab, -bb,  0.0],
+#    [  ab, -bb,  0.0],
+#    [ 0.0,  cb,  0.0],
+#    [ 0.0, 0.0, -1.0],
+#    [ 0.0, 0.0,  0.0]  
+#])
 
 # for CShM (Continuous Shape Measures)
 # AB5_
@@ -231,7 +231,6 @@ IDEAL_AB4 = np.array([
 # for CShM (Continuous Shape Measures)
 # SQ5
 # define the ideal square with center 
-
 asq = 1 / np.sqrt(2.0)
 
 IDEAL_SQ5 = np.array([
@@ -397,9 +396,9 @@ if args.exclude:
 
 #build a bond table atom1-atom2 bond-length symmetry
 bond_table = block.find(['_geom_bond_atom_site_label_1', 
-                       '_geom_bond_atom_site_label_2',
-                       '_geom_bond_distance',
-                       '_geom_bond_site_symmetry_2'])
+                         '_geom_bond_atom_site_label_2',
+                         '_geom_bond_distance',
+                         '_geom_bond_site_symmetry_2'])
 
 #delete bonds not containing the atom from input
 for i in range(len(bond_table)-1, -1, -1):
@@ -455,7 +454,7 @@ angle_table=block.find(['_geom_angle_atom_site_label_1',
 
 #delete angles not containing the atom from input in the center X-M-X
 for i in range(len(angle_table)-1, -1, -1):
-    if args.atom_name not in angle_table[i][1]:
+    if args.atom_name not in angle_table[i][1].split():
         del angle_table[i]
 
 #exclude symmetry eq. atoms, e.g. for polymeric compounds X-M1-M1'
@@ -493,14 +492,14 @@ if args.verbose:
         print(f'{row[0]}-{row[1]} {row[2]} Å {row[3]}') 
 
 #calculate coordination number from occurance of atom in list
-cn = (list(block.find_loop('_geom_bond_atom_site_label_1')).count(args.atom_name) + 
+cnd = (list(block.find_loop('_geom_bond_atom_site_label_1')).count(args.atom_name) + 
       list(block.find_loop('_geom_bond_atom_site_label_2')).count(args.atom_name))
     
 print(' ')
-print(f'The predicted coordination number for {args.atom_name} is {cn}.\n')
+print(f'The predicted coordination number for {args.atom_name} is {cnd}.\n')
 
 #exit if cn is < 3
-if cn < 3:
+if cnd < 3:
     print("Warning! the predicted coordination number is < 3. Exit.\n")
     sys.exit(1)
     
@@ -611,7 +610,7 @@ print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
 print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
 print('Continuous shape measure (CShM):')
 print('------------------------------------------------------------------------')
-if cn == 6:
+if cn == 6 and cnd == 4:
     print(f'S(AB4, Tetrahedron with center)               = '
           f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
     print(f'S(SQ5, Square with center)                    = '
@@ -620,26 +619,29 @@ if cn == 6:
           f'{calc_cshm(coordinates, IDEAL_SS4):8.4f}') 
     print(f'S(vTBPY-4, Axially vacant trigonal bipyramid) = '
           f'{calc_cshm(coordinates, IDEAL_vTBPY4):8.4f}') 
-elif cn == 10:
-    print(f'S(AB5, Bipyramid with center) = '
-          f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
+elif cn == 10 and cnd == 5:
+    #print(f'S(AB5, Bipyramid with center) = '
+    #      f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
     #print(f'S(AB5_, Bipyramid with center (equidistance)) = '
     #      f'{calc_cshm(coordinates, IDEAL_AB5_):8.4f}')
     print(f'S(TBPY-5, Trigonal bipyramid) = '
           f'{calc_cshm(coordinates, IDEAL_TBPY5):8.4f}')
     print(f'S(SPY-5, Square pyramid)      = '
           f'{calc_cshm(coordinates, IDEAL_SPY5):8.4f}')
-elif cn == 15:
-    print(f'S(AB6, Octahedron with center)                    = '
+elif cn == 15 and cnd == 6:
+    print(f'S(AB6, Octahedron with center) = '
           f'{calc_cshm(coordinates, IDEAL_AB6):8.4f}')
-    print(f'S(APR, Trigonal prism with center)                = '
-          f'{calc_cshm(coordinates, IDEAL_APR):8.4f}')
-    print(f'S(APR_EQ, Trigonal equilateral prism with center) = '
-          f'{calc_cshm(coordinates, IDEAL_APR_EQ):8.4f}')
-    #print(f'S(TPR-6, Trigonal prism with center)              = '
-    #      f'{calc_cshm(coordinates, IDEAL_TPR6):8.4f}')
+    #print(f'S(APR, Trigonal prism with center)                = '
+    #      f'{calc_cshm(coordinates, IDEAL_APR):8.4f}')
+    #print(f'S(APR_EQ, Trigonal equilateral prism with center) = '
+    #      f'{calc_cshm(coordinates, IDEAL_APR_EQ):8.4f}')
+    print(f'S(TPR-6, Trigonal prism)       = '
+          f'{calc_cshm(coordinates, IDEAL_TPR6):8.4f}')
 else:
-    print('CShM not calculated.')
+    print('CShM not calculated.\n'
+          'The coordination number differs from 4, 5, or 6, or there is a mismatch \n'
+          'between the predicted coordination number and the coordination geometry.'
+          )
     
 #print a table of typical tau_x values
 #values different from 0 or 1 and the corresponding geometries have been taken
