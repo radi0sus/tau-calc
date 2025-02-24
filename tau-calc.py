@@ -612,22 +612,22 @@ print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
 print('Continuous shape measure (CShM):')
 print('------------------------------------------------------------------------')
 if cn == 6:
-    print(f'S(AB4, Tetrahedron with center)            = '
+    print(f'S(AB4, Tetrahedron with center)               = '
           f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
-    print(f'S(SQ5, Square with center)                 = '
+    print(f'S(SQ5, Square with center)                    = '
           f'{calc_cshm(coordinates, IDEAL_SQ5):8.4f}') 
-    print(f'S(SS-4, Seesaw with center)                = '
+    print(f'S(SS-4, Seesaw)                               = '
           f'{calc_cshm(coordinates, IDEAL_SS4):8.4f}') 
-    print(f'S(vTBPY-4, Trigonal bipyramid with center) = '
+    print(f'S(vTBPY-4, Axially vacant trigonal bipyramid) = '
           f'{calc_cshm(coordinates, IDEAL_vTBPY4):8.4f}') 
 elif cn == 10:
-    print(f'S(AB5, Bipyramid with center)                 = '
+    print(f'S(AB5, Bipyramid with center) = '
           f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
     #print(f'S(AB5_, Bipyramid with center (equidistance)) = '
     #      f'{calc_cshm(coordinates, IDEAL_AB5_):8.4f}')
-    print(f'S(TBPY-5, Trigonal bipyramid with center)     = '
+    print(f'S(TBPY-5, Trigonal bipyramid) = '
           f'{calc_cshm(coordinates, IDEAL_TBPY5):8.4f}')
-    print(f'S(SPY-5, Square pyramidal with center)        = '
+    print(f'S(SPY-5, Square pyramid)      = '
           f'{calc_cshm(coordinates, IDEAL_SPY5):8.4f}')
 elif cn == 15:
     print(f'S(AB6, Octahedron with center)                    = '
