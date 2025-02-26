@@ -305,9 +305,10 @@ def normalize_structure(coordinates):
     norm = np.sqrt(np.mean(np.sum(centered_coords**2, axis=1)))
     return centered_coords / norm
 
-# calculation the continuous shape measures (CShM) parameter S(O_h) for a given structure
+# calculation the continuous shape measures (CShM) parameter for a given structure
 # from the c++ code with some help of AI
 # https://github.com/continuous-symmetry-measure/shape
+# all permutations considered
 def calc_cshm(coordinates, ideal_shape):
     permut_list = list(permutations(range(len(coordinates))))
     ideal_sq_norms = np.sum(ideal_shape**2)
@@ -325,6 +326,58 @@ def calc_cshm(coordinates, ideal_shape):
         min_cshm = min(min_cshm, cshm)
         
     return min_cshm * 100
+
+# faster Hungarian algorithm optimization
+# check number of trials, if it is to low, it calculates the
+# local and not the global minimun
+#def calc_cshm(coordinates, ideal_shape, num_trials = 24):
+#    from scipy.optimize import linear_sum_assignment
+#    input_structure = normalize_structure(coordinates)
+#    ideal_sq_norms = np.sum(ideal_shape**2)
+#    
+#    min_cshm = float('inf')
+#    
+#    # Generate some initial rotations to avoid local minima
+#    # This simulates checking multiple permutations like in the exhaustive approach
+#    for trial in range(num_trials):
+#       if trial == 0:
+#            # First trial with identity rotation
+#            R_init = np.eye(3)
+#        else:
+#            # Random rotation matrix for subsequent trials
+#            # Generate a random rotation matrix using QR decomposition
+#            A = np.random.randn(3, 3)
+#            Q, _ = np.linalg.qr(A)
+#            R_init = Q
+#            
+#            # Ensure it's a proper rotation (det=1)
+#            if np.linalg.det(R_init) < 0:
+#                R_init[:, 0] *= -1
+#                
+#        # Apply initial rotation to ideal shape
+#        rotated_ideal_init = np.dot(ideal_shape, R_init)
+#        
+#        # Compute cost matrix based on squared Euclidean distances
+#        cost_matrix = np.linalg.norm(input_structure[:, None, :] - rotated_ideal_init[None, :, :], axis=2)
+#        
+#        # Solve assignment problem (Hungarian algorithm)
+#        row_ind, col_ind = linear_sum_assignment(cost_matrix)
+#        
+#        # Rearrange ideal_shape based on optimal assignment
+#        permuted_ideal = ideal_shape[col_ind]
+#
+#        # Compute optimal rotation using SVD
+#        H = np.dot(input_structure.T, permuted_ideal)
+#        U, _, Vt = svd(H)
+#        R = np.dot(Vt.T, U.T)
+#
+#        rotated_ideal = np.dot(permuted_ideal, R)
+#        scale = np.sum(input_structure * rotated_ideal) / ideal_sq_norms
+#        cshm = np.mean(np.sum((input_structure - scale * rotated_ideal) ** 2, axis=1))
+#        
+#        min_cshm = min(min_cshm, cshm)
+#
+#    return min_cshm * 100
 
 #argument parser
 parser = argparse.ArgumentParser(prog='tau-calc', 
