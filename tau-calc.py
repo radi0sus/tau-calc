@@ -769,8 +769,11 @@ print(f"Trigonal bipyramidal : tau_5 = 1.00                     ")
 print(f"Square pyramidal     : tau_5 = 0.00                    \n")
 print(f"Coordination number 6:")
 print(f"Ideal octahedron     :     O = 0.00                      ")
-       
+
+# print XYZ coordinates 
+# set in relation to the central atom (ca) at 0, 0, 0      
 if args.verbose:
+    print(' ')
     print(f"XYZ coordinates of the central atom and its neighbors: ")
     print(f"------------------------------------------------------------------------")
     print(f'{len(bond_table) + 1}')
