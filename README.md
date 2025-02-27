@@ -147,6 +147,9 @@ The likely structural parameter is marked with an arrow (<--).
 [here (cosymlib)](https://github.com/GrupEstructuraElectronicaSimetria/cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml) or
 [here (shape)](https://github.com/continuous-symmetry-measure/shape). Ideal shapes that include `'-'` are from the first source, while other shapes come from the second.
 - The script's results should match those of the [online calculator](https://csm.ouproj.org.il/molecule) or the [Shape program](https://www.ee.ub.edu/downloads/) when using default options.
+- Although a strictly defined τ<sub>3</sub> value does not exist, shape measures for 3-coordinated atoms are still calculated.
+- If the calculation is not fast enough for your needs, you can uncomment the optimization process using the Hungarian algorithm. 
+  Ensure that the number of trials (`num_trials`) is set high enough to avoid missing the global minimum.
   
 ## Known Issues
 - The script is not very well tested with symmetry generated atom positions. However, this is rarely the case with small molecule structures.
