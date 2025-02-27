@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
 # Calculation of tau_4, tau_4', tau_5, or O and several CShM
-# for 4-, 5- or 6-coordinated atoms.
+# for 3-, 4-, 5- or 6-coordinated atoms.
 # For a deeper explanation of tau_4 and tau_5 have a look at Wikipedia:
 #
 # https://en.wikipedia.org/wiki/Geometry_index
@@ -93,16 +93,16 @@ list_of_atoms_with_large_bonds=[]
 # for CShM (Continuous Shape Measures)
 # AB6
 # define the ideal octahedron with center
-ao = 1.0 / np.sqrt(2.0)
-IDEAL_AB6 = np.array([
-    [  0.0, 0.0,   1.0],
-    [  ao,   ao,   0.0],
-    [ -ao,   ao,   0.0],
-    [ -ao,  -ao,   0.0],
-    [  ao,  -ao,   0.0],
-    [ 0.0,  0.0,  -1.0],
-    [ 0.0,  0.0,   0.0]
-])
+#ao = 1.0 / np.sqrt(2.0)
+#IDEAL_AB6 = np.array([
+#    [  0.0, 0.0,   1.0],
+#    [  ao,   ao,   0.0],
+#    [ -ao,   ao,   0.0],
+#    [ -ao,  -ao,   0.0],
+#    [  ao,  -ao,   0.0],
+#    [ 0.0,  0.0,  -1.0],
+#    [ 0.0,  0.0,   0.0]
+#])
 
 # for CShM (Continuous Shape Measures)
 # APR
@@ -134,6 +134,22 @@ IDEAL_AB6 = np.array([
 #    [ ap,   cp, -ap],
 #    [ 0.0, 0.0, 0.0]  
 #])
+
+# for CShM (Continuous Shape Measures)
+# OC-6 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal Octahedron
+# same as AB6
+IDEAL_OC6 = np.array([
+    [ 0.0           ,  0.0           , -1.080123449735],
+    [ 1.080123449735,  0.0           ,  0.0           ],
+    [ 0.0           ,  1.080123449735,  0.0           ],
+    [-1.080123449735,  0.0,             0.0           ],
+    [ 0.0           , -1.080123449735,  0.0           ],
+    [ 0.0           ,  0.0           ,  1.080123449735],
+    [ 0.0           ,  0.0           ,  0.0           ]
+])
 
 # for CShM (Continuous Shape Measures)
 # TPR-6 from
@@ -186,16 +202,13 @@ IDEAL_TPR6 = np.array([
 # https://github.com/GrupEstructuraElectronicaSimetria/
 #         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
 # define the ideal square pyramid
-asp5 =  np.sqrt(6/5)
-bsp5 =  np.sqrt(9/8)
-csp5 =  np.sqrt(3/40)
 IDEAL_SPY5 = np.array([
-    [  0.0,   0.0,  asp5],
-    [ bsp5,   0.0, -csp5],
-    [  0.0,  bsp5, -csp5],
-    [-bsp5,   0.0, -csp5],
-    [  0.0, -bsp5, -csp5],
-    [  0.0,   0.0,   0.0]
+    [ 0.0           ,  0.0           ,      1.095445115010],
+    [ 1.060660171780,  0.0           ,     -0.273861278753],
+    [ 0.0           ,  1.060660171780,     -0.273861278753],
+    [-1.060660171780,  0.0           ,     -0.273861278753],
+    [ 0.0           , -1.060660171780,     -0.273861278753],
+    [ 0.0           ,  0.0           ,      0.0           ]
 ])
 
 # for CShM (Continuous Shape Measures)
@@ -214,31 +227,87 @@ IDEAL_TBPY5 = np.array([
 ])
 
 # for CShM (Continuous Shape Measures)
+# vOC-5 from 
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal vacant octahedron (Johnson square pyramid, J1)
+IDEAL_vOC5 = np.array([
+    [ 0.0           ,  0.0           , -0.928476690885],
+    [ 1.114172029062,  0.0           ,  0.185695338177],
+    [ 0.0           ,  1.114172029062,  0.185695338177],
+    [-1.114172029062,  0.0           ,  0.185695338177],
+    [ 0.0           , -1.114172029062,  0.185695338177],
+    [ 0.0           ,  0.0           ,  0.185695338177],
+])
+
+# for CShM (Continuous Shape Measures)
+# JTBPY-5 from 
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal Johnson trigonal bipyramid (J12)
+IDEAL_JTBPY5 = np.array([
+    [ 0.925820099773,  0.0           ,  0.0           ],
+    [-0.462910049886,  0.801783725737,  0.0           ],
+    [-0.462910049886, -0.801783725737,  0.0           ],
+    [ 0.0           ,  0.0           ,  1.309307341416],
+    [ 0.0           ,  0.0           , -1.309307341416],
+    [ 0.0           ,  0.0           ,  0.0           ]
+])
+
+# for CShM (Continuous Shape Measures)
 # AB4
 # define the ideal tetrahedron with center 
-at = np.sqrt(8.0) / 3.0
-bt = 1.0 / 3.0
-ct = np.sqrt(2.0 / 3.0)
-dt = np.sqrt(2.0) / 3.0
-IDEAL_AB4 = np.array([
-    [ 0.0,  0.0,  1.0],
-    [ 0.0,   at,  -bt],
-    [ ct,   -dt,  -bt],
-    [-ct,   -dt,  -bt],
-    [ 0.0,  0.0,  0.0]  
-])
+#at = np.sqrt(8.0) / 3.0
+#bt = 1.0 / 3.0
+#ct = np.sqrt(2.0 / 3.0)
+#dt = np.sqrt(2.0) / 3.0
+#IDEAL_AB4 = np.array([
+#    [ 0.0,  0.0,  1.0],
+#    [ 0.0,   at,  -bt],
+#    [ ct,   -dt,  -bt],
+#    [-ct,   -dt,  -bt],
+#    [ 0.0,  0.0,  0.0]  
+#])
 
 # for CShM (Continuous Shape Measures)
 # SQ5
 # define the ideal square with center 
-asq = 1 / np.sqrt(2.0)
+#asq = 1 / np.sqrt(2.0)
+#
+#IDEAL_SQ5 = np.array([
+#    [ asq,  asq,  0.0     ],
+#    [ asq, -asq,  0.0     ],
+#    [-asq, -asq,  0.0     ],
+#    [-asq,  asq, -0.000001],
+#    [ 0.0,  0.0,  0.000001]  
+#])
 
-IDEAL_SQ5 = np.array([
-    [ asq,  asq,  0.0     ],
-    [ asq, -asq,  0.0     ],
-    [-asq, -asq,  0.0     ],
-    [-asq,  asq, -0.000001],
-    [ 0.0,  0.0,  0.000001]  
+# for CShM (Continuous Shape Measures)
+# T-4 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal tetrahedron 
+# same as AB4
+IDEAL_T4 = np.array([
+    [ 0.0           ,  0.912870929175, -0.645497224368],
+    [ 0.0           , -0.912870929175, -0.645497224368],
+    [ 0.912870929175,  0.0           ,  0.645497224368],
+    [-0.912870929175,  0.0           ,  0.645497224368],
+    [ 0.0           ,  0.0           ,  0.0           ]
+])
+
+# for CShM (Continuous Shape Measures)
+# SP-4 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal square 
+# same as SQ5
+IDEAL_SP4 = np.array([
+    [ 1.118033988750,  0.0           , 0.0],
+    [ 0.0           ,  1.118033988750, 0.0],
+    [-1.118033988750,  0.0           , 0.0],
+    [ 0.0           , -1.118033988750, 0.0],
+    [ 0.0           ,  0.0           , 0.0],
 ])
 
 # for CShM (Continuous Shape Measures)
@@ -261,11 +330,11 @@ IDEAL_SS4 = np.array([
 #         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
 # define the axially vacant trigonal bipyramid with center (trigonal pyramidal)
 IDEAL_vTBPY4 = np.array([
-    [ 0.0,            -0.0,            -0.917662935482],
-    [ 1.147078669353, -0.0,             0.229415733871],
+    [ 0.0,             0.0,            -0.917662935482],
+    [ 1.147078669353,  0.0,             0.229415733871],
     [-0.573539334676,  0.993399267799,  0.229415733871],
     [-0.573539334676, -0.993399267799,  0.229415733871],
-    [ 0.0,            -0.0,             0.229415733871]#,
+    [ 0.0,             0.0,             0.229415733871]#,
    #[ 0.0,             0.0,             0.0           ]
 ])
 
@@ -278,7 +347,7 @@ IDEAL_TP3 = np.array([
     [ 1.154700538379,  0.0, 0.0],
     [-0.577350269190,  1.0, 0.0],
     [-0.577350269190, -1.0, 0.0],
-    [ 0.0,             0.0, 0.0]
+    [ 0.0           ,  0.0, 0.0]
 ])
 
 # for CShM (Continuous Shape Measures)
@@ -721,10 +790,14 @@ if cn == 3 and cnd == 3:
     print(f'S(mer-vOC-3, mer-Trivacant octahedron (T-shape)) = '
           f'{calc_cshm(coordinates, IDEAL_mvOC3):8.4f}') 
 elif cn == 6 and cnd == 4:
-    print(f'S(AB4, Tetrahedron with center)               = '
-          f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
-    print(f'S(SQ5, Square with center)                    = '
-          f'{calc_cshm(coordinates, IDEAL_SQ5):8.4f}') 
+    #print(f'S(AB4, Tetrahedron with center)               = '
+    #      f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
+    print(f'S(T-4, Tetrahedron)                           = '
+          f'{calc_cshm(coordinates, IDEAL_T4):8.4f}')
+    print(f'S(SP-4, Square)                               = '
+          f'{calc_cshm(coordinates, IDEAL_SP4):8.4f}') 
+    #print(f'S(SQ5, Square with center)                    = '
+    #      f'{calc_cshm(coordinates, IDEAL_SQ5):8.4f}') 
     print(f'S(SS-4, Seesaw)                               = '
           f'{calc_cshm(coordinates, IDEAL_SS4):8.4f}') 
     print(f'S(vTBPY-4, Axially vacant trigonal bipyramid) = '
@@ -734,19 +807,26 @@ elif cn == 10 and cnd == 5:
     #      f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
     #print(f'S(AB5_, Bipyramid with center (equidistance)) = '
     #      f'{calc_cshm(coordinates, IDEAL_AB5_):8.4f}')
-    print(f'S(TBPY-5, Trigonal bipyramid) = '
+    print(f'S(TBPY-5, Trigonal bipyramid)                = '
           f'{calc_cshm(coordinates, IDEAL_TBPY5):8.4f}')
-    print(f'S(SPY-5, Square pyramid)      = '
+    print(f'S(SPY-5, Square pyramid)                     = '
           f'{calc_cshm(coordinates, IDEAL_SPY5):8.4f}')
+    print(f'S(JTBPY-5, Johnson trigonal bipyramid (J12)) = '
+          f'{calc_cshm(coordinates, IDEAL_JTBPY5):8.4f}')
+    print(f'S(vOC-5, Vacant octahedron (J1))             = '
+          f'{calc_cshm(coordinates, IDEAL_vOC5):8.4f}')
 elif cn == 15 and cnd == 6:
-    print(f'S(AB6, Octahedron with center) = '
-          f'{calc_cshm(coordinates, IDEAL_AB6):8.4f}')
+    print(f'S(OC-6, Octahedron)      = '
+          f'{calc_cshm(coordinates, IDEAL_OC6):8.4f}')
+    print(f'S(TPR-6, Trigonal prism) = '
+          f'{calc_cshm(coordinates, IDEAL_TPR6):8.4f}')
+    #print(f'S(AB6, Octahedron with center) = '
+    #      f'{calc_cshm(coordinates, IDEAL_AB6):8.4f}')
     #print(f'S(APR, Trigonal prism with center)                = '
     #      f'{calc_cshm(coordinates, IDEAL_APR):8.4f}')
     #print(f'S(APR_EQ, Trigonal equilateral prism with center) = '
     #      f'{calc_cshm(coordinates, IDEAL_APR_EQ):8.4f}')
-    print(f'S(TPR-6, Trigonal prism)       = '
-          f'{calc_cshm(coordinates, IDEAL_TPR6):8.4f}')
+
 else:
     print('CShM not calculated.\n'
           'The coordination number differs from 3, 4, 5, or 6, or there is a mismatch \n'
