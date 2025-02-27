@@ -268,6 +268,54 @@ IDEAL_vTBPY4 = np.array([
     [ 0.0,            -0.0,             0.229415733871]#,
    #[ 0.0,             0.0,             0.0           ]
 ])
+
+# for CShM (Continuous Shape Measures)
+# TP-3 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# definition for trigonal planar
+IDEAL_TP3 = np.array([
+    [ 1.154700538379,  0.0, 0.0],
+    [-0.577350269190,  1.0, 0.0],
+    [-0.577350269190, -1.0, 0.0],
+    [ 0.0,             0.0, 0.0]
+])
+
+# for CShM (Continuous Shape Measures)
+# vT-3 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# definition for Pyramid (vacant tetrahedron)
+IDEAL_vT3 = np.array([
+    [ 1.137070487230,  0.0,             0.100503781526],
+    [-0.568535243615,  0.984731927835,  0.100503781526],
+    [-0.568535243615, -0.984731927835,  0.100503781526],
+    [ 0.0,             0.0,            -0.301511344578]
+])
+
+# for CShM (Continuous Shape Measures)
+# fac-vOC-3 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# definition for fac-Trivacant octahedron
+IDEAL_facvOC3 = np.array([
+    [ 1.0,            -0.333333333333, -0.333333333333],
+    [-0.333333333333,  1.0,            -0.333333333333],
+    [-0.333333333333, -0.333333333333,  1.0           ],
+    [-0.333333333333, -0.333333333333, -0.333333333333]
+])
+
+# for CShM (Continuous Shape Measures)
+# mer-vOC-3 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# definition for mer-Trivacant octahedron (T-shape)
+IDEAL_mvOC3 = np.array([
+    [ 1.206045378311, -0.301511344578, 0.0],
+    [ 0.0,             0.904534033733, 0.0],
+    [-1.206045378311, -0.301511344578, 0.0],
+    [ 0.0,            -0.301511344578, 0.0]
+])
 # Definitions for several Shapes END ##################
 
 #calculation of tau5
@@ -329,7 +377,7 @@ def calc_cshm(coordinates, ideal_shape):
 
 # faster Hungarian algorithm optimization
 # check number of trials, if it is to low, it calculates the
-# local and not the global minimun
+# local and not the global minimum
 #def calc_cshm(coordinates, ideal_shape, num_trials = 24):
 #    from scipy.optimize import linear_sum_assignment
 #    input_structure = normalize_structure(coordinates)
@@ -381,7 +429,7 @@ def calc_cshm(coordinates, ideal_shape):
 
 #argument parser
 parser = argparse.ArgumentParser(prog='tau-calc', 
-        description = "Calculation of tau_4, tau_4', tau_5 and O geometry indices.")
+        description = "Calculation of tau_4, tau_4', tau_5, O geometry indices and CShM.")
 
 #filename is required
 parser.add_argument('filename', 
@@ -635,7 +683,7 @@ for site in st.sites:
 
 # for the calculation of the CShM values
 # the coordinates must be in a numpy array
-if cn == 6 or cn==10 or cn == 15:
+if cn == 3 or cn == 6 or cn==10 or cn == 15:
     coordinates = np.array([0.0, 0.0, 0.0]) # the central atom is at 0, 0, 0
     for mark in marks:
         # important: mark.pos gives position in unit cell, not outside
@@ -663,7 +711,16 @@ print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
 print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
 print('Continuous shape measure (CShM):')
 print('------------------------------------------------------------------------')
-if cn == 6 and cnd == 4:
+if cn == 3 and cnd == 3:
+    print(f'S(TP-3, Trigonal planar)                         = '
+          f'{calc_cshm(coordinates, IDEAL_TP3):8.4f}')
+    print(f'S(vT-3, Pyramid (vacant tetrahedron))            = '
+          f'{calc_cshm(coordinates, IDEAL_vT3):8.4f}') 
+    print(f'S(fac-vOC-3, fac-Trivacant octahedron)           = '
+          f'{calc_cshm(coordinates, IDEAL_facvOC3):8.4f}') 
+    print(f'S(mer-vOC-3, mer-Trivacant octahedron (T-shape)) = '
+          f'{calc_cshm(coordinates, IDEAL_mvOC3):8.4f}') 
+elif cn == 6 and cnd == 4:
     print(f'S(AB4, Tetrahedron with center)               = '
           f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
     print(f'S(SQ5, Square with center)                    = '
@@ -692,7 +749,7 @@ elif cn == 15 and cnd == 6:
           f'{calc_cshm(coordinates, IDEAL_TPR6):8.4f}')
 else:
     print('CShM not calculated.\n'
-          'The coordination number differs from 4, 5, or 6, or there is a mismatch \n'
+          'The coordination number differs from 3, 4, 5, or 6, or there is a mismatch \n'
           'between the predicted coordination number and the coordination geometry.'
           )
     
