@@ -142,6 +142,7 @@ The likely structural parameter is marked with an arrow (<--).
 - If the predicted coordination number is larger than 2, τ will be calculated independently of the real coordination geometry. 
 - The suggestion τ<sub>4</sub>, τ<sub>5</sub> or *O* (<--) is based on the number of angles (6 for τ<sub>4</sub>, 10 for τ<sub>5</sub>, 15 for *O*).
 - In octahedral coordination, all angles less than 135° are considered "90°" *cis* angles, while angles greater than 135° are considered "180°" *trans* angles.
+- The XYZ coordinates of the neighboring atoms are given relative to the central atom, which is positioned at [0, 0, 0].
 - The XYZ file (option: `-sxyz`) is useful for further studies of coordination geometry, such as with the Continuous Shape Measures (CShM) method.
 - More reference shapes for CShM can be defined in the code. You can find definitions of several ideal shapes  
 [here (cosymlib)](https://github.com/GrupEstructuraElectronicaSimetria/cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml) or
