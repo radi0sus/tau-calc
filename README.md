@@ -160,7 +160,7 @@ The likely structural parameter is marked with an arrow (<--).
 - The CShM method is rewritten from the [C++ code](https://github.com/continuous-symmetry-measure/shape) and may still contain errors.
 - As the number of vertices increases, both computation time and memory usage grow rapidly ($n!$).
   To address this issue, enable the optimization process using the Hungarian algorithm.
-  Ensure that number of trials (`num_trials`) is set sufficiently high to avoid missing the global minimum.
+  Ensure that the number of trials (`num_trials`) is set sufficiently high to avoid missing the global minimum.
   
 ## Examples
 
