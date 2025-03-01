@@ -157,8 +157,11 @@ The likely structural parameter is marked with an arrow (<--).
 - All flavors of τ and *O* are calculated as soon as two angles are present. So you have to check if it makes sense.
 - The script can only remove atoms from the coordination sphere, not add atoms. Therefore, make sure that the connectivity list is appropriate.
 - For the generation of the XYZ file, hydrogen atoms are generally ignored. As a result, in metal hydrides, hydrogen atoms will not be included in the XYZ file.
-- The CShM method is rewritten from the [C++ code](https://github.com/continuous-symmetry-measure/shape) and may still contain errors. 
-
+- The CShM method is rewritten from the [C++ code](https://github.com/continuous-symmetry-measure/shape) and may still contain errors.
+- As the number of vertices increases, both computation time and memory usage grow rapidly ($n!$).
+  To address this issue, enable the optimization process using the Hungarian algorithm.
+  Ensure that number of trials (`num_trials`) is set sufficiently high to avoid missing the global minimum.
+  
 ## Examples
 
 ### Example 1:
