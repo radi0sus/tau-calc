@@ -168,6 +168,50 @@ IDEAL_TPR6 = np.array([
 ])
 
 # for CShM (Continuous Shape Measures)
+# JJPY-6 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the Johnson pentagonal pyramid (J2)
+IDEAL_JPPY6 = np.array([
+    [ 1.146281780821,  0.0           ,  0.101205871605],
+    [ 0.354220550616,  1.090178757161,  0.101205871605],
+    [-0.927361441027,  0.673767525738,  0.101205871605],
+    [-0.927361441027, -0.673767525738,  0.101205871605],
+    [ 0.354220550616, -1.090178757161,  0.101205871605],
+    [ 0.0           ,  0.0           , -0.607235229628],
+    [ 0.0           ,  0.0           ,  0.101205871605]
+])
+
+# for CShM (Continuous Shape Measures)
+# HP-6 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the Hexagon
+IDEAL_HP6 = np.array([
+    [ 1.080123449735,  0.0           , 0.0],
+    [ 0.540061724867,  0.935414346693, 0.0],
+    [-0.540061724867,  0.935414346693, 0.0],
+    [-1.080123449735,  0.0           , 0.0],
+    [-0.540061724867, -0.935414346693, 0.0],
+    [ 0.540061724867, -0.935414346693, 0.0],
+    [ 0.0           ,  0.0           , 0.0],
+])
+
+# for CShM (Continuous Shape Measures)
+# PPY-6 from
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the Pentagonal pyramid
+IDEAL_PPY6 =  np.array([
+    [ 0.0           ,  0.0           , -0.937042571332],
+    [ 1.093216333220,  0.0           ,  0.156173761889],
+    [ 0.337822425493,  1.039710517429,  0.156173761889],
+    [-0.884430592103,  0.642576438232,  0.156173761889],
+    [-0.884430592103, -0.642576438232,  0.156173761889],
+    [ 0.337822425493, -1.039710517429,  0.156173761889],
+    [ 0.0           ,  0.0           ,  0.156173761889]
+])
+# for CShM (Continuous Shape Measures)
 # AB5
 # define the ideal bipyramid with center 
 #ab = np.sqrt(3.0/8.0)
@@ -238,6 +282,20 @@ IDEAL_vOC5 = np.array([
     [-1.114172029062,  0.0           ,  0.185695338177],
     [ 0.0           , -1.114172029062,  0.185695338177],
     [ 0.0           ,  0.0           ,  0.185695338177],
+])
+
+# for CShM (Continuous Shape Measures)
+# TP-5 from 
+# https://github.com/GrupEstructuraElectronicaSimetria/
+#         cosymlib/blob/master/cosymlib/shape/ideal_structures_center.yaml
+# define the ideal Pentagon
+IDEAL_PP5 = np.array([
+    [ 1.095445115010,  0.0           , 0.0],
+    [ 0.338511156943,  1.041830214874, 0.0],
+    [-0.886233714448,  0.643886483299, 0.0],
+    [-0.886233714448, -0.643886483299, 0.0],
+    [ 0.338511156943, -1.041830214874, 0.0],
+    [ 0.0           ,  0.0           , 0.0]
 ])
 
 # for CShM (Continuous Shape Measures)
@@ -502,11 +560,13 @@ def print_cshm_with_bars(cshm_values):
     min_cshm = min(cshm_values, key=lambda x: x[1])[1]
     max_cshm = max(cshm_values, key=lambda x: x[1])[1]
     
-    # calculate the scale factor (highest value corresponds to 20 bars, lowest to 1 bar)
-    scale_factor = 19 / (max_cshm - min_cshm)  # 19 because 1 bar is reserved for the lowest value
-    
     # find the length of the longest label for alignment
     max_label_length = max(len(label) for label, _ in cshm_values)
+    
+    bar_space =  80  - (max_label_length + 12)
+    
+    # calculate the scale factor (highest value corresponds to 20 bars, lowest to 1 bar)
+    scale_factor = (bar_space - 1) / (max_cshm - min_cshm)  # 19 because 1 bar is reserved for the lowest value
     
     # print the results with the proportional bars
     for label, cshm_value in cshm_values:
@@ -819,9 +879,9 @@ if cn == 3 and cnd == 3:
 elif cn == 6 and cnd == 4:
     # calculate cshm
     cshm_values = [
-        ('S(T-4, Tetrahedron)', calc_cshm(coordinates, IDEAL_T4)),
         ('S(SP-4, Square)', calc_cshm(coordinates, IDEAL_SP4)),
-        ('S(SS-4, Seesaw)', calc_cshm(coordinates, IDEAL_SS4)),
+        ('S(T-4, Tetrahedron)', calc_cshm(coordinates, IDEAL_T4)),
+        ('S(SS-4, Seesaw or sawhorse)', calc_cshm(coordinates, IDEAL_SS4)),
         ('S(vTBPY-4, Axially vacant trigonal bipyramid)', calc_cshm(coordinates, IDEAL_vTBPY4)),
     ]
     
@@ -830,10 +890,11 @@ elif cn == 6 and cnd == 4:
 elif cn == 10 and cnd == 5:
     # calculate cshm 
     cshm_values = [
+        ('S(PP-5, Pentagon)', calc_cshm(coordinates, IDEAL_PP5)),
+        ('S(vOC-5, Vacant octahedron (J1))', calc_cshm(coordinates, IDEAL_vOC5)),
         ('S(TBPY-5, Trigonal bipyramid)', calc_cshm(coordinates, IDEAL_TBPY5)),
         ('S(SPY-5, Square pyramid)', calc_cshm(coordinates, IDEAL_SPY5)),
         ('S(JTBPY-5, Johnson trigonal bipyramid (J12))', calc_cshm(coordinates, IDEAL_JTBPY5)),
-        ('S(vOC-5, Vacant octahedron (J1))', calc_cshm(coordinates, IDEAL_vOC5)),
     ]
     
     print_cshm_with_bars(cshm_values)
@@ -841,8 +902,11 @@ elif cn == 10 and cnd == 5:
 elif cn == 15 and cnd == 6:
     # calculate cshm 
     cshm_values = [
+        ('S(HP-6, Hexagon)', calc_cshm(coordinates, IDEAL_HP6)),
+        ('S(PPY-6, Pentagonal pyramid)', calc_cshm(coordinates, IDEAL_PPY6)),
         ('S(OC-6, Octahedron)', calc_cshm(coordinates, IDEAL_OC6)),
         ('S(TPR-6, Trigonal prism)', calc_cshm(coordinates, IDEAL_TPR6)),
+        ('S(JPPY-6, Johnson pentagonal pyramid (J2))', calc_cshm(coordinates, IDEAL_JPPY6)),
     ]
     
     print_cshm_with_bars(cshm_values)
