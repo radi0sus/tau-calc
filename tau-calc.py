@@ -496,6 +496,31 @@ def calc_cshm(coordinates, ideal_shape):
 #
 #    return min_cshm * 100
 
+# nicely print the CShM with bars
+def print_cshm_with_bars(cshm_values):
+    # find the minimum and maximum cshm values
+    min_cshm = min(cshm_values, key=lambda x: x[1])[1]
+    max_cshm = max(cshm_values, key=lambda x: x[1])[1]
+    
+    # calculate the scale factor (highest value corresponds to 10 bars, lowest to 1 bar)
+    scale_factor = 9 / (max_cshm - min_cshm)  # We use 9 because 1 bar is reserved for the lowest value
+    
+    # find the length of the longest label for alignment
+    max_label_length = max(len(label) for label, _ in cshm_values)
+    
+    # print the results with the proportional bars
+    for label, cshm_value in cshm_values:
+        # Scale the value to the range [1, 10] bars
+        if max_cshm != min_cshm:
+            bar_length = int((cshm_value - min_cshm) * scale_factor) + 1
+        else:
+            bar_length = 1  # Handle the case where all values are the same
+        
+        bar = '░' * bar_length  # The bar is represented by '░' characters
+        
+        # print the label with dynamic width based on the longest label
+        print(f'{label:<{max_label_length}} = {cshm_value:8.4f} {bar}')
+
 #argument parser
 parser = argparse.ArgumentParser(prog='tau-calc', 
         description = "Calculation of tau_4, tau_4', tau_5, O geometry indices and CShM.")
@@ -781,51 +806,46 @@ print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
 print('Continuous shape measure (CShM):')
 print('------------------------------------------------------------------------')
 if cn == 3 and cnd == 3:
-    print(f'S(TP-3, Trigonal planar)                         = '
-          f'{calc_cshm(coordinates, IDEAL_TP3):8.4f}')
-    print(f'S(vT-3, Pyramid (vacant tetrahedron))            = '
-          f'{calc_cshm(coordinates, IDEAL_vT3):8.4f}') 
-    print(f'S(fac-vOC-3, fac-Trivacant octahedron)           = '
-          f'{calc_cshm(coordinates, IDEAL_facvOC3):8.4f}') 
-    print(f'S(mer-vOC-3, mer-Trivacant octahedron (T-shape)) = '
-          f'{calc_cshm(coordinates, IDEAL_mvOC3):8.4f}') 
+    # calculate cshm 
+    cshm_values = [
+        ('S(TP-3, Trigonal planar)', calc_cshm(coordinates, IDEAL_TP3)),
+        ('S(vT-3, Pyramid (vacant tetrahedron))', calc_cshm(coordinates, IDEAL_vT3)),
+        ('S(fac-vOC-3, fac-Trivacant octahedron)', calc_cshm(coordinates, IDEAL_facvOC3)),
+        ('S(mer-vOC-3, mer-Trivacant octahedron (T-shape))', calc_cshm(coordinates, IDEAL_mvOC3)),
+    ]
+    
+    print_cshm_with_bars(cshm_values)
+            
 elif cn == 6 and cnd == 4:
-    #print(f'S(AB4, Tetrahedron with center)               = '
-    #      f'{calc_cshm(coordinates, IDEAL_AB4):8.4f}')
-    print(f'S(T-4, Tetrahedron)                           = '
-          f'{calc_cshm(coordinates, IDEAL_T4):8.4f}')
-    print(f'S(SP-4, Square)                               = '
-          f'{calc_cshm(coordinates, IDEAL_SP4):8.4f}') 
-    #print(f'S(SQ5, Square with center)                    = '
-    #      f'{calc_cshm(coordinates, IDEAL_SQ5):8.4f}') 
-    print(f'S(SS-4, Seesaw)                               = '
-          f'{calc_cshm(coordinates, IDEAL_SS4):8.4f}') 
-    print(f'S(vTBPY-4, Axially vacant trigonal bipyramid) = '
-          f'{calc_cshm(coordinates, IDEAL_vTBPY4):8.4f}') 
+    # calculate cshm
+    cshm_values = [
+        ('S(T-4, Tetrahedron)', calc_cshm(coordinates, IDEAL_T4)),
+        ('S(SP-4, Square)', calc_cshm(coordinates, IDEAL_SP4)),
+        ('S(SS-4, Seesaw)', calc_cshm(coordinates, IDEAL_SS4)),
+        ('S(vTBPY-4, Axially vacant trigonal bipyramid)', calc_cshm(coordinates, IDEAL_vTBPY4)),
+    ]
+    
+    print_cshm_with_bars(cshm_values)
+    
 elif cn == 10 and cnd == 5:
-    #print(f'S(AB5, Bipyramid with center) = '
-    #      f'{calc_cshm(coordinates, IDEAL_AB5):8.4f}')
-    #print(f'S(AB5_, Bipyramid with center (equidistance)) = '
-    #      f'{calc_cshm(coordinates, IDEAL_AB5_):8.4f}')
-    print(f'S(TBPY-5, Trigonal bipyramid)                = '
-          f'{calc_cshm(coordinates, IDEAL_TBPY5):8.4f}')
-    print(f'S(SPY-5, Square pyramid)                     = '
-          f'{calc_cshm(coordinates, IDEAL_SPY5):8.4f}')
-    print(f'S(JTBPY-5, Johnson trigonal bipyramid (J12)) = '
-          f'{calc_cshm(coordinates, IDEAL_JTBPY5):8.4f}')
-    print(f'S(vOC-5, Vacant octahedron (J1))             = '
-          f'{calc_cshm(coordinates, IDEAL_vOC5):8.4f}')
+    # calculate cshm 
+    cshm_values = [
+        ('S(TBPY-5, Trigonal bipyramid)', calc_cshm(coordinates, IDEAL_TBPY5)),
+        ('S(SPY-5, Square pyramid)', calc_cshm(coordinates, IDEAL_SPY5)),
+        ('S(JTBPY-5, Johnson trigonal bipyramid (J12))', calc_cshm(coordinates, IDEAL_JTBPY5)),
+        ('S(vOC-5, Vacant octahedron (J1))', calc_cshm(coordinates, IDEAL_vOC5)),
+    ]
+    
+    print_cshm_with_bars(cshm_values)
+            
 elif cn == 15 and cnd == 6:
-    print(f'S(OC-6, Octahedron)      = '
-          f'{calc_cshm(coordinates, IDEAL_OC6):8.4f}')
-    print(f'S(TPR-6, Trigonal prism) = '
-          f'{calc_cshm(coordinates, IDEAL_TPR6):8.4f}')
-    #print(f'S(AB6, Octahedron with center) = '
-    #      f'{calc_cshm(coordinates, IDEAL_AB6):8.4f}')
-    #print(f'S(APR, Trigonal prism with center)                = '
-    #      f'{calc_cshm(coordinates, IDEAL_APR):8.4f}')
-    #print(f'S(APR_EQ, Trigonal equilateral prism with center) = '
-    #      f'{calc_cshm(coordinates, IDEAL_APR_EQ):8.4f}')
+    # calculate cshm 
+    cshm_values = [
+        ('S(OC-6, Octahedron)', calc_cshm(coordinates, IDEAL_OC6)),
+        ('S(TPR-6, Trigonal prism)', calc_cshm(coordinates, IDEAL_TPR6)),
+    ]
+    
+    print_cshm_with_bars(cshm_values)
 
 else:
     print('CShM not calculated.\n'
