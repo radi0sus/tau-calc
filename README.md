@@ -111,8 +111,9 @@ The following output will be printed:
  
 	Continuous shape measure (CShM):
 	--------------------------------------------------------------------------------
-	CShM S(Shape) = value ░
- 	CShM S(Shape) = value ░░░░
+	CShM S(Shape 1) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+ 	CShM S(Shape 2) = value ░░░░
+  	CShM S(Shape 3) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
  
 	Table of typical geometries and their corresponding tau_x and O values: 
 	--------------------------------------------------------------------------------
@@ -187,9 +188,9 @@ python3 tau-calc.py test.cif Hg1
 	
 	Continuous shape measure (CShM):
 	--------------------------------------------------------------------------------
+	S(SP-4, Square)                               =  32.0294 ░░░░░░░░░░░░░░░░░░░░░░░
 	S(T-4, Tetrahedron)                           =   2.8099 ░
-	S(SP-4, Square)                               =  32.0294 ░░░░░░░░░░░░░░░░░░░░
-	S(SS-4, Seesaw)                               =   5.8584 ░░
+	S(SS-4, Seesaw or sawhorse)                   =   5.8584 ░░░
 	S(vTBPY-4, Axially vacant trigonal bipyramid) =   2.8078 ░
  
 	Table of typical geometries and their corresponding tau_x and O values: 
@@ -256,8 +257,11 @@ python3 tau-calc.py test2.cif Ru1 -v
 	
 	Continuous shape measure (CShM):
 	--------------------------------------------------------------------------------
-	S(OC-6, Octahedron)      =   0.9516 ░
-	S(TPR-6, Trigonal prism) =  13.6312 ░░░░░░░░░░░░░░░░░░░░
+	S(HP-6, Hexagon)                           =  28.5605 ░░░░░░░░░░░░░░░░░░░░░░░░
+	S(PPY-6, Pentagonal pyramid)               =  27.0546 ░░░░░░░░░░░░░░░░░░░░░░
+	S(OC-6, Octahedron)                        =   0.9516 ░
+	S(TPR-6, Trigonal prism)                   =  13.6312 ░░░░░░░░░░░
+	S(JPPY-6, Johnson pentagonal pyramid (J2)) =  30.8553 ░░░░░░░░░░░░░░░░░░░░░░░░░░
 	 
 	Table of typical geometries and their corresponding tau_x and O values: 
 	--------------------------------------------------------------------------------
@@ -310,10 +314,11 @@ python3 tau-calc.py test3.cif Co1 -e N12
 	
 	Continuous shape measure (CShM):
 	--------------------------------------------------------------------------------
-	S(TBPY-5, Trigonal bipyramid)                =   6.6922 ░░░░░░░░░░░░░░░░
-	S(SPY-5, Square pyramid)                     =   2.2513 ░░░░░
-	S(JTBPY-5, Johnson trigonal bipyramid (J12)) =   7.9883 ░░░░░░░░░░░░░░░░░░░░
+	S(PP-5, Pentagon)                            =  30.9225 ░░░░░░░░░░░░░░░░░░░░░░░░
 	S(vOC-5, Vacant octahedron (J1))             =   0.3515 ░
+	S(TBPY-5, Trigonal bipyramid)                =   6.6922 ░░░░░
+	S(SPY-5, Square pyramid)                     =   2.2513 ░░
+	S(JTBPY-5, Johnson trigonal bipyramid (J12)) =   7.9883 ░░░░░░
 	 
 	Table of typical geometries and their corresponding tau_x and O values: 
 	--------------------------------------------------------------------------------
