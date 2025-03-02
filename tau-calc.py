@@ -510,13 +510,13 @@ def print_cshm_with_bars(cshm_values):
     
     # print the results with the proportional bars
     for label, cshm_value in cshm_values:
-        # Scale the value to the range [1, 10] bars
+        # scale the value to the range [1, 15] bars
         if max_cshm != min_cshm:
             bar_length = int((cshm_value - min_cshm) * scale_factor) + 1
         else:
-            bar_length = 1  # Handle the case where all values are the same
+            bar_length = 1  # handle the case where all values are the same
         
-        bar = '░' * bar_length  # The bar is represented by '░' characters
+        bar = '░' * bar_length  # the bar is represented by '░' characters
         
         # print the label with dynamic width based on the longest label
         print(f'{label:<{max_label_length}} = {cshm_value:8.4f} {bar}')
