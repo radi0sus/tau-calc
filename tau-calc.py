@@ -502,15 +502,15 @@ def print_cshm_with_bars(cshm_values):
     min_cshm = min(cshm_values, key=lambda x: x[1])[1]
     max_cshm = max(cshm_values, key=lambda x: x[1])[1]
     
-    # calculate the scale factor (highest value corresponds to 15 bars, lowest to 1 bar)
-    scale_factor = 14 / (max_cshm - min_cshm)  # 14 because 1 bar is reserved for the lowest value
+    # calculate the scale factor (highest value corresponds to 20 bars, lowest to 1 bar)
+    scale_factor = 19 / (max_cshm - min_cshm)  # 19 because 1 bar is reserved for the lowest value
     
     # find the length of the longest label for alignment
     max_label_length = max(len(label) for label, _ in cshm_values)
     
     # print the results with the proportional bars
     for label, cshm_value in cshm_values:
-        # scale the value to the range [1, 15] bars
+        # scale the value to the range [1, 19] bars
         if max_cshm != min_cshm:
             bar_length = int((cshm_value - min_cshm) * scale_factor) + 1
         else:
@@ -798,13 +798,13 @@ if cn == 3 or cn == 6 or cn==10 or cn == 15:
 #calculate and print tau_x, O and CShM values
 print(' ')
 print(args.atom_name + ' geometry indices  ("<--" indicates the likely structural parameter):')
-print('------------------------------------------------------------------------')
+print('--------------------------------------------------------------------------------')
 print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')
 print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
 print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
 print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
 print('Continuous shape measure (CShM):')
-print('------------------------------------------------------------------------')
+print('--------------------------------------------------------------------------------')
 if cn == 3 and cnd == 3:
     # calculate cshm 
     cshm_values = [
@@ -858,7 +858,7 @@ else:
 #from an internet source - don't take it too seriously
 print(' ')
 print(f"Table of typical geometries and their corresponding tau_x and O values: ")
-print(f"------------------------------------------------------------------------")
+print(f"--------------------------------------------------------------------------------")
 print(f"Coordination number 4:")
 print(f"Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00")
 print(f"Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85")
@@ -875,7 +875,7 @@ print(f"Ideal octahedron     :     O = 0.00                      ")
 if args.verbose:
     print(' ')
     print(f"XYZ coordinates of the central atom and its neighbors: ")
-    print(f"------------------------------------------------------------------------")
+    print(f"--------------------------------------------------------------------------------")
     print(f'{len(bond_table) + 1}')
     print(f'{args.filename} {args.atom_name}')
     print(f'{site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}')
