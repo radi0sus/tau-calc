@@ -502,8 +502,8 @@ def print_cshm_with_bars(cshm_values):
     min_cshm = min(cshm_values, key=lambda x: x[1])[1]
     max_cshm = max(cshm_values, key=lambda x: x[1])[1]
     
-    # calculate the scale factor (highest value corresponds to 10 bars, lowest to 1 bar)
-    scale_factor = 9 / (max_cshm - min_cshm)  # We use 9 because 1 bar is reserved for the lowest value
+    # calculate the scale factor (highest value corresponds to 15 bars, lowest to 1 bar)
+    scale_factor = 14 / (max_cshm - min_cshm)  # 14 because 1 bar is reserved for the lowest value
     
     # find the length of the longest label for alignment
     max_label_length = max(len(label) for label, _ in cshm_values)
