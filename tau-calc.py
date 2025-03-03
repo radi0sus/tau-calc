@@ -565,12 +565,14 @@ def print_cshm_with_bars(cshm_values):
     
     bar_space =  80  - (max_label_length + 12)
     
-    # calculate the scale factor (highest value corresponds to 20 bars, lowest to 1 bar)
-    scale_factor = (bar_space - 1) / (max_cshm - min_cshm)  # 19 because 1 bar is reserved for the lowest value
+    # calculate the scale factor (highest value corresponds to remaining space to 80 chars,
+    # lowest to 1 bar)
+    # bar_space - 1 because 1 bar is reserved for the lowest value
+    scale_factor = (bar_space - 1) / (max_cshm - min_cshm)  
     
     # print the results with the proportional bars
     for label, cshm_value in cshm_values:
-        # scale the value to the range [1, 19] bars
+        # scale the value to the range [1, to end] bars
         if max_cshm != min_cshm:
             bar_length = int((cshm_value - min_cshm) * scale_factor) + 1
         else:
