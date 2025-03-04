@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 #
-# Calculation of tau_4, tau_4', tau_5, or O and several CShM
-# for 3-, 4-, 5- or 6-coordinated atoms.
+# Calculation of tau_4, tau_4', tau_5, or O, several CShM
+# for 3-, 4-, 5- or 6-coordinated atoms and the polyhedral volume.
 # For a deeper explanation of tau_4 and tau_5 have a look at Wikipedia:
 #
 # https://en.wikipedia.org/wiki/Geometry_index
@@ -81,9 +81,10 @@ import gemmi                                          # CIF processing, coordina
 import numpy as np                                    # all sort of math
 from scipy.linalg import svd                          # SVD for CShM
 from itertools import permutations                    # permutations of vertices for CShM
+from scipy.spatial import ConvexHull                  # polyhedral volume
 
 #regex for bonds and angles --> string to float, no esd
-ang_bond_val = re.compile('\d{1,}[\.]?\d{0,}')
+ang_bond_val = re.compile(r'\d{1,}[\.]?\d{0,}')
 
 #list for the exclusion of atoms in the angle table
 list_of_atoms_with_large_bonds=[]
@@ -743,8 +744,9 @@ list_of_bonds.sort()
 #print bonds on request
 if args.verbose:
     print(' ')
+    print('--------------------------------------------------------------------------------')
     print(args.atom_name + " binds to:")
-    print('------------------------------------------------------------------------')
+    print('--------------------------------------------------------------------------------')
     for row in bond_table:
         print(f'{row[0]}-{row[1]} {row[2]} Å {row[3]}') 
 
@@ -772,8 +774,9 @@ alpha = list_of_angles[1]
 
 #print angles on request
 if args.verbose:
+    print('--------------------------------------------------------------------------------')
     print(args.atom_name + " angles are:")
-    print('------------------------------------------------------------------------')
+    print('--------------------------------------------------------------------------------')
     for row in angle_table:
         print(f'{row[0]}-{row[1]}-{row[2]} {row[3]}° {row[4]} {row[5]}') 
     print(' ')
@@ -857,14 +860,18 @@ if cn == 3 or cn == 6 or cn==10 or cn == 15:
             # add coordinates of neighbors
             coordinates = np.vstack([coordinates, neighbor_coordinate])
 
-#calculate and print tau_x, O and CShM values
+# calculate and print tau_x and O
 print(' ')
-print(args.atom_name + ' geometry indices  ("<--" indicates the likely structural parameter):')
+print('--------------------------------------------------------------------------------')
+print(args.atom_name + ' geometry indices ("<--" indicates the likely structural parameter):')
 print('--------------------------------------------------------------------------------')
 print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')
 print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
 print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
-print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}\n')
+print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
+# calculate and print CShM
+print(' ')
+print('--------------------------------------------------------------------------------')
 print('Continuous shape measure (CShM):')
 print('--------------------------------------------------------------------------------')
 if cn == 3 and cnd == 3:
@@ -918,13 +925,18 @@ else:
           'The coordination number differs from 3, 4, 5, or 6, or there is a mismatch \n'
           'between the predicted coordination number and the coordination geometry.'
           )
-    
+# calculate and print the polyhedral volume
+print(' ')
+print('--------------------------------------------------------------------------------')
+print(f'Polyhedral volume = {ConvexHull(coordinates).volume:.4f} A³')
+print('--------------------------------------------------------------------------------')
 #print a table of typical tau_x values
 #values different from 0 or 1 and the corresponding geometries have been taken
 #from an internet source - don't take it too seriously
 print(' ')
-print(f"Table of typical geometries and their corresponding tau_x and O values: ")
-print(f"--------------------------------------------------------------------------------")
+print('--------------------------------------------------------------------------------')
+print('Table of typical geometries and their corresponding tau_x and O values: ')
+print('--------------------------------------------------------------------------------')
 print(f"Coordination number 4:")
 print(f"Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00")
 print(f"Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85")
@@ -940,6 +952,7 @@ print(f"Ideal octahedron     :     O = 0.00                      ")
 # set in relation to the central atom (ca) at 0, 0, 0      
 if args.verbose:
     print(' ')
+    print(f"--------------------------------------------------------------------------------")
     print(f"XYZ coordinates of the central atom and its neighbors: ")
     print(f"--------------------------------------------------------------------------------")
     print(f'{len(bond_table) + 1}')
