@@ -28,49 +28,49 @@ The input is case sensitive.
 
 The following output will be printed:
 
-	The predicted coordination number for atom is value.
-
-	The two largest angles are beta = value and alpha = value.
-	Note: Angles for the calculation of tau_4, tau_4' and tau_5.
- 
-	Number of cis angles ~ 90° (< 135°)    = value
-	Number of trans angles ~ 180° (> 135°) = value
-	Note: First value should be 12, second 3 for an octahedron.
- 
-        --------------------------------------------------------------------------------
-	atom geometry indices  ("<--" indicates the likely structural parameter):
-	--------------------------------------------------------------------------------
-	tau_4  =  value 
-	tau_4' =  value 
-	tau_5  =  value <--
-	O      =  value
- 
- 	--------------------------------------------------------------------------------
-	Continuous shape measure (CShM):
-	--------------------------------------------------------------------------------
-	CShM S(Shape 1) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
- 	CShM S(Shape 2) = value ░░░░
-  	CShM S(Shape 3) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
- 
-        --------------------------------------------------------------------------------
-        Polyhedral volume = value A³
-        --------------------------------------------------------------------------------
-	
-        --------------------------------------------------------------------------------
- 	Table of typical geometries and their corresponding tau_x and O values: 
-	--------------------------------------------------------------------------------
-	Coordination number 4:
-	Tetrahedral          :  tau_4 = 1.00       tau_4' = 1.00
-	Trigonal pyramidal   :  tau_4 = 0.85       tau_4' = 0.85
-	Seesaw               :  tau_4 = 0.43       tau_4' = 0.24
-	Square planar        :  tau_4 = 0.00       tau_4' = 0.00
-
-	Coordination number 5:
-	Trigonal bipyramidal :  tau_5 = 1.00                     
-	Square pyramidal     :  tau_5 = 0.00                    
-
-	Coordination number 6:
- 	Ideal octahedron     :      O = 0.00 
+    The predicted coordination number for atom is value.
+    
+    The two largest angles are beta = value and alpha = value.
+    Note: Angles for the calculation of tau_4, tau_4' and tau_5.
+    
+    Number of cis angles ~ 90° (< 135°)    = value
+    Number of trans angles ~ 180° (> 135°) = value
+    Note: First value should be 12, second 3 for an octahedron.
+    
+    --------------------------------------------------------------------------------
+    atom geometry indices  ("<--" indicates the likely structural parameter):
+    --------------------------------------------------------------------------------
+    tau_4  =  value 
+    tau_4' =  value 
+    tau_5  =  value <--
+    O      =  value
+    
+    --------------------------------------------------------------------------------
+    Continuous shape measure (CShM):
+    --------------------------------------------------------------------------------
+    CShM S(Shape 1) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    CShM S(Shape 2) = value ░░░░
+    CShM S(Shape 3) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
+    
+    --------------------------------------------------------------------------------
+    Polyhedral volume = value A³
+    --------------------------------------------------------------------------------
+    
+    --------------------------------------------------------------------------------
+    Table of typical geometries and their corresponding tau_x and O values: 
+    --------------------------------------------------------------------------------
+    Coordination number 4:
+    Tetrahedral          :  tau_4 = 1.00       tau_4' = 1.00
+    Trigonal pyramidal   :  tau_4 = 0.85       tau_4' = 0.85
+    Seesaw               :  tau_4 = 0.43       tau_4' = 0.24
+    Square planar        :  tau_4 = 0.00       tau_4' = 0.00
+    
+    Coordination number 5:
+    Trigonal bipyramidal :  tau_5 = 1.00                     
+    Square pyramidal     :  tau_5 = 0.00                    
+    
+    Coordination number 6:
+    Ideal octahedron     :      O = 0.00 
 	
 The likely structural parameter is marked with an arrow (<--).
 
