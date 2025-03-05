@@ -14,7 +14,7 @@ And is close to zero for an almost ideal octahedron
 
 The CShM (Continuous Shape Measures) value approaches zero when a shape closely resembles the chosen ideal shape. For further details, refer to the paper and related articles on CShM.
 
-The polyhedral volume is calculated using the Convex Hull Algorithm (implemented via SciPy and the [Qhull Library](http://www.qhull.org).
+The polyhedral volume is calculated using the Convex Hull Algorithm (implemented via SciPy and the [Qhull Library](http://www.qhull.org)).
 
 ## External modules
  `gemmi`, `numpy`, `scipy`
