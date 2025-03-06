@@ -863,7 +863,7 @@ if cn == 3 or cn == 6 or cn==10 or cn == 15:
 # calculate and print tau_x and O
 print(' ')
 print('--------------------------------------------------------------------------------')
-print(args.atom_name + ' geometry indices ("<--" indicates the likely structural parameter):')
+print(f'{args.atom_name} geometry index ("<--" indicates the parameter for coordination number {cnd}):')
 print('--------------------------------------------------------------------------------')
 print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')
 print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
@@ -872,7 +872,7 @@ print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
 # calculate and print CShM
 print(' ')
 print('--------------------------------------------------------------------------------')
-print('Continuous shape measure (CShM):')
+print(f'Continuous shape measure (CShM) for coordination number {cnd}:')
 print('--------------------------------------------------------------------------------')
 if cn == 3 and cnd == 3:
     # calculate cshm 
@@ -928,14 +928,14 @@ else:
 # calculate and print the polyhedral volume
 print(' ')
 print('--------------------------------------------------------------------------------')
-print(f'Polyhedral volume = {ConvexHull(coordinates).volume:.4f} A³')
+print(f'Polyhedral volume (coordination number {cnd}) = {ConvexHull(coordinates).volume:.4f} A³')
 print('--------------------------------------------------------------------------------')
 #print a table of typical tau_x values
 #values different from 0 or 1 and the corresponding geometries have been taken
 #from an internet source - don't take it too seriously
 print(' ')
 print('--------------------------------------------------------------------------------')
-print('Table of typical geometries and their corresponding tau_x and O values: ')
+print('Table of typical geometries and their corresponding tau_4 or tau_5 values: ')
 print('--------------------------------------------------------------------------------')
 print(f"Coordination number 4:")
 print(f"Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00")
@@ -945,8 +945,6 @@ print(f"Square planar        : tau_4 = 0.00       tau_4' = 0.00\n")
 print(f"Coordination number 5:")
 print(f"Trigonal bipyramidal : tau_5 = 1.00                     ")
 print(f"Square pyramidal     : tau_5 = 0.00                    \n")
-print(f"Coordination number 6:")
-print(f"Ideal octahedron     :     O = 0.00                      ")
 
 # print XYZ coordinates 
 # set in relation to the central atom (ca) at 0, 0, 0      
