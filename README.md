@@ -28,7 +28,7 @@ The input is case sensitive.
 
 The following output will be printed:
 
-    The predicted coordination number for atom is value.
+    The predicted coordination number for atom is N.
     
     The two largest angles are beta = value and alpha = value.
     Note: Angles for the calculation of tau_4, tau_4' and tau_5.
@@ -36,9 +36,9 @@ The following output will be printed:
     Number of cis angles ~ 90° (< 135°)    = value
     Number of trans angles ~ 180° (> 135°) = value
     Note: First value should be 12, second 3 for an octahedron.
-    
+
     --------------------------------------------------------------------------------
-    atom geometry indices  ("<--" indicates the likely structural parameter):
+    atom geometry index  ("<--" indicates the parameter for coordination number N):
     --------------------------------------------------------------------------------
     tau_4  =  value 
     tau_4' =  value 
@@ -46,18 +46,18 @@ The following output will be printed:
     O      =  value
     
     --------------------------------------------------------------------------------
-    Continuous shape measure (CShM):
+    Continuous shape measure (CShM) for coordination number N:
     --------------------------------------------------------------------------------
     CShM S(Shape 1) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
     CShM S(Shape 2) = value ░░░░
     CShM S(Shape 3) = value ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
     
     --------------------------------------------------------------------------------
-    Polyhedral volume = value A³
+    Polyhedral volume (coordination number N) = value A³
     --------------------------------------------------------------------------------
     
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_x and O values: 
+    Table of typical geometries and their corresponding tau_4 or tau_5 values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
     Tetrahedral          :  tau_4 = 1.00       tau_4' = 1.00
@@ -69,9 +69,6 @@ The following output will be printed:
     Trigonal bipyramidal :  tau_5 = 1.00                     
     Square pyramidal     :  tau_5 = 0.00                    
     
-    Coordination number 6:
-    Ideal octahedron     :      O = 0.00 
-	
 The likely structural parameter is marked with an arrow (<--).
 
 ## Command-line options
@@ -123,7 +120,7 @@ python3 tau-calc.py test.cif Hg1
     Note: First value should be 12, second 3 for an octahedron.
      
     --------------------------------------------------------------------------------
-    Hg1 geometry indices ("<--" indicates the likely structural parameter):
+    Hg1 geometry index ("<--" indicates the parameter for coordination number 4):
     --------------------------------------------------------------------------------
     tau_4  =   0.71 <--
     tau_4' =   0.67 <--
@@ -131,7 +128,7 @@ python3 tau-calc.py test.cif Hg1
     O      =  23.49 
      
     --------------------------------------------------------------------------------
-    Continuous shape measure (CShM):
+    Continuous shape measure (CShM) for coordination number 4:
     --------------------------------------------------------------------------------
     S(SP-4, Square)                               =  32.0294 ░░░░░░░░░░░░░░░░░░░░░░░
     S(T-4, Tetrahedron)                           =   2.8099 ░
@@ -139,11 +136,11 @@ python3 tau-calc.py test.cif Hg1
     S(vTBPY-4, Axially vacant trigonal bipyramid) =   2.8078 ░
      
     --------------------------------------------------------------------------------
-    Polyhedral volume = 9.7478 A³
+    Polyhedral volume (coordination number 4) = 9.7478 A³
     --------------------------------------------------------------------------------
      
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_x and O values: 
+    Table of typical geometries and their corresponding tau_4 or tau_5 values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
     Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
@@ -154,10 +151,7 @@ python3 tau-calc.py test.cif Hg1
     Coordination number 5:
     Trigonal bipyramidal : tau_5 = 1.00                     
     Square pyramidal     : tau_5 = 0.00                    
-    
-    Coordination number 6:
-    Ideal octahedron     :     O = 0.00  
-	
+    	
 ### Example 2:
 ```console
 python3 tau-calc.py test2.cif Ru1 -v
@@ -201,7 +195,7 @@ python3 tau-calc.py test2.cif Ru1 -v
     Note: First value should be 12, second 3 for an octahedron.
      
     --------------------------------------------------------------------------------
-    Ru1 geometry indices ("<--" indicates the likely structural parameter):
+    Ru1 geometry index ("<--" indicates the parameter for coordination number 6):
     --------------------------------------------------------------------------------
     tau_4  =   0.13 
     tau_4' =   0.13 
@@ -209,7 +203,7 @@ python3 tau-calc.py test2.cif Ru1 -v
     O      =   7.12 <--
      
     --------------------------------------------------------------------------------
-    Continuous shape measure (CShM):
+    Continuous shape measure (CShM) for coordination number 6:
     --------------------------------------------------------------------------------
     S(HP-6, Hexagon)                           =  28.5605 ░░░░░░░░░░░░░░░░░░░░░░░░
     S(PPY-6, Pentagonal pyramid)               =  27.0546 ░░░░░░░░░░░░░░░░░░░░░░
@@ -218,7 +212,7 @@ python3 tau-calc.py test2.cif Ru1 -v
     S(JPPY-6, Johnson pentagonal pyramid (J2)) =  30.8553 ░░░░░░░░░░░░░░░░░░░░░░░░░░
      
     --------------------------------------------------------------------------------
-    Polyhedral volume = 11.5171 A³
+    Polyhedral volume (coordination number 6) = 11.5171 A³
     --------------------------------------------------------------------------------
      
     --------------------------------------------------------------------------------
@@ -232,10 +226,7 @@ python3 tau-calc.py test2.cif Ru1 -v
     
     Coordination number 5:
     Trigonal bipyramidal : tau_5 = 1.00                     
-    Square pyramidal     : tau_5 = 0.00                    
-    
-    Coordination number 6:
-    Ideal octahedron     :     O = 0.00                      
+    Square pyramidal     : tau_5 = 0.00                                       
      
     --------------------------------------------------------------------------------
     XYZ coordinates of the central atom and its neighbors: 
@@ -266,7 +257,7 @@ python3 tau-calc.py test3.cif Co1 -e N12
     Note: First value should be 12, second 3 for an octahedron.
      
     --------------------------------------------------------------------------------
-    Co1 geometry indices ("<--" indicates the likely structural parameter):
+    Co1 geometry index ("<--" indicates the parameter for coordination number 5):
     --------------------------------------------------------------------------------
     tau_4  =   0.07 
     tau_4' =   0.06 
@@ -274,7 +265,7 @@ python3 tau-calc.py test3.cif Co1 -e N12
     O      =   4.65 
      
     --------------------------------------------------------------------------------
-    Continuous shape measure (CShM):
+    Continuous shape measure (CShM) for coordination number 5:
     --------------------------------------------------------------------------------
     S(PP-5, Pentagon)                            =  30.9225 ░░░░░░░░░░░░░░░░░░░░░░░░
     S(vOC-5, Vacant octahedron (J1))             =   0.3515 ░
@@ -283,11 +274,11 @@ python3 tau-calc.py test3.cif Co1 -e N12
     S(JTBPY-5, Johnson trigonal bipyramid (J12)) =   7.9883 ░░░░░░
      
     --------------------------------------------------------------------------------
-    Polyhedral volume = 4.8918 A³
+    Polyhedral volume (coordination number 5) = 4.8918 A³
     --------------------------------------------------------------------------------
      
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_x and O values: 
+    Table of typical geometries and their corresponding tau_4 or tau_5 values:  
     --------------------------------------------------------------------------------
     Coordination number 4:
     Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
@@ -299,9 +290,6 @@ python3 tau-calc.py test3.cif Co1 -e N12
     Trigonal bipyramidal : tau_5 = 1.00                     
     Square pyramidal     : tau_5 = 0.00                    
     
-    Coordination number 6:
-    Ideal octahedron     :     O = 0.00
-
 ## References
 If you use τ<sub>4</sub>, τ<sub>5</sub>, the *O* index or CShM to describe the coordination geometry of your compounds, please cite one or more of the following articles:
 
