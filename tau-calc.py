@@ -810,19 +810,18 @@ printmark5 = ('')
 printmark6 = ('')
 
 #print '<--' arrow for most probale tau_x assignement
-if cn == 6:
+if cn == 6 and cnd == 4:
     printmark4=('<--')
-if cn == 10:
+elif cn == 10 and cnd == 5:
     printmark5=('<--')
-if cn == 15:
+elif cn == 15 and cnd == 6:
     printmark6=('<--')
-    
 #print warning if cn is not 4, 5 or 6
-elif cn != 6 and cn != 10 and cn !=15:
-    print("")
-    print("Warning! The predicted coordination number seems not suitable\n" +
-            "for the calculation of tau_4, tau_5 or O.")
-    print("Calculated values are probably meaningless.")    
+else:
+    print(' ')
+    print('Warning! The predicted coordination number seems not suitable\n'
+          'for the calculation of tau_4, tau_5 or O or there is a mismatch\n' 
+          'between the predicted coordination number and the coordination geometry.')
 
 # get the XYZ coordinates for the central atom and neighbors atoms 
 # gemmi neighbor search to also include symmetry equivalent positions
@@ -861,14 +860,15 @@ if cn == 3 or cn == 6 or cn==10 or cn == 15:
             coordinates = np.vstack([coordinates, neighbor_coordinate])
 
 # calculate and print tau_x and O
-print(' ')
-print('--------------------------------------------------------------------------------')
-print(f'{args.atom_name} geometry index ("<--" indicates the parameter for coordination number {cnd}):')
-print('--------------------------------------------------------------------------------')
-print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')
-print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
-print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
-print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
+if (cn == 6 and cnd == 4) or (cn == 10 and cnd == 5) or (cn == 15 and cnd == 6):
+    print(' ')
+    print('--------------------------------------------------------------------------------')
+    print(f'{args.atom_name} geometry index ("<--" indicates the parameter for coordination number {cnd}):')
+    print('--------------------------------------------------------------------------------')
+    print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')   
+    print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
+    print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
+    print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
 # calculate and print CShM
 print(' ')
 print('--------------------------------------------------------------------------------')
