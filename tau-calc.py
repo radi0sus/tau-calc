@@ -611,7 +611,7 @@ parser.add_argument('-d','--distance',
 #verbode printing
 parser.add_argument('-v','--verbose',
    action = 'store_true',
-     help = 'verbose print')
+     help = 'verbose output including angles, distances, and XYZ coordinates')
 
 #save xyz coordinates of the central atom and the neighboring atoms
 parser.add_argument('-sxyz','--savexyz',
@@ -858,7 +858,9 @@ if cn == 3 or cn == 6 or cn==10 or cn == 15:
                                 ])
             # add coordinates of neighbors
             coordinates = np.vstack([coordinates, neighbor_coordinate])
-
+else:
+    coordinates = np.array(None)
+    
 # calculate and print tau_x and O
 if (cn == 6 and cnd == 4) or (cn == 10 and cnd == 5) or (cn == 15 and cnd == 6):
     print(' ')
@@ -926,10 +928,11 @@ else:
           'between the predicted coordination number and the coordination geometry.'
           )
 # calculate and print the polyhedral volume
-print(' ')
-print('--------------------------------------------------------------------------------')
-print(f'Polyhedral volume (coordination number {cnd}) = {ConvexHull(coordinates).volume:.4f} A³')
-print('--------------------------------------------------------------------------------')
+if coordinates.any():
+    print(' ')
+    print('--------------------------------------------------------------------------------')
+    print(f'Polyhedral volume (coordination number {cnd}) = {ConvexHull(coordinates).volume:.4f} A³')
+    print('--------------------------------------------------------------------------------')
 #print a table of typical tau_x values
 #values different from 0 or 1 and the corresponding geometries have been taken
 #from an internet source - don't take it too seriously
