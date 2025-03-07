@@ -293,6 +293,10 @@ python3 tau-calc.py test3.cif Co1 -e N12
     Coordination number 5:
     Trigonal bipyramidal : tau_5 = 1.00                     
     Square pyramidal     : tau_5 = 0.00                    
+
+### Example 4
+
+<img src='examples\show-use.gif' alt='Example 4' width=800 align='center'>   
     
 ## References
 If you use τ<sub>4</sub>, τ<sub>5</sub>, the *O* index or CShM to describe the coordination geometry of your compounds, please cite one or more of the following articles:
