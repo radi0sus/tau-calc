@@ -106,7 +106,7 @@ The likely structural parameter is marked with an arrow (<--).
 
 ## Polyhedra and Shape Reference
 
-<img src='examples\all_polyhedra.png' alt='Jupyter Notebook' width=800 align='center'>   
+<img src='examples\all_polyhedra2.png' alt='Jupyter Notebook' width=800 align='center'>   
   
 ## Examples
 
