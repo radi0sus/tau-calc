@@ -103,6 +103,10 @@ The likely structural parameter is marked with an arrow (<--).
 - As the number of vertices increases, both computation time and memory usage grow rapidly ($n!$).
   To address this issue, enable the optimization process using the Hungarian algorithm.
   Ensure that the number of trials (`num_trials`) is set sufficiently high to avoid missing the global minimum.
+
+## Polyhedra and Shape Reference
+
+<img src='examples\all_polyhedra.png' alt='Jupyter Notebook' width=800 align='center'>   
   
 ## Examples
 
