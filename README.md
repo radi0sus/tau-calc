@@ -106,7 +106,7 @@ The likely structural parameter is marked with an arrow (<--).
 
 ## Polyhedra and Shape Reference
 
-<img src='examples\all_polyhedra3.png' alt='Polyhedra and Shape Reference' width=800 align='center'>   
+<img src='examples\all_polyhedra4.png' alt='Polyhedra and Shape Reference' width=800 align='center'>   
   
 ## Examples
 
