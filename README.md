@@ -220,7 +220,7 @@ python3 tau-calc.py test2.cif Ru1 -v
     --------------------------------------------------------------------------------
      
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_x and O values: 
+    Table of typical geometries and their corresponding tau_4 or tau_5 values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
     Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
