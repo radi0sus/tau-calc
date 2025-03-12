@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# 
+# 𝜶 𝜷 𝜪 𝝉₄ 𝝉₄′ 𝝉₅
 #
 # Calculation of tau_4, tau_4', tau_5, or O, (τ₄, τ₄', τ₅, 𝑂) several CShM
 # for 3-, 4-, 5- or 6-coordinated atoms and the polyhedral volume.
@@ -750,8 +752,13 @@ if args.verbose:
     print('--------------------------------------------------------------------------------')
     print(args.atom_name + " binds to:")
     print('--------------------------------------------------------------------------------')
+    #for row in bond_table:
+    #    print(f'{row[0]}-{row[1]} {row[2]} Å {row[3]}') 
+    # get max column width for nice printing
+    col_w = [max(map(len, col)) for col in zip(*bond_table)]
+    # print nice
     for row in bond_table:
-        print(f'{row[0]}-{row[1]} {row[2]} Å {row[3]}') 
+        print(f'{row[0]:>{col_w[0]}}-{row[1]:<{col_w[1]}} {row[2]:<{col_w[2]}} Å {row[3]:>{col_w[3]}}') 
 
 #calculate coordination number from occurance of atom in list
 cnd = (list(block.find_loop('_geom_bond_atom_site_label_1')).count(args.atom_name) + 
@@ -780,8 +787,13 @@ if args.verbose:
     print('--------------------------------------------------------------------------------')
     print(args.atom_name + " angles are:")
     print('--------------------------------------------------------------------------------')
+    #for row in angle_table:
+    #    print(f'{row[0]}-{row[1]}-{row[2]} {row[3]}° {row[4]} {row[5]}') 
+    # get max column width for nice printing
+    col_w = [max(map(len, col)) for col in zip(*angle_table)]
+    # print nice
     for row in angle_table:
-        print(f'{row[0]}-{row[1]}-{row[2]} {row[3]}° {row[4]} {row[5]}') 
+        print(f'{row[0]:>{col_w[0]}}-{row[1]:<{col_w[1]}}-{row[2]:<{col_w[2]}} {row[3]:>{col_w[3]}}° {row[4]:>{col_w[4]}} {row[5]:>{col_w[5]}}') 
     print(' ')
     
 #if there is only one angle, exit
