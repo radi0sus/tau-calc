@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# Calculation of tau_4, tau_4', tau_5, or O, several CShM
+# Calculation of tau_4, tau_4', tau_5, or O, (τ₄, τ₄', τ₅, 𝑂)several CShM
 # for 3-, 4-, 5- or 6-coordinated atoms and the polyhedral volume.
 # For a deeper explanation of tau_4 and tau_5 have a look at Wikipedia:
 #
@@ -82,6 +82,9 @@ import numpy as np                                    # all sort of math
 from scipy.linalg import svd                          # SVD for CShM
 from itertools import permutations                    # permutations of vertices for CShM
 from scipy.spatial import ConvexHull                  # polyhedral volume
+
+#for windows console
+sys.stdout.reconfigure(encoding='utf-8')  
 
 #regex for bonds and angles --> string to float, no esd
 ang_bond_val = re.compile(r'\d{1,}[\.]?\d{0,}')
