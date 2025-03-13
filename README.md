@@ -57,7 +57,7 @@ The following output will be printed:
     --------------------------------------------------------------------------------
     
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_4 or tau_5 values: 
+    Table of typical geometries and their corresponding τ₄ or τ₅ values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
     Tetrahedral          : τ₄ = 1.00       τ₄' = 1.00
