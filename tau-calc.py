@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 # 
-# 𝜶 𝜷 𝜪 𝝉₄ 𝝉₄′ 𝝉₅
-#
-# Calculation of tau_4, tau_4', tau_5, or O, (τ₄, τ₄', τ₅, 𝑂) several CShM
+# Calculation of tau_4, tau_4', tau_5, or O, (τ₄, τ₄', τ₅, O) several CShM
 # for 3-, 4-, 5- or 6-coordinated atoms and the polyhedral volume.
 # For a deeper explanation of tau_4 and tau_5 have a look at Wikipedia:
 #
@@ -17,7 +15,7 @@
 #
 # Lei Yang, Douglas R. Powell, Robert P. Houser
 # Dalton Trans. 2007, 955-964.
-# DOI: https://doi.org/10.1039/B617136B
+# DOI: https://doi.org/10.1039/B617136B  [Titel anhand dieser DOI in Citavi-Projekt übernehmen] 
 #
 # For the improved tau_4', please cite:
 #
@@ -26,7 +24,7 @@
 #
 # Andrzej Okuniewski, Damian Rosiak, Jarosław Chojnacki, Barbara Becker
 # Polyhedron 2015, 90, 47–57.
-# DOI: https://doi.org/10.1016/j.poly.2015.01.035
+# DOI: https://doi.org/10.1016/j.poly.2015.01.035  [Titel anhand dieser DOI in Citavi-Projekt übernehmen] 
 #
 # For tau_5, please cite:
 #
@@ -36,7 +34,7 @@
 #
 # Anthony W. Addison, T. Nageswara Rao, Jan Reedijk, Jacobus van Rijn, Gerrit C. Verschoor  
 # J. Chem. Soc., Dalton Trans. 1984, 1349-1356.
-# DOI: https://doi.org/10.1039/DT9840001349
+# DOI: https://doi.org/10.1039/DT9840001349  [Titel anhand dieser DOI in Citavi-Projekt übernehmen] 
 #
 # For octahedricity O, please cite:
 #
@@ -46,7 +44,7 @@
 # Christopher M. Brown, Nicole E. Arsenault, Trevor N. K. Cross, Duane Hean, Zhen Xu, 
 # Michael O. Wolf
 # Inorg. Chem. Front. 2020, 7, 117-127. 
-# DOI: https://doi.org/10.1039/C9QI01009B 
+# DOI: https://doi.org/10.1039/C9QI01009B  [Titel anhand dieser DOI in Citavi-Projekt übernehmen]  
 # 
 # For CShM (Continuous Shape Measures) please cite:
 #
@@ -54,14 +52,14 @@
 # 
 # Mark Pinsky, David Avnir
 # Inorg. Chem. 1998, 37, 21, 5575–5582.
-# DOI: https://doi.org/10.1021/ic9804925
+# DOI: https://doi.org/10.1021/ic9804925  [Titel anhand dieser DOI in Citavi-Projekt übernehmen] 
 #
 # "Shape maps and polyhedral interconversion paths in transition metal chemistry"
 #
 # Santiago Alvarez, Pere Alemany, David Casanova, Jordi Cirera, Miquel Llunell, 
 # David Avnir,
 # Coord. Chem. Rev., 2005, 249, 1693–1708.
-# DOI: https://doi.org/10.1016/j.ccr.2005.03.031
+# DOI: https://doi.org/10.1016/j.ccr.2005.03.031  [Titel anhand dieser DOI in Citavi-Projekt übernehmen] 
 # 
 # For Gemmi please cite: 
 #
@@ -69,7 +67,7 @@
 # 
 # Marcin Wojdyr
 # Journal of Open Source Software 2022, 7 (73), 4200
-# DOI: https://doi.org/10.21105/joss.04200
+# DOI: https://doi.org/10.21105/joss.04200  [Titel anhand dieser DOI in Citavi-Projekt übernehmen] 
 #
 # https://gemmi.readthedocs.io/en/latest/
 # https://github.com/project-gemmi/gemmi
@@ -591,7 +589,7 @@ def print_cshm_with_bars(cshm_values):
 
 #argument parser
 parser = argparse.ArgumentParser(prog='tau-calc', 
-        description = "Calculation of tau_4, tau_4', tau_5, O geometry indices and CShM.")
+        description = "Calculation of τ₄, τ₄', τ₅, O geometry indices and CShM.")
 
 #filename is required
 parser.add_argument('filename', 
@@ -631,11 +629,11 @@ try:
     doc = gemmi.cif.read_file(args.filename)
 #file not found
 except IOError:
-    print(f"'{args.filename}'" + " not found")
+    print(f'{args.filename} not found')
     sys.exit(1)
 #not a valid cif
 except ValueError:
-    print(f"'{args.filename}'" + " is not a valid CIF. Exit.\n")
+    print(f'{args.filename} is not a valid CIF. Exit.\n')
     sys.exit(1)
 
 #more than one or no data_block --> exit
@@ -648,7 +646,7 @@ block = doc.sole_block()
 
 #check if selected atom is in the CIF
 if args.atom_name not in list(block.find_loop('_atom_site_label')):
-    print("The atom is not part of the CIF. Exit.\n")
+    print('The atom is not part of the CIF. Exit.\n')
     sys.exit(1)
 
 #check if excluded atoms are in the CIF
@@ -682,11 +680,11 @@ if args.exclude:
                 del bond_table[i]
     #exit if to many excluded atoms or print excluded atoms
     if len(bond_table) == 0:
-        print("Warning! To many excluded atoms. Exit.\n")
+        print('Warning! To many excluded atoms. Exit.\n')
         sys.exit(1)
     else:
         print(' ')
-        print("Excluded atoms: " + str(args.exclude))
+        print(f'Excluded atoms: {args.exclude}')
 
 #exclude bonds outside larger than a specific distance d
 if args.distance:
@@ -698,13 +696,13 @@ if args.distance:
             del bond_table[i]
     #exit if to many excluded atoms or print excluded atoms
     if len(bond_table) == 0:
-        print("Warning! To many excluded atoms. Exit.\n")
+        print('Warning! To many excluded atoms. Exit.\n')
         sys.exit(1)
     #print only if the list was created
     elif list_of_atoms_with_large_bonds:
         print(' ')
-        print("Excluded atoms (distance larger than " + str(abs(args.distance)) +  " Å): "
-            + str(list_of_atoms_with_large_bonds))
+        print(f'Excluded atoms (distance larger than {abs(args.distance)} Å): '
+              f'{list_of_atoms_with_large_bonds}')
 
 
 #build an angle table atom2-atom1-atom3 angle symmetry symmetry
@@ -758,7 +756,8 @@ if args.verbose:
     col_w = [max(map(len, col)) for col in zip(*bond_table)]
     # print nice
     for row in bond_table:
-        print(f'{row[0]:>{col_w[0]}}-{row[1]:<{col_w[1]}} {row[2]:<{col_w[2]}} Å {row[3]:>{col_w[3]}}') 
+        print(f'{row[0]:>{col_w[0]}}-{row[1]:<{col_w[1]}} '
+              f'{row[2]:<{col_w[2]}} Å {row[3]:>{col_w[3]}}') 
 
 #calculate coordination number from occurance of atom in list
 cnd = (list(block.find_loop('_geom_bond_atom_site_label_1')).count(args.atom_name) + 
@@ -793,7 +792,8 @@ if args.verbose:
     col_w = [max(map(len, col)) for col in zip(*angle_table)]
     # print nice
     for row in angle_table:
-        print(f'{row[0]:>{col_w[0]}}-{row[1]:<{col_w[1]}}-{row[2]:<{col_w[2]}} {row[3]:>{col_w[3]}}° {row[4]:>{col_w[4]}} {row[5]:>{col_w[5]}}') 
+        print(f'{row[0]:>{col_w[0]}}-{row[1]:<{col_w[1]}}-{row[2]:<{col_w[2]}} '
+              f'{row[3]:>{col_w[3]}}° {row[4]:>{col_w[4]}} {row[5]:>{col_w[5]}}') 
     print(' ')
     
 #if there is only one angle, exit
@@ -802,10 +802,8 @@ if len(list_of_angles) < 2:
     print("Warning! Number of angles is too low. Exit.\n")
     sys.exit(1)
 
-print('The two largest angles are beta = ' +
-        str(beta) + '°' + ' and alpha = ' +
-        str(alpha) + '°.')
-print("Note: Angles for the calculation of tau_4, tau_4' and tau_5.")
+print(f'The two largest angles are β = {beta}° and α = {alpha}°.')
+print("Note: Angles for the calculation of τ₄, τ₄' and τ₅.")
 
 # cis angles around 90 deg (< 135 deg) and trans angles around 180 deg (> 135 deg) for O
 cis_ang = sum(1 for angle in list_of_angles if angle < 135)
@@ -835,7 +833,7 @@ elif cn == 15 and cnd == 6:
 else:
     print(' ')
     print('Warning! The predicted coordination number seems not suitable\n'
-          'for the calculation of tau_4, tau_5 or O or there is a mismatch\n' 
+          'for the calculation of τ₄, τ₅ or O or there is a mismatch\n' 
           'between the predicted coordination number and the coordination geometry.')
 
 # get the XYZ coordinates for the central atom and neighbors atoms 
@@ -875,17 +873,17 @@ if cn == 3 or cn == 6 or cn==10 or cn == 15:
             coordinates = np.vstack([coordinates, neighbor_coordinate])
 else:
     coordinates = np.array(None)
-    
+
 # calculate and print tau_x and O
 if (cn == 6 and cnd == 4) or (cn == 10 and cnd == 5) or (cn == 15 and cnd == 6):
     print(' ')
     print('--------------------------------------------------------------------------------')
     print(f'{args.atom_name} geometry index ("<--" indicates the parameter for coordination number {cnd}):')
     print('--------------------------------------------------------------------------------')
-    print(f'tau_4  = {calc_tau4(beta, alpha):6.2f} {printmark4}')   
-    print(f"tau_4' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
-    print(f'tau_5  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
-    print(f'O      = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
+    print(f'τ₄  = {calc_tau4(beta, alpha):6.2f} {printmark4}')   
+    print(f"τ₄' = {calc_tau4impr(beta, alpha):6.2f} {printmark4}")
+    print(f'τ₅  = {calc_tau5(beta, alpha):6.2f} {printmark5}')
+    print(f'O   = {calc_octahedricity(list_of_angles):6.2f} {printmark6}')
 # calculate and print CShM
 print(' ')
 print('--------------------------------------------------------------------------------')
@@ -951,18 +949,19 @@ if coordinates.any():
 #print a table of typical tau_x values
 #values different from 0 or 1 and the corresponding geometries have been taken
 #from an internet source - don't take it too seriously
+
 print(' ')
 print('--------------------------------------------------------------------------------')
-print('Table of typical geometries and their corresponding tau_4 or tau_5 values: ')
+print('Table of typical geometries and their corresponding τ₄ or τ₅ values: ')
 print('--------------------------------------------------------------------------------')
 print(f"Coordination number 4:")
-print(f"Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00")
-print(f"Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85")
-print(f"Seesaw               : tau_4 = 0.43       tau_4' = 0.24")
-print(f"Square planar        : tau_4 = 0.00       tau_4' = 0.00\n")
+print(f"Tetrahedral          : τ₄ = 1.00       τ₄' = 1.00")
+print(f"Trigonal pyramidal   : τ₄ = 0.85       τ₄' = 0.85")
+print(f"Seesaw               : τ₄ = 0.43       τ₄' = 0.24")
+print(f"Square planar        : τ₄ = 0.00       τ₄' = 0.00\n")
 print(f"Coordination number 5:")
-print(f"Trigonal bipyramidal : tau_5 = 1.00                     ")
-print(f"Square pyramidal     : tau_5 = 0.00                    \n")
+print(f"Trigonal bipyramidal : τ₅ = 1.00                     ")
+print(f"Square pyramidal     : τ₅ = 0.00                    \n")
 
 # print XYZ coordinates 
 # set in relation to the central atom (ca) at 0, 0, 0      
