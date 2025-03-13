@@ -30,8 +30,8 @@ The following output will be printed:
 
     The predicted coordination number for atom is N.
     
-    The two largest angles are beta = value and alpha = value.
-    Note: Angles for the calculation of tau_4, tau_4' and tau_5.
+    The two largest angles are β = value and α = value.
+    Note: Angles for the calculation of τ₄, τ₄' and τ₅.
     
     Number of cis angles ~ 90° (< 135°)    = value
     Number of trans angles ~ 180° (> 135°) = value
@@ -40,10 +40,10 @@ The following output will be printed:
     --------------------------------------------------------------------------------
     atom geometry index  ("<--" indicates the parameter for coordination number N):
     --------------------------------------------------------------------------------
-    tau_4  =  value 
-    tau_4' =  value 
-    tau_5  =  value <--
-    O      =  value
+    τ₄  =   value
+    τ₄' =   value 
+    τ₅  =   value <--
+    O   =   value 
     
     --------------------------------------------------------------------------------
     Continuous shape measure (CShM) for coordination number N:
@@ -60,14 +60,14 @@ The following output will be printed:
     Table of typical geometries and their corresponding tau_4 or tau_5 values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
-    Tetrahedral          :  tau_4 = 1.00       tau_4' = 1.00
-    Trigonal pyramidal   :  tau_4 = 0.85       tau_4' = 0.85
-    Seesaw               :  tau_4 = 0.43       tau_4' = 0.24
-    Square planar        :  tau_4 = 0.00       tau_4' = 0.00
+    Tetrahedral          : τ₄ = 1.00       τ₄' = 1.00
+    Trigonal pyramidal   : τ₄ = 0.85       τ₄' = 0.85
+    Seesaw               : τ₄ = 0.43       τ₄' = 0.24
+    Square planar        : τ₄ = 0.00       τ₄' = 0.00
     
     Coordination number 5:
-    Trigonal bipyramidal :  tau_5 = 1.00                     
-    Square pyramidal     :  tau_5 = 0.00                    
+    Trigonal bipyramidal : τ₅ = 1.00                     
+    Square pyramidal     : τ₅ = 0.00                     
     
 The likely structural parameter is marked with an arrow (<--).
 
@@ -116,8 +116,8 @@ python3 tau-calc.py test.cif Hg1
 ```
     The predicted coordination number for Hg1 is 4.
     
-    The two largest angles are beta = 135.94° and alpha = 124.44°.
-    Note: Angles for the calculation of tau_4, tau_4' and tau_5.
+    The two largest angles are β = 135.94° and α = 124.44°.
+    Note: Angles for the calculation of τ₄, τ₄' and τ₅.
      
     Number of cis angles ~ 90° (< 135°)    = 5
     Number of trans angles ~ 180° (> 135°) = 1
@@ -126,10 +126,10 @@ python3 tau-calc.py test.cif Hg1
     --------------------------------------------------------------------------------
     Hg1 geometry index ("<--" indicates the parameter for coordination number 4):
     --------------------------------------------------------------------------------
-    tau_4  =   0.71 <--
-    tau_4' =   0.67 <--
-    tau_5  =   0.19 
-    O      =  23.49 
+    τ₄  =   0.71 <--
+    τ₄' =   0.67 <--
+    τ₅  =   0.19 
+    O   =  23.49 
      
     --------------------------------------------------------------------------------
     Continuous shape measure (CShM) for coordination number 4:
@@ -144,18 +144,18 @@ python3 tau-calc.py test.cif Hg1
     --------------------------------------------------------------------------------
      
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_4 or tau_5 values: 
+    Table of typical geometries and their corresponding τ₄ or τ₅ values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
-    Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
-    Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-    Seesaw               : tau_4 = 0.43       tau_4' = 0.24
-    Square planar        : tau_4 = 0.00       tau_4' = 0.00
+    Tetrahedral          : τ₄ = 1.00       τ₄' = 1.00
+    Trigonal pyramidal   : τ₄ = 0.85       τ₄' = 0.85
+    Seesaw               : τ₄ = 0.43       τ₄' = 0.24
+    Square planar        : τ₄ = 0.00       τ₄' = 0.00
     
     Coordination number 5:
-    Trigonal bipyramidal : tau_5 = 1.00                     
-    Square pyramidal     : tau_5 = 0.00                    
-    	
+    Trigonal bipyramidal : τ₅ = 1.00                     
+    Square pyramidal     : τ₅ = 0.00
+    
 ### Example 2:
 ```console
 python3 tau-calc.py test2.cif Ru1 -v
@@ -191,8 +191,8 @@ python3 tau-calc.py test2.cif Ru1 -v
     N1-Ru1-N1  94.66(13)°  6_655      7
     N1-Ru1-N1  92.37(18)° 12_665      7
      
-    The two largest angles are beta = 170.89° and alpha = 170.89°.
-    Note: Angles for the calculation of tau_4, tau_4' and tau_5.
+    The two largest angles are β = 170.89° and α = 170.89°.
+    Note: Angles for the calculation of τ₄, τ₄' and τ₅.
      
     Number of cis angles ~ 90° (< 135°)    = 12
     Number of trans angles ~ 180° (> 135°) = 3
@@ -201,10 +201,10 @@ python3 tau-calc.py test2.cif Ru1 -v
     --------------------------------------------------------------------------------
     Ru1 geometry index ("<--" indicates the parameter for coordination number 6):
     --------------------------------------------------------------------------------
-    tau_4  =   0.13 
-    tau_4' =   0.13 
-    tau_5  =   0.00 
-    O      =   7.12 <--
+    τ₄  =   0.13 
+    τ₄' =   0.13 
+    τ₅  =   0.00 
+    O   =   7.12 <--
      
     --------------------------------------------------------------------------------
     Continuous shape measure (CShM) for coordination number 6:
@@ -220,17 +220,18 @@ python3 tau-calc.py test2.cif Ru1 -v
     --------------------------------------------------------------------------------
      
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_4 or tau_5 values: 
+    Table of typical geometries and their corresponding τ₄ or τ₅ values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
-    Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
-    Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-    Seesaw               : tau_4 = 0.43       tau_4' = 0.24
-    Square planar        : tau_4 = 0.00       tau_4' = 0.00
+    Tetrahedral          : τ₄ = 1.00       τ₄' = 1.00
+    Trigonal pyramidal   : τ₄ = 0.85       τ₄' = 0.85
+    Seesaw               : τ₄ = 0.43       τ₄' = 0.24
+    Square planar        : τ₄ = 0.00       τ₄' = 0.00
     
     Coordination number 5:
-    Trigonal bipyramidal : tau_5 = 1.00                     
-    Square pyramidal     : tau_5 = 0.00                                       
+    Trigonal bipyramidal : τ₅ = 1.00                     
+    Square pyramidal     : τ₅ = 0.00                    
+    
      
     --------------------------------------------------------------------------------
     XYZ coordinates of the central atom and its neighbors: 
@@ -253,8 +254,8 @@ python3 tau-calc.py test3.cif Co1 -e N12
      
     The predicted coordination number for Co1 is 5.
     
-    The two largest angles are beta = 176.77° and alpha = 173.52°.
-    Note: Angles for the calculation of tau_4, tau_4' and tau_5.
+    The two largest angles are β = 176.77° and α = 173.52°.
+    Note: Angles for the calculation of τ₄, τ₄' and τ₅.
      
     Number of cis angles ~ 90° (< 135°)    = 8
     Number of trans angles ~ 180° (> 135°) = 2
@@ -263,10 +264,10 @@ python3 tau-calc.py test3.cif Co1 -e N12
     --------------------------------------------------------------------------------
     Co1 geometry index ("<--" indicates the parameter for coordination number 5):
     --------------------------------------------------------------------------------
-    tau_4  =   0.07 
-    tau_4' =   0.06 
-    tau_5  =   0.05 <--
-    O      =   4.65 
+    τ₄  =   0.07 
+    τ₄' =   0.06 
+    τ₅  =   0.05 <--
+    O   =   4.65 
      
     --------------------------------------------------------------------------------
     Continuous shape measure (CShM) for coordination number 5:
@@ -282,17 +283,17 @@ python3 tau-calc.py test3.cif Co1 -e N12
     --------------------------------------------------------------------------------
      
     --------------------------------------------------------------------------------
-    Table of typical geometries and their corresponding tau_4 or tau_5 values:  
+    Table of typical geometries and their corresponding τ₄ or τ₅ values: 
     --------------------------------------------------------------------------------
     Coordination number 4:
-    Tetrahedral          : tau_4 = 1.00       tau_4' = 1.00
-    Trigonal pyramidal   : tau_4 = 0.85       tau_4' = 0.85
-    Seesaw               : tau_4 = 0.43       tau_4' = 0.24
-    Square planar        : tau_4 = 0.00       tau_4' = 0.00
+    Tetrahedral          : τ₄ = 1.00       τ₄' = 1.00
+    Trigonal pyramidal   : τ₄ = 0.85       τ₄' = 0.85
+    Seesaw               : τ₄ = 0.43       τ₄' = 0.24
+    Square planar        : τ₄ = 0.00       τ₄' = 0.00
     
     Coordination number 5:
-    Trigonal bipyramidal : tau_5 = 1.00                     
-    Square pyramidal     : tau_5 = 0.00                    
+    Trigonal bipyramidal : τ₅ = 1.00                     
+    Square pyramidal     : τ₅ = 0.00                      
 
 ### Example 4
 
