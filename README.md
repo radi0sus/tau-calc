@@ -78,6 +78,7 @@ The likely structural parameter is marked with an arrow (<--).
 - `-d` `N`, optional: excludes atoms outside `d = N Å` from calculation, e.g. `-d 2.1` excludes atoms with bond lengths larger than 2.1 Å from the central atom from calculation
 - `-v` optional: verbose output, prints all bond lengths and angles of the central atom to the neighboring atoms and the XYZ coordinates
 - `-sxyz` optional: save the XYZ coordinates of the central atom and its neighboring atoms (filename: `cif_name-atom_name.xyz`)
+- `-smd` optional: save tables in Markdown format containing coordination number, geometry index, CShM, and polyhedral volume (filename: `cif_name-atom_name.md`)
   
 ## Remarks
 - If the predicted coordination number is larger than 2, τ will be calculated independently of the real coordination geometry. 
@@ -112,7 +113,7 @@ The likely structural parameter is marked with an arrow (<--).
 
 ### Example 1:
 ```console
-python3 tau-calc.py test.cif Hg1
+python3 tau-calc.py test.cif Hg1 -smd
 ```
     The predicted coordination number for Hg1 is 4.
     
@@ -155,7 +156,33 @@ python3 tau-calc.py test.cif Hg1
     Coordination number 5:
     Trigonal bipyramidal : τ₅ = 1.00                     
     Square pyramidal     : τ₅ = 0.00
+
+    Results saved to test-Hg1.md
+
+The saved tables are formatted as follows:
+
+    ### Coordination Number (C.N.), Geometry index, CShM and Polyhedral Volume of Hg1
     
+    | Property   |   Value |
+    |------------|---------|
+    | C.N.       |    4    |
+    | τ₄         |    0.71 |
+    | τ₄'        |    0.67 |
+    
+    #### Continuous Shape Measures (CShM)
+    
+    | Shape   | Description                       |    CShM |
+    |---------|-----------------------------------|---------|
+    | SP-4    | Square                            | 32.0294 |
+    | T-4     | Tetrahedron                       |  2.8099 |
+    | SS-4    | Seesaw or sawhorse                |  5.8584 |
+    | vTBPY-4 | Axially vacant trigonal bipyramid |  2.8078 |
+    
+    #### Polyhedral Volume
+    
+    Volume: 9.7478 Å³
+
+
 ### Example 2:
 ```console
 python3 tau-calc.py test2.cif Ru1 -v
