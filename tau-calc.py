@@ -599,8 +599,8 @@ def save_md_table(filename, atom_name, cnd,
     try:
         with open(output_filename, 'w', encoding='utf-8') as md_file:
             # title
-            md_file.write(f'### Coordination Number (C.N.), Geometry index, CShM and '
-                          f'Polyhedral Volume of {atom_name}\n\n')
+            md_file.write(f'Table 1. Coordination number (C.N.), Geometry index, '
+                          f'Polyhedral volume (in Å³) of {atom_name}\n\n')
             
             # basic info table
             basic_table = [['C.N.', cnd]]
@@ -613,14 +613,18 @@ def save_md_table(filename, atom_name, cnd,
                 basic_table.append(['τ₅', f'{tau5:.2f}'])
             elif cnd == 6 and octahedricity:
                 basic_table.append(['O', f'{octahedricity:.2f}'])
+            # polyhedral volume if available
+            if volume:
+                basic_table.append(['Polyhedral volume', f'{volume:.4f}'])
             
             md_file.write(tabulate(basic_table, 
-                                   headers = ['Property', 'Value'],
+                                   headers = ['**Property**', '**Value**'],
                                    tablefmt = 'github'))
             
             # CShM values if available
             if cshm_values:
-                md_file.write('\n\n#### Continuous Shape Measures (CShM)\n\n')
+                md_file.write(f'\n\n\nTable 2. Continuous Shape Measures (CShM) of '
+                              f'{atom_name}\n\n')
                 cshm_table = []
                 for shape_name, value in cshm_values:
                     cshm_table.append([shape_name.split(', ',1)[0], 
@@ -628,13 +632,13 @@ def save_md_table(filename, atom_name, cnd,
                                        f'{value:.4f}'])
                     
                 md_file.write(tabulate(cshm_table, 
-                                       headers = ['Shape', 'Description', 'CShM'], 
+                                       headers = ['**Shape**', '**Description**', '**CShM**'], 
                                        tablefmt = 'github'))
             
-            # polyhedral volume if available
-            if volume:
-                md_file.write('\n\n#### Polyhedral Volume\n\n')
-                md_file.write(f'Volume: {volume:.4f} Å³\n')
+
+            #if volume:
+            #    md_file.write('\n\n#### Polyhedral Volume\n\n')
+            #    md_file.write(f'Volume: {volume:.4f} Å³\n')
                 
         print(f'Results saved to {output_filename}')
         
