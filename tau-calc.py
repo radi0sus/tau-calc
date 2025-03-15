@@ -82,6 +82,7 @@ import numpy as np                                    # all sort of math
 from scipy.linalg import svd                          # SVD for CShM
 from itertools import permutations                    # permutations of vertices for CShM
 from scipy.spatial import ConvexHull                  # polyhedral volume
+from tabulate import tabulate                         # save in md table format
 
 #for windows console
 sys.stdout.reconfigure(encoding='utf-8')  
@@ -587,6 +588,59 @@ def print_cshm_with_bars(cshm_values):
         # print the label with dynamic width based on the longest label
         print(f'{label:<{max_label_length}} = {cshm_value:8.4f} {bar}')
 
+#  save the results in a markdown table using the tabulate package
+def save_md_table(filename, atom_name, cnd, 
+                  octahedricity = None, tau4 = None, tau4impr = None, 
+                  tau5 = None, cshm_values = None, volume = None):
+                  
+    file_name, file_extension = os.path.splitext(filename)
+    output_filename = f'{file_name}-{atom_name}.md'
+    
+    try:
+        with open(output_filename, 'w', encoding='utf-8') as md_file:
+            # title
+            md_file.write(f'### Coordination Number (C.N.), Geometry index, CShM and '
+                          f'Polyhedral Volume of {atom_name}\n\n')
+            
+            # basic info table
+            basic_table = [['C.N.', cnd]]
+            
+            # geometry indices based on coordination number
+            if cnd == 4 and tau4 and tau4impr:
+                basic_table.append(['τ₄', f'{tau4:.2f}'])
+                basic_table.append(["τ₄'", f'{tau4impr:.2f}'])
+            elif cnd == 5 and tau5:
+                basic_table.append(['τ₅', f'{tau5:.2f}'])
+            elif cnd == 6 and octahedricity:
+                basic_table.append(['O', f'{octahedricity:.2f}'])
+            
+            md_file.write(tabulate(basic_table, 
+                                   headers = ['C.N. and Index', 'Value'],
+                                   tablefmt = 'github'))
+            
+            # CShM values if available
+            if cshm_values:
+                md_file.write('\n\n#### Continuous Shape Measures (CShM)\n\n')
+                cshm_table = []
+                for shape_name, value in cshm_values:
+                    cshm_table.append([shape_name.split(', ',1)[0], 
+                                       shape_name.split(', ',1)[1], 
+                                       f'{value:.4f}'])
+                    
+                md_file.write(tabulate(cshm_table, 
+                                       headers = ['Shape', 'Name', 'CShM'], 
+                                       tablefmt = 'github'))
+            
+            # polyhedral volume if available
+            if volume:
+                md_file.write('\n\n#### Polyhedral Volume\n\n')
+                md_file.write(f'Volume: {volume:.4f} Å³\n')
+                
+        print(f'\nResults saved to {output_filename}')
+        
+    except IOError:
+        print("Write error. Exit.")
+
 #argument parser
 parser = argparse.ArgumentParser(prog='tau-calc', 
         description = "Calculation of τ₄, τ₄', τ₅, O geometry indices and CShM.")
@@ -621,6 +675,11 @@ parser.add_argument('-sxyz','--savexyz',
    action = 'store_true',
      help = 'save the XYZ coordinates of the central atom and its neighboring atoms')
 
+# save the results in a markdown table
+parser.add_argument('-smd', '--savemd',
+    action = 'store_true',
+      help = 'save results as a markdown table')
+      
 #parse arguments
 args = parser.parse_args()
 
@@ -1013,3 +1072,56 @@ if args.savexyz:
     except IOError:
         print("Write error. Exit.")
         sys.exit(1)    
+
+if args.savemd:
+    # determine which parameters to pass based on coordination number
+    tau4_val = calc_tau4(beta, alpha) if (cn == 6 and cnd == 4) else None
+    tau4impr_val = calc_tau4impr(beta, alpha) if (cn == 6 and cnd == 4) else None
+    tau5_val = calc_tau5(beta, alpha) if (cn == 10 and cnd == 5) else None
+    oct_val = calc_octahedricity(list_of_angles) if (cn == 15 and cnd == 6) else None
+    
+    # get volume if calculated
+    volume_val = ConvexHull(coordinates).volume if coordinates.any() else None
+    
+    # get CShM values based on coordination number
+    if cn == 3 and cnd == 3:
+        cshm_for_md = [
+            ('TP-3, Trigonal planar', calc_cshm(coordinates, IDEAL_TP3)),
+            ('vT-3, Pyramid (vacant tetrahedron)', calc_cshm(coordinates, IDEAL_vT3)),
+            ('fac-vOC-3, fac-Trivacant octahedron', calc_cshm(coordinates, IDEAL_facvOC3)),
+            ('mer-vOC-3, mer-Trivacant octahedron (T-shape)', calc_cshm(coordinates, IDEAL_mvOC3)),
+        ]
+    elif cn == 6 and cnd == 4:
+        cshm_for_md = [
+            ('SP-4, Square', calc_cshm(coordinates, IDEAL_SP4)),
+            ('T-4, Tetrahedron', calc_cshm(coordinates, IDEAL_T4)),
+            ('SS-4, Seesaw or sawhorse', calc_cshm(coordinates, IDEAL_SS4)),
+            ('vTBPY-4, Axially vacant trigonal bipyramid', calc_cshm(coordinates, IDEAL_vTBPY4)),
+        ]
+    elif cn == 10 and cnd == 5:
+        cshm_for_md = [
+            ('PP-5, Pentagon)', calc_cshm(coordinates, IDEAL_PP5)),
+            ('vOC-5, Vacant octahedron (J1)', calc_cshm(coordinates, IDEAL_vOC5)),
+            ('TBPY-5, Trigonal bipyramid)', calc_cshm(coordinates, IDEAL_TBPY5)),
+            ('SPY-5, Square pyramid)', calc_cshm(coordinates, IDEAL_SPY5)),
+            ('JTBPY-5, Johnson trigonal bipyramid (J12)', calc_cshm(coordinates, IDEAL_JTBPY5)),
+        ]
+    elif cn == 15 and cnd == 6:
+        cshm_for_md = [
+            ('HP-6, Hexagon', calc_cshm(coordinates, IDEAL_HP6)),
+            ('PPY-6, Pentagonal pyramid', calc_cshm(coordinates, IDEAL_PPY6)),
+            ('OC-6, Octahedron', calc_cshm(coordinates, IDEAL_OC6)),
+            ('TPR-6, Trigonal prism', calc_cshm(coordinates, IDEAL_TPR6)),
+            ('JPPY-6, Johnson pentagonal pyramid (J2)', calc_cshm(coordinates, IDEAL_JPPY6)),
+        ]
+    else:
+        cshm_for_md = None
+    
+    # save to markdown
+    save_md_table(args.filename, args.atom_name, cnd, 
+                                 octahedricity = oct_val, 
+                                 tau4 = tau4_val, 
+                                 tau4impr = tau4impr_val, 
+                                 tau5 = tau5_val, 
+                                 cshm_values = cshm_for_md, 
+                                 volume = volume_val)
