@@ -615,7 +615,7 @@ def save_md_table(filename, atom_name, cnd,
                 basic_table.append(['O', f'{octahedricity:.2f}'])
             
             md_file.write(tabulate(basic_table, 
-                                   headers = ['C.N. and Index', 'Value'],
+                                   headers = ['Property', 'Value'],
                                    tablefmt = 'github'))
             
             # CShM values if available
@@ -628,7 +628,7 @@ def save_md_table(filename, atom_name, cnd,
                                        f'{value:.4f}'])
                     
                 md_file.write(tabulate(cshm_table, 
-                                       headers = ['Shape', 'Name', 'CShM'], 
+                                       headers = ['Shape', 'Description', 'CShM'], 
                                        tablefmt = 'github'))
             
             # polyhedral volume if available
@@ -636,7 +636,7 @@ def save_md_table(filename, atom_name, cnd,
                 md_file.write('\n\n#### Polyhedral Volume\n\n')
                 md_file.write(f'Volume: {volume:.4f} Å³\n')
                 
-        print(f'\nResults saved to {output_filename}')
+        print(f'Results saved to {output_filename}')
         
     except IOError:
         print("Write error. Exit.")
@@ -1046,7 +1046,8 @@ if args.verbose:
             print(f'{el_label.name:<2} {(real_pos.x - cart_coord_ca.x) :>11.8f} '
                   f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
                   f'{(real_pos.z - cart_coord_ca.z):>11.8f}')
-
+    print(' ')
+    
 # save XYZ coordinates
 # set in relation to the central atom (ca) at 0, 0, 0
 if args.savexyz:
