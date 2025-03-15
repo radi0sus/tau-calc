@@ -161,27 +161,25 @@ python3 tau-calc.py test.cif Hg1 -smd
 
 The saved tables are formatted as follows:
 
-    ### Coordination Number (C.N.), Geometry index, CShM and Polyhedral Volume of Hg1
+    Table 1. Coordination number (C.N.), Geometry index, Polyhedral volume (in Å³) of Hg1
     
-    | Property   |   Value |
-    |------------|---------|
-    | C.N.       |    4    |
-    | τ₄         |    0.71 |
-    | τ₄'        |    0.67 |
+    | **Property**      |   **Value** |
+    |-------------------|-------------|
+    | C.N.              |      4      |
+    | τ₄                |      0.71   |
+    | τ₄'               |      0.67   |
+    | Polyhedral volume |      9.7478 |
     
-    #### Continuous Shape Measures (CShM)
     
-    | Shape   | Description                       |    CShM |
-    |---------|-----------------------------------|---------|
-    | SP-4    | Square                            | 32.0294 |
-    | T-4     | Tetrahedron                       |  2.8099 |
-    | SS-4    | Seesaw or sawhorse                |  5.8584 |
-    | vTBPY-4 | Axially vacant trigonal bipyramid |  2.8078 |
+    Table 2. Continuous Shape Measures (CShM) of Hg1
     
-    #### Polyhedral Volume
+    | **Shape**   | **Description**                   |   **CShM** |
+    |-------------|-----------------------------------|------------|
+    | SP-4        | Square                            |    32.0294 |
+    | T-4         | Tetrahedron                       |     2.8099 |
+    | SS-4        | Seesaw or sawhorse                |     5.8584 |
+    | vTBPY-4     | Axially vacant trigonal bipyramid |     2.8078 |
     
-    Volume: 9.7478 Å³
-
 
 ### Example 2:
 ```console
