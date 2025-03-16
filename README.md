@@ -17,7 +17,7 @@ The CShM (Continuous Shape Measures) value approaches zero when a shape closely 
 The polyhedral volume is calculated using the Convex Hull Algorithm (implemented via SciPy and the [Qhull Library](http://www.qhull.org)).
 
 ## External modules
- `gemmi`, `numpy`, `scipy`
+ `gemmi`, `numpy`, `scipy`, `tabulate` 
  
 ## Quick start
  Start the script with:
@@ -322,7 +322,7 @@ python3 tau-calc.py test3.cif Co1 -e N12
 
 ### Example 4
 
-<img src='examples\show-use.gif' alt='Example 4' width=800 align='center'>   
+<img src='examples\show-use1.gif' alt='Example 4' width=800 align='center'>   
     
 ## References
 If you use τ<sub>4</sub>, τ<sub>5</sub>, the *O* index or CShM to describe the coordination geometry of your compounds, please cite one or more of the following articles:
