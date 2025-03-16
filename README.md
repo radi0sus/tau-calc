@@ -322,7 +322,7 @@ python3 tau-calc.py test3.cif Co1 -e N12
 
 ### Example 4
 
-<img src='examples\show-use1.gif' alt='Example 4' width=800 align='center'>   
+<img src='examples\show-use2.gif' alt='Example 4' align='center'>
     
 ## References
 If you use τ<sub>4</sub>, τ<sub>5</sub>, the *O* index or CShM to describe the coordination geometry of your compounds, please cite one or more of the following articles:
