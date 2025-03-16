@@ -684,6 +684,11 @@ parser.add_argument('-smd', '--savemd',
     action = 'store_true',
       help = 'save results as a markdown table')
       
+# save the results in a markdown table
+parser.add_argument('-ssh', '--saveshape',
+    action = 'store_true',
+      help = 'save input file for the SHAPE program')
+      
 #parse arguments
 args = parser.parse_args()
 
@@ -1088,11 +1093,12 @@ if args.verbose:
 # set in relation to the central atom (ca) at 0, 0, 0
 if args.savexyz:
     file_name, file_extension = os.path.splitext(args.filename)
+    output_filename = f'{file_name}-{args.atom_name}.xyz'
     try:
-        with open(file_name + "-" + args.atom_name + '.xyz', 'w') as output_file:
-            output_file.write(f'{len(bond_table) + 1}\n')
-            output_file.write(f'{args.filename} {args.atom_name}\n')
-            output_file.write(f'{site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}\n')
+        with open(output_filename, 'w', encoding='utf-8') as xyz_file:
+            xyz_file.write(f'{len(bond_table) + 1}\n')
+            xyz_file.write(f'{args.filename} {args.atom_name}\n')
+            xyz_file.write(f'{site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}\n')
             for mark in marks:
                 el_label = mark.to_site(st).element
                 # important: mark.pos gives position in unit cell, not outside
@@ -1102,9 +1108,10 @@ if args.savexyz:
                 label = mark.to_site(st).label
                 if label in list(bond_table.column(0)) or label in list(bond_table.column(1)):
                     real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
-                    output_file.write(f'{el_label.name:<2} {(real_pos.x - cart_coord_ca.x):>11.8f} ' 
+                    xyz_file.write(f'{el_label.name:<2} {(real_pos.x - cart_coord_ca.x):>11.8f} ' 
                                       f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
                                       f'{(real_pos.z - cart_coord_ca.z):>11.8f}\n')
+        print(f'XYZ file saved to {output_filename}')
     # file not found -> exit here
     except IOError:
         print("Write error. Exit.")
@@ -1162,3 +1169,42 @@ if args.savemd:
                                  tau5 = tau5_val, 
                                  cshm_values = cshm_for_md, 
                                  volume = volume_val)
+
+if args.saveshape:
+    file_name, file_extension = os.path.splitext(args.filename)
+    output_filename = f'{file_name}-{args.atom_name}.dat'
+    try:
+        with open(output_filename, 'w', encoding='utf-8') as shape_file:
+            shape_file.write(f'$ {args.filename} {args.atom_name}\n')
+            shape_file.write(f'! Ligands    Metal\n')
+            shape_file.write(f'     {len(coordinates)-1}         1\n')
+            if cn == 3 and cnd == 3:
+                shape_file.write(f'! TP-3 vT-3 fac-vOC-3 mer-vOC-3\n')
+                shape_file.write('   1    2    3         4\n')
+            elif cn == 6 and cnd == 4:
+                shape_file.write(f'! SP-4 T-4 SS-4 vTBPY-4\n')
+                shape_file.write('   1    2   3    4\n')
+            elif cn == 10 and cnd == 5:
+                shape_file.write(f'! PP-5 vOC-5 TBPY-5 SPY-5 JTBPY-5\n')
+                shape_file.write('   1    2     3      4     5\n')
+            elif cn == 15 and cnd == 6:
+                shape_file.write(f'! HP-6 PPY-6 OC-6 TPR-6 JPPY-6\n')
+                shape_file.write('   1    2     3    4     5\n')
+            shape_file.write(f'{args.filename} {args.atom_name}\n')
+            shape_file.write(f'  {site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}\n')
+            for mark in marks:
+                el_label = mark.to_site(st).element
+                # important: mark.pos gives position in unit cell, not outside
+                # to_site and fract is useless in case of symmetry equivalents
+                # pbc_position is the way to go 
+                # check if the atom was excluded
+                label = mark.to_site(st).label
+                if label in list(bond_table.column(0)) or label in list(bond_table.column(1)):
+                    real_pos = st.cell.find_nearest_pbc_position(cart_coord_ca, mark.pos, 0)
+                    shape_file.write(f'  {el_label.name:<2} {(real_pos.x - cart_coord_ca.x):>11.8f} ' 
+                                      f'{(real_pos.y - cart_coord_ca.y):>11.8f} ' 
+                                      f'{(real_pos.z - cart_coord_ca.z):>11.8f}\n')
+        print(f'DAT file saved to {output_filename}')
+    # file not found -> exit here  
+    except IOError:
+        print('Write error. Exit.')
