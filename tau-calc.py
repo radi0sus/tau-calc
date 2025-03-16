@@ -709,7 +709,30 @@ block = doc.sole_block()
 
 #check if selected atom is in the CIF
 if args.atom_name not in list(block.find_loop('_atom_site_label')):
-    print('The atom is not part of the CIF. Exit.\n')
+    # check for transition metals and main group metals in CIF
+    tm = [
+    "Sc", "Ti", "V", "Cr", "Mn", "Fe", "Co", "Ni", "Cu", "Zn",
+    "Y", "Zr", "Nb", "Mo", "Tc", "Ru", "Rh", "Pd", "Ag", "Cd",
+    "Hf", "Ta", "W", "Re", "Os", "Ir", "Pt", "Au", "Hg"
+    ]
+    mm = [
+    "Li", "Na", "K", "Rb", "Cs", "Fr", 
+    "Be", "Mg", "Ca", "Sr", "Ba", "Ra",
+    "Al", "Ga", "In", "Tl", 
+    "Sn", "Pb",  
+    "Bi", "Po"   
+    ]
+    atom_table = block.find(['_atom_site_type_symbol', '_atom_site_label'])
+    tm_in_cif = [row['_atom_site_label'] for row in atom_table if row['_atom_site_type_symbol'] in tm]
+    mm_in_cif = [row['_atom_site_label'] for row in atom_table if row['_atom_site_type_symbol'] in mm]
+    # exit if the atom name from input is not in CIF
+    print(f'The atom {args.atom_name} is not part of the CIF. Exit')
+    # suggest metal(s)from CIF
+    if tm_in_cif:
+        print(f"Detected transition metal(s): {', '.join(tm_in_cif)}.")
+    if mm_in_cif:
+        print(f"Detected main group metal(s): {', '.join(mm_in_cif)}.")
+    print('')
     sys.exit(1)
 
 #check if excluded atoms are in the CIF
@@ -806,6 +829,15 @@ list_of_bonds = []
 for row in bond_table:
     list_of_bonds.append(float(ang_bond_val.match(row[2]).group()))
 list_of_bonds.sort()
+
+# detect hydrogens in bond table and give warning
+hydrogen = [row for row in bond_table if 
+            re.search(r'H[A-Z0-9]', row[0]) or re.search(r'H[A-Z0-9]', row[1])]
+if hydrogen:
+    print('\n--------------------------------------------------------------------------------')
+    print(f'Warning! {args.atom_name} binds to one or more hydrogen atoms!') 
+    print('Results can be meaningless or wrong.')
+    print('--------------------------------------------------------------------------------\n')
 
 #print bonds on request
 if args.verbose:
@@ -1004,7 +1036,7 @@ else:
           'between the predicted coordination number and the coordination geometry.'
           )
 # calculate and print the polyhedral volume
-if coordinates.any():
+if coordinates.any() and len(coordinates) > 3:
     print(' ')
     print('--------------------------------------------------------------------------------')
     print(f'Polyhedral volume (coordination number {cnd}) = {ConvexHull(coordinates).volume:.4f} A³')
