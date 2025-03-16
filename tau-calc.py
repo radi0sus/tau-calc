@@ -1190,6 +1190,9 @@ if args.saveshape:
             elif cn == 15 and cnd == 6:
                 shape_file.write(f'! HP-6 PPY-6 OC-6 TPR-6 JPPY-6\n')
                 shape_file.write('   1    2     3    4     5\n')
+            else:
+                shape_file.write('! Warning! Coordination geometry could not be determined.\n')
+                shape_file.write('   1\n')
             shape_file.write(f'{args.filename} {args.atom_name}\n')
             shape_file.write(f'  {site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}\n')
             for mark in marks:
