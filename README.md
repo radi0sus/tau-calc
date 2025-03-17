@@ -79,7 +79,7 @@ The likely structural parameter is marked with an arrow (<--).
 - `-v` optional: verbose output, prints all bond lengths and angles of the central atom to the neighboring atoms and the XYZ coordinates
 - `-sxyz` optional: save the XYZ coordinates of the central atom and its neighboring atoms (filename: `cif_name-atom_name.xyz`)
 - `-smd` optional: save tables in Markdown format containing coordination number, geometry index, CShM, and polyhedral volume (filename: `cif_name-atom_name.md`)
-- `-ssh` optional: save input file for the [SHAPE](https://www.ee.ub.edu/downloads/) program (filename: `cif_name-atom_name.dat`)
+- `-ssh` optional: save input file for the [SHAPE program](https://www.ee.ub.edu/downloads/) (filename: `cif_name-atom_name.dat`)
   
 ## Remarks
 - If the predicted coordination number is larger than 2, τ will be calculated independently of the real coordination geometry. 
