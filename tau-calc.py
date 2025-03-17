@@ -1193,7 +1193,7 @@ if args.saveshape:
             else:
                 shape_file.write('! Warning! Coordination geometry could not be determined.\n')
                 shape_file.write('   1\n')
-            shape_file.write(f'{args.filename} {args.atom_name}\n')
+            shape_file.write(f'{args.filename}-{args.atom_name}\n')
             shape_file.write(f'  {site.element.name:<2} {0:>11.8f} {0:>11.8f} {0:>11.8f}\n')
             for mark in marks:
                 el_label = mark.to_site(st).element
