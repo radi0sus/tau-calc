@@ -1144,10 +1144,10 @@ if args.savemd:
         ]
     elif cn == 10 and cnd == 5:
         cshm_for_md = [
-            ('PP-5, Pentagon)', calc_cshm(coordinates, IDEAL_PP5)),
+            ('PP-5, Pentagon', calc_cshm(coordinates, IDEAL_PP5)),
             ('vOC-5, Vacant octahedron (J1)', calc_cshm(coordinates, IDEAL_vOC5)),
-            ('TBPY-5, Trigonal bipyramid)', calc_cshm(coordinates, IDEAL_TBPY5)),
-            ('SPY-5, Square pyramid)', calc_cshm(coordinates, IDEAL_SPY5)),
+            ('TBPY-5, Trigonal bipyramid', calc_cshm(coordinates, IDEAL_TBPY5)),
+            ('SPY-5, Square pyramid', calc_cshm(coordinates, IDEAL_SPY5)),
             ('JTBPY-5, Johnson trigonal bipyramid (J12)', calc_cshm(coordinates, IDEAL_JTBPY5)),
         ]
     elif cn == 15 and cnd == 6:
