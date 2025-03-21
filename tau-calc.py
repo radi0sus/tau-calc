@@ -512,6 +512,7 @@ def calc_cshm(coordinates, ideal_shape):
 # local and not the global minimum
 #def calc_cshm(coordinates, ideal_shape, num_trials = 24):
 #    from scipy.optimize import linear_sum_assignment
+#    from scipy.stats import special_ortho_group 
 #    input_structure = normalize_structure(coordinates)
 #    ideal_sq_norms = np.sum(ideal_shape**2)
 #    
@@ -526,10 +527,12 @@ def calc_cshm(coordinates, ideal_shape):
 #        else:
 #            # Random rotation matrix for subsequent trials
 #            # Generate a random rotation matrix using QR decomposition
-#            A = np.random.randn(3, 3)
-#            Q, _ = np.linalg.qr(A)
-#            R_init = Q
-#            
+#            #A = np.random.randn(3, 3)
+#            #Q, _ = np.linalg.qr(A)
+#            #R_init = Q
+#            # or 
+#            # more evenly distributed uniform random rotation matrix
+#            R_init = special_ortho_group.rvs(3) 
 #            # Ensure it's a proper rotation (det=1)
 #            if np.linalg.det(R_init) < 0:
 #                R_init[:, 0] *= -1
